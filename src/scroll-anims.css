@@ -1,0 +1,134 @@
+/* Scroll-driven reveal animations (framer-motion style) */
+
+/* Base hidden state */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal="up"] { transform: translateY(50px); }
+[data-reveal="up-sm"] { transform: translateY(20px); }
+[data-reveal="down"] { transform: translateY(-40px); }
+[data-reveal="left"] { transform: translateX(60px); }
+[data-reveal="right"] { transform: translateX(-60px); }
+[data-reveal="scale"] { transform: scale(0.92); }
+[data-reveal="blur"] { filter: blur(12px); transform: translateY(20px); }
+[data-reveal="rotate"] { transform: translateY(40px) rotate(-3deg); }
+
+[data-reveal].in-view {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* Stagger delays */
+[data-stagger="1"] { transition-delay: 0.08s; }
+[data-stagger="2"] { transition-delay: 0.16s; }
+[data-stagger="3"] { transition-delay: 0.24s; }
+[data-stagger="4"] { transition-delay: 0.32s; }
+[data-stagger="5"] { transition-delay: 0.4s; }
+[data-stagger="6"] { transition-delay: 0.48s; }
+
+/* Word-level reveal for big headlines */
+.reveal-words .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-words.in-view .word {
+  opacity: 1;
+  transform: none;
+}
+.reveal-words .word:nth-child(1) { transition-delay: 0.05s; }
+.reveal-words .word:nth-child(2) { transition-delay: 0.13s; }
+.reveal-words .word:nth-child(3) { transition-delay: 0.21s; }
+.reveal-words .word:nth-child(4) { transition-delay: 0.29s; }
+.reveal-words .word:nth-child(5) { transition-delay: 0.37s; }
+.reveal-words .word:nth-child(6) { transition-delay: 0.45s; }
+.reveal-words .word:nth-child(7) { transition-delay: 0.53s; }
+.reveal-words .word:nth-child(8) { transition-delay: 0.61s; }
+.reveal-words .word:nth-child(9) { transition-delay: 0.69s; }
+.reveal-words .word:nth-child(10) { transition-delay: 0.77s; }
+
+/* Continuous floating animation for visual mockups */
+.float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Counters */
+[data-count] { display: inline-block; }
+
+/* Bar fill animation */
+.bar-animate { width: 0% !important; transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.in-view .bar-animate { width: var(--target-w, 100%) !important; }
+
+/* Donut animation: scale + fade */
+.donut svg circle:nth-child(2) {
+  stroke-dasharray: 0 999;
+  transition: stroke-dasharray 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+/* Parallax */
+[data-parallax] {
+  will-change: transform;
+}
+
+/* Sticky scroll cinematic for hero text */
+.scroll-fade {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Magnetic hover for buttons */
+.btn-cobalt, .btn-dark, .btn-outline {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.15s ease, color 0.15s ease, box-shadow 0.25s ease;
+}
+.btn-cobalt:hover, .btn-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(107, 63, 255, 0.4);
+}
+
+/* Card lift */
+.feature-card, .feat-q, .feat-press, .accent-stat {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+.feature-card:hover, .feat-q:hover, .feat-press:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -20px rgba(107, 63, 255, 0.25);
+}
+
+/* Section header gradient text on reveal */
+.gradient-text {
+  background: linear-gradient(120deg, #6B3FFF 0%, #C9A8FF 50%, #6B3FFF 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Reveal utilities for SVG paths (line drawing) */
+.svg-draw path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 2s ease;
+}
+.in-view.svg-draw path {
+  stroke-dashoffset: 0;
+}

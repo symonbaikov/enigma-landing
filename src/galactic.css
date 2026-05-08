@@ -1,0 +1,240 @@
+/* Galactic styles - starfield, aurora, nebula */
+
+.starfield {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255,255,255,0.6);
+}
+.star.twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: var(--o, 0.4); transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+.star-flare {
+  position: absolute;
+  width: 14px; height: 14px;
+  background: transparent;
+  pointer-events: none;
+  animation: flare-pulse 4s ease-in-out infinite;
+}
+.star-flare::before, .star-flare::after {
+  content: ''; position: absolute;
+  background: linear-gradient(to right, transparent, white 50%, transparent);
+  top: 50%; left: 50%;
+}
+.star-flare::before {
+  width: 14px; height: 1px;
+  transform: translate(-50%, -50%);
+}
+.star-flare::after {
+  width: 1px; height: 14px;
+  transform: translate(-50%, -50%);
+}
+@keyframes flare-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.7) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+}
+
+/* Aurora — northern lights */
+.aurora {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+.aurora-band {
+  position: absolute;
+  width: 140%; height: 60%;
+  left: -20%;
+  filter: blur(60px);
+  opacity: 0.55;
+  border-radius: 50%;
+}
+.aurora .band-1 {
+  top: -20%;
+  background: radial-gradient(ellipse at 30% 50%,
+    rgba(107, 63, 255, 0.6) 0%,
+    rgba(170, 90, 255, 0.4) 30%,
+    transparent 65%);
+  animation: aurora-drift-1 18s ease-in-out infinite;
+}
+.aurora .band-2 {
+  top: 10%;
+  background: radial-gradient(ellipse at 60% 50%,
+    rgba(80, 220, 200, 0.45) 0%,
+    rgba(120, 130, 255, 0.4) 35%,
+    transparent 70%);
+  animation: aurora-drift-2 22s ease-in-out infinite;
+}
+.aurora .band-3 {
+  top: 35%;
+  background: radial-gradient(ellipse at 40% 50%,
+    rgba(255, 130, 220, 0.35) 0%,
+    rgba(180, 100, 255, 0.4) 40%,
+    transparent 70%);
+  animation: aurora-drift-3 26s ease-in-out infinite;
+}
+.aurora-haze {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%,
+    rgba(60, 30, 120, 0.5) 0%,
+    transparent 60%);
+}
+@keyframes aurora-drift-1 {
+  0%, 100% { transform: translateX(0) scaleY(1) rotate(-2deg); }
+  50% { transform: translateX(-8%) scaleY(1.15) rotate(2deg); }
+}
+@keyframes aurora-drift-2 {
+  0%, 100% { transform: translateX(-5%) scaleY(1.05) rotate(1deg); }
+  50% { transform: translateX(8%) scaleY(0.9) rotate(-3deg); }
+}
+@keyframes aurora-drift-3 {
+  0%, 100% { transform: translateX(2%) scaleY(0.95) rotate(-1deg); }
+  50% { transform: translateX(-6%) scaleY(1.1) rotate(2deg); }
+}
+
+/* Aurora variants */
+.aurora-hero .band-1 {
+  background: radial-gradient(ellipse at 25% 40%,
+    rgba(150, 90, 255, 0.7) 0%,
+    rgba(200, 130, 255, 0.5) 30%,
+    transparent 65%);
+}
+.aurora-hero .band-2 {
+  background: radial-gradient(ellipse at 70% 50%,
+    rgba(100, 200, 255, 0.5) 0%,
+    rgba(140, 100, 255, 0.45) 40%,
+    transparent 70%);
+}
+
+/* Nebula — soft glowing blobs */
+.nebula {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+.nebula-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+.nebula .blob-1 {
+  top: 10%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(170, 100, 255, 0.7), transparent 70%);
+  animation: nebula-float-1 30s ease-in-out infinite;
+}
+.nebula .blob-2 {
+  bottom: -15%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(80, 180, 255, 0.55), transparent 70%);
+  animation: nebula-float-2 36s ease-in-out infinite;
+}
+.nebula .blob-3 {
+  top: 40%; left: 40%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255, 120, 200, 0.4), transparent 70%);
+  animation: nebula-float-3 28s ease-in-out infinite;
+}
+@keyframes nebula-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(8%, 5%) scale(1.15); }
+}
+@keyframes nebula-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-10%, -8%) scale(1.1); }
+}
+@keyframes nebula-float-3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50% { transform: translate(-40%, -55%) scale(1.2); opacity: 0.55; }
+}
+
+/* Stacking for hero visual + galactic sections */
+.hero-visual .starfield, .hero-visual .aurora { z-index: 2; }
+.hero-visual .hero-card { z-index: 5; }
+.galactic .container-wide, .galactic .container { position: relative; z-index: 5; }
+
+/* CTA galactic — keep cream base but layer aurora on top */
+.cta-galactic {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%,
+      rgba(107, 63, 255, 0.18) 0%,
+      rgba(74, 31, 204, 0.08) 35%,
+      transparent 70%),
+    var(--cream);
+  overflow: hidden;
+}
+.cta-galactic .aurora { opacity: 0.55; mix-blend-mode: multiply; }
+.cta-galactic .nebula { opacity: 0.6; }
+.cta-galactic .star { background: var(--cobalt); box-shadow: 0 0 5px rgba(107,63,255,0.7); }
+
+/* Shooting star */
+.shooting-star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 6px white;
+}
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 50%; right: 0;
+  width: 80px; height: 1px;
+  background: linear-gradient(to left, white, transparent);
+  transform: translateY(-50%);
+}
+
+/* Hero galactic backdrop override */
+.hero {
+  background: radial-gradient(ellipse 80% 60% at 50% 30%,
+    rgba(107, 63, 255, 0.18) 0%,
+    rgba(74, 31, 204, 0.08) 35%,
+    transparent 70%),
+    var(--cream);
+}
+
+/* Dark galactic sections */
+.dark-section.galactic {
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%,
+      rgba(107, 63, 255, 0.25) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%,
+      rgba(80, 30, 140, 0.35) 0%,
+      transparent 60%),
+    linear-gradient(180deg, #0E0820 0%, #15102A 50%, #0E0820 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.enterprise.galactic {
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%,
+      rgba(107, 63, 255, 0.3) 0%,
+      transparent 60%),
+    linear-gradient(180deg, #0E0820 0%, #15102A 100%);
+}
+
+/* Cream sections — subtle stardust */
+.stardust-light {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(107,63,255,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(201,168,255,0.12) 0%, transparent 50%);
+}
