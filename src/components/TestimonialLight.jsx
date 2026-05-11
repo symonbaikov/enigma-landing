@@ -3,7 +3,7 @@ import { Reveal, CountUp } from '../scroll-anims.jsx';
 export default function TestimonialLight() {
   return (
     <section className="testimonial-light">
-      <div className="container-wide" style={{display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 60, alignItems: 'center'}}>
+      <div className="container-wide" style={{display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 60, alignItems: 'center', justifyContent: 'center', maxWidth: 900, margin: '0 auto'}}>
         <Reveal variant="right">
           <blockquote>
             "Enigma turned AI search into the <strong>most efficient acquisition channel</strong> we have. We're seeing <em>4.2x growth</em> in qualified pipeline since adopting it."

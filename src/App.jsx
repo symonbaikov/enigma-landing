@@ -1,35 +1,38 @@
-import { ScrollProgress } from './scroll-anims.jsx';
-import Nav from './components/Nav.jsx';
-import Hero from './components/Hero.jsx';
-import ProblemSection from './components/ProblemSection.jsx';
-import AXPSection from './components/AXPSection.jsx';
-import StatQuote from './components/StatQuote.jsx';
-import MonitoringSection from './components/MonitoringSection.jsx';
-import TrendsSection from './components/TrendsSection.jsx';
-import EnterpriseSection from './components/EnterpriseSection.jsx';
-import TestimonialLight from './components/TestimonialLight.jsx';
-import LogoBar from './components/LogoBar.jsx';
-import FeatCards from './components/FeatCards.jsx';
-import CTA from './components/CTA.jsx';
-import Footer from './components/Footer.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './Layout.jsx';
+import Home from './pages/Home.jsx';
+import Pricing from './pages/Pricing.jsx';
+import ProductPage from './pages/ProductPage.jsx';
+import SolutionPage from './pages/SolutionPage.jsx';
+import ResourcePage from './pages/ResourcePage.jsx';
+import { products, solutions, resources } from './content/index.js';
 
 export default function App() {
   return (
-    <>
-      <ScrollProgress/>
-      <Nav/>
-      <Hero/>
-      <ProblemSection/>
-      <AXPSection/>
-      <StatQuote/>
-      <MonitoringSection/>
-      <TrendsSection/>
-      <EnterpriseSection/>
-      <TestimonialLight/>
-      <LogoBar/>
-      <FeatCards/>
-      <CTA/>
-      <Footer/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout/>}>
+          <Route index element={<Home/>}/>
+          <Route path="pricing" element={<Pricing/>}/>
+
+          {/* Product pages */}
+          <Route path="product/axp"           element={<ProductPage {...products.axp}/>}/>
+          <Route path="product/agent-traffic"  element={<ProductPage {...products['agent-traffic']}/>}/>
+          <Route path="product/site-maps"      element={<ProductPage {...products['site-maps']}/>}/>
+          <Route path="product/monitoring"     element={<ProductPage {...products.monitoring}/>}/>
+          <Route path="product/insights"       element={<ProductPage {...products.insights}/>}/>
+
+          {/* Solution pages */}
+          <Route path="solutions/b2b-saas"    element={<SolutionPage {...solutions['b2b-saas']}/>}/>
+          <Route path="solutions/ecommerce"    element={<SolutionPage {...solutions.ecommerce}/>}/>
+          <Route path="solutions/agencies"     element={<SolutionPage {...solutions.agencies}/>}/>
+
+          {/* Resource pages */}
+          <Route path="resources/geo-playbook"  element={<ResourcePage {...resources['geo-playbook']}/>}/>
+          <Route path="resources/research-lab"  element={<ResourcePage {...resources['research-lab']}/>}/>
+          <Route path="resources/changelog"     element={<ResourcePage {...resources.changelog}/>}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

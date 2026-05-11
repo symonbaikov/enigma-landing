@@ -1,0 +1,114 @@
+import { useContent } from '../hooks/useContent.js';
+import { Reveal, CountUp } from '../scroll-anims.jsx';
+import { Starfield, Aurora, Nebula } from '../galactic.jsx';
+import { ArrowRight, Check } from '../components/icons.jsx';
+import { Link } from 'react-router-dom';
+
+export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc }) {
+  const c = useContent(slug, { eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc });
+
+  const titleLines = c.hero_title.split('\n');
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="page-hero galactic">
+        <Starfield density={90}/>
+        <Aurora/>
+        <Nebula/>
+        <div className="container-wide" style={{ position: 'relative' }}>
+          <Reveal variant="up">
+            <div className="eyebrow" style={{ marginBottom: 28 }}><span className="dot"/> {c.eyebrow}</div>
+            <h1 className="page-hero-title">
+              {titleLines.map((line, i) => (
+                <span key={i}>{i === 1 ? <em>{line}</em> : line}{i < titleLines.length - 1 ? <br/> : ''}</span>
+              ))}
+            </h1>
+            <p className="page-hero-desc">{c.hero_desc}</p>
+            <div className="page-hero-actions">
+              <a href="#" className="btn btn-dark btn-lg">Book a demo <ArrowRight/></a>
+              <Link to="/pricing" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}>See pricing</Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Pain points */}
+      <section style={{ background: 'var(--cream)', padding: '100px 0' }}>
+        <div className="container-wide">
+          <Reveal variant="up" as="h2" className="h2" style={{ marginBottom: 56, maxWidth: 600 }}>
+            The problem with <span className="serif italic">AI search today.</span>
+          </Reveal>
+          <div className="pain-grid">
+            {c.pain_points.map((p, i) => (
+              <Reveal key={i} variant="up" delay={i + 1} className="pain-card">
+                <div className="pain-num">0{i + 1}</div>
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section style={{ background: 'var(--paper)', padding: '100px 0' }}>
+        <div className="container-wide">
+          <Reveal variant="up" as="h2" className="h2" style={{ marginBottom: 56, maxWidth: 560 }}>
+            How Enigma <span className="serif italic">solves it.</span>
+          </Reveal>
+          <div className="benefits-grid">
+            {c.benefits.map((b, i) => (
+              <Reveal key={i} variant="up" delay={i + 1} className="benefit-card">
+                <div className="benefit-icon">{b.icon}</div>
+                <h4>{b.title}</h4>
+                <p>{b.desc}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quote + Stat */}
+      <section className="dark-section galactic" style={{ padding: '100px 0' }}>
+        <Starfield density={80}/>
+        <Aurora/>
+        <div className="container-wide" style={{ position: 'relative' }}>
+          <div className="stat-quote">
+            <Reveal variant="right" className="big-stat">
+              <div>
+                <div className="num">{c.stat}</div>
+                <div className="desc">{c.stat_label}</div>
+              </div>
+            </Reveal>
+            <Reveal variant="left" delay={2} className="quote-block">
+              <blockquote>{c.quote}</blockquote>
+              <div className="quote-attr">
+                <div className="avatar">{c.quote_author.split(' ').map(w => w[0]).join('')}</div>
+                <div>
+                  <div className="name">{c.quote_author}</div>
+                  <div className="role">{c.quote_role}</div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta galactic cta-galactic">
+        <Starfield density={60}/>
+        <Aurora/>
+        <Nebula/>
+        <div className="container-wide" style={{ position: 'relative' }}>
+          <Reveal variant="blur" as="h2">{c.cta_title}</Reveal>
+          <p className="lede" style={{ margin: '16px auto 36px' }}>{c.cta_desc}</p>
+          <div className="cta-actions">
+            <a href="#" className="btn btn-dark btn-lg">Book a demo <ArrowRight/></a>
+            <Link to="/pricing" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}>View pricing</Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
