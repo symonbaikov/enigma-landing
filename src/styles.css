@@ -113,14 +113,19 @@ body { overflow-x: hidden; }
 
 /* Mega-menu dropdown — tile based */
 .mega {
-  position: absolute; top: calc(100% + 8px); left: 0;
+  position: absolute; top: 100%; left: 0;
+  padding-top: 8px;
+  background: transparent;
+  border: none;
+  display: none;
+  z-index: 60;
+}
+.mega-inner {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 22px;
   box-shadow: 0 30px 80px -20px rgba(31,26,20,0.22), 0 0 0 1px rgba(107,63,255,0.04);
-  display: none;
-  z-index: 60;
   animation: megaIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes megaIn {
@@ -129,12 +134,12 @@ body { overflow-x: hidden; }
 }
 .nav-item { position: relative; }
 .nav-item.open .mega { display: block; }
-.mega-tiles { width: 720px; }
-.mega-tiles.mega-sm { width: 380px; }
+.mega-tiles .mega-inner { width: 720px; }
+.mega-tiles.mega-sm .mega-inner { width: 380px; }
 .mega-cols {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
 }
-.mega-tiles.mega-sm .mega-cols { grid-template-columns: 1fr; }
+.mega-tiles.mega-sm .mega-inner .mega-cols { grid-template-columns: 1fr; }
 .mega-col { display: flex; flex-direction: column; gap: 4px; padding: 8px; }
 .mega-group {
   font-family: 'Cormorant Garamond', serif; font-style: italic;

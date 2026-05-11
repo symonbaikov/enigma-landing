@@ -23,6 +23,7 @@ export default function Nav() {
             <div className={`nav-item ${open === 'product' ? 'open' : ''}`} onMouseEnter={() => setOpen('product')} onMouseLeave={close}>
               <button className="nav-link">Product <ChevronDown/></button>
               <div className="mega mega-tiles">
+                <div className="mega-inner">
                 <div className="mega-cols">
                   <div className="mega-col">
                     <div className="mega-group">Agent Experience</div>
@@ -71,6 +72,7 @@ export default function Nav() {
                   <div className="feature-desc">Explore emerging AI search patterns and behaviors.</div>
                   <div className="feature-arrow"><ArrowRight/></div>
                 </button>
+                </div>
               </div>
             </div>
 
@@ -78,6 +80,7 @@ export default function Nav() {
             <div className={`nav-item ${open === 'solutions' ? 'open' : ''}`} onMouseEnter={() => setOpen('solutions')} onMouseLeave={close}>
               <button className="nav-link">Use cases <ChevronDown/></button>
               <div className="mega mega-tiles mega-sm">
+                <div className="mega-inner">
                 <div className="mega-cols">
                   <div className="mega-col">
                     <div className="mega-group">By industry</div>
@@ -104,6 +107,7 @@ export default function Nav() {
                     </button>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
 
@@ -111,6 +115,7 @@ export default function Nav() {
             <div className={`nav-item ${open === 'resources' ? 'open' : ''}`} onMouseEnter={() => setOpen('resources')} onMouseLeave={close}>
               <button className="nav-link">Resources <ChevronDown/></button>
               <div className="mega mega-tiles mega-sm">
+                <div className="mega-inner">
                 <div className="mega-cols">
                   <div className="mega-col">
                     <div className="mega-group">Learn</div>
@@ -136,6 +141,7 @@ export default function Nav() {
                       </div>
                     </button>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
