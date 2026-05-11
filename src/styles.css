@@ -1664,3 +1664,104 @@ section { position: relative; }
   .logo-row { grid-template-columns: 1fr 1fr !important; }
   .nav-right .btn-dark { padding: 8px 14px; font-size: 12px; }
 }
+
+/* ─── Burger button ─────────────────────────────────────────────────── */
+.burger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  color: var(--espresso);
+  padding: 0;
+  flex-shrink: 0;
+}
+@media (max-width: 980px) {
+  .burger-btn { display: flex; }
+}
+
+/* ─── Mobile overlay ─────────────────────────────────────────────────── */
+.mobile-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(31,26,20,0.4);
+  z-index: 89;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mobile-overlay.open {
+  display: block;
+  opacity: 1;
+}
+
+/* ─── Mobile drawer ──────────────────────────────────────────────────── */
+.mobile-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(360px, 100vw);
+  background: var(--paper);
+  z-index: 90;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+  box-shadow: -20px 0 60px rgba(31,26,20,0.15);
+}
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+.mobile-drawer-inner {
+  padding: 80px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mobile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.mobile-section:last-of-type { border-bottom: none; }
+.mobile-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 4px 6px;
+}
+.mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--espresso);
+  text-align: left;
+  transition: background 0.15s;
+}
+.mobile-link:hover { background: rgba(31,26,20,0.05); }
+.mobile-link-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.mobile-cta {
+  padding-top: 16px;
+}
