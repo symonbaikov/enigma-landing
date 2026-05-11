@@ -1765,3 +1765,20 @@ section { position: relative; }
 .mobile-cta {
   padding-top: 16px;
 }
+
+/* Mobile drawer close button */
+.mobile-close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: none;
+  cursor: pointer;
+  color: var(--espresso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.mobile-close:hover { background: rgba(31,26,20,0.06); }

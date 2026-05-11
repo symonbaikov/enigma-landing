@@ -183,6 +183,12 @@ export default function Nav() {
       {/* Mobile drawer */}
       <div className={`mobile-drawer ${mobileOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-inner">
+          <button className="mobile-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <line x1="2" y1="2" x2="16" y2="16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+              <line x1="16" y1="2" x2="2" y2="16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+            </svg>
+          </button>
 
           <div className="mobile-section">
             <div className="mobile-section-label">Product</div>
