@@ -96,16 +96,16 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
       </section>
 
       {/* CTA */}
-      <section className="cta galactic cta-galactic">
+      <section className="dark-section galactic" style={{ padding: '120px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <Starfield density={60}/>
         <Aurora/>
         <Nebula/>
         <div className="container-wide" style={{ position: 'relative' }}>
-          <Reveal variant="blur" as="h2">{c.cta_title}</Reveal>
-          <p className="lede" style={{ margin: '16px auto 36px' }}>{c.cta_desc}</p>
+          <Reveal variant="blur" as="h2" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 'clamp(48px,5vw,72px)', lineHeight: 0.98, letterSpacing: '-0.02em', color: 'var(--cream)', marginBottom: 18 }}>{c.cta_title}</Reveal>
+          <p style={{ fontSize: 17, color: 'var(--muted-2)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
           <div className="cta-actions">
-            <a href="#" className="btn btn-dark btn-lg">Book a demo <ArrowRight/></a>
-            <Link to="/pricing" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}>View pricing</Link>
+            <a href="#" className="btn btn-cobalt btn-lg">Book a demo <ArrowRight/></a>
+            <Link to="/pricing" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', cursor: 'pointer' }}>View pricing</Link>
           </div>
         </div>
       </section>
