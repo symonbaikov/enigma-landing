@@ -33,6 +33,18 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
         </div>
       </section>
 
+      {/* Social proof strip */}
+      <section style={{ background: 'var(--paper)', borderBottom: '1px solid var(--line)', padding: '20px 0' }}>
+        <div className="container-wide">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <span style={{ fontSize: 12, color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Trusted by teams at</span>
+            {['Streamline', 'Northvault', 'Crestline', 'Halcyon', 'Quanile'].map(n => (
+              <span key={n} style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 17, color: 'var(--muted)', opacity: 0.7 }}>{n}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pain points */}
       <section style={{ background: 'var(--cream)', padding: '100px 0' }}>
         <div className="container-wide">
@@ -68,6 +80,9 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
           </div>
         </div>
       </section>
+
+      {/* Divider */}
+      <div style={{ height: 1, background: 'linear-gradient(to right, transparent, var(--line), transparent)' }}/>
 
       {/* Quote + Stat */}
       <section className="dark-section galactic" style={{ padding: '100px 0' }}>

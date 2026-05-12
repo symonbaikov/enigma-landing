@@ -222,6 +222,8 @@ export const resources = {
       { date: 'Apr 2026', title: 'The token budget problem: what gets cut when context windows fill', desc: 'When a page is too long, AI models summarize. We tested which content survives summarization — and which disappears.' },
       { date: 'Mar 2026', title: 'Structured data vs. prose: which earns more citations?', desc: 'A controlled experiment with 400 content variants shows that structured fact blocks earn 2.8× more citations than equivalent prose.' },
       { date: 'Feb 2026', title: 'How Perplexity, ChatGPT, and Claude differ in source selection', desc: 'Same query. Three models. Very different citation behavior. Our analysis of 18,000 prompt runs reveals the divergence.' },
+      { date: 'Jan 2026', title: 'The authority signal: how domain age affects AI citation rates', desc: 'New domains earn fewer citations regardless of content quality. We quantify the gap and show how structured signals can partially compensate.' },
+      { date: 'Dec 2025', title: 'Entity disambiguation: why AI confuses brands with similar names', desc: 'When your brand name is also a common word, AI models frequently cite the wrong source. Here\'s how to establish a clear entity fingerprint.' },
     ],
     cta_title: 'Get research updates in your inbox.',
     cta_desc: 'New research drops every month.',
@@ -312,5 +314,7 @@ export const pricing = {
     { q: 'What AI models are included?', a: 'Growth plans include ChatGPT (GPT-4o), Perplexity, Claude, and Gemini. Enterprise plans can add custom or emerging models on request.' },
     { q: 'Is there a free trial for Growth?', a: 'Yes — all Growth plans include a 14-day free trial, no credit card required.' },
     { q: 'How does AXP work technically?', a: 'AXP runs at the CDN/edge layer. We provide a Cloudflare Worker, Vercel Edge Function, or reverse proxy config. No changes to your codebase are needed.' },
+    { q: 'Do you support multiple brands or clients?', a: 'Yes — the Agency plan supports multi-brand workspaces with role-based access, white-label reports, and per-client billing. Contact us for volume pricing.' },
+    { q: 'How is Enigma different from traditional SEO tools?', a: 'Traditional SEO tools track rankings in Google. Enigma tracks citations in AI-generated answers — a fundamentally different signal. We also actively improve your AI presence via AXP, not just measure it.' },
   ],
 };

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const ProductVisual = ({ slug }) => {
   if (slug === 'product-axp') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 0' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, alignItems: 'stretch', maxWidth: 900, margin: '0 auto' }}>
@@ -61,7 +61,7 @@ const ProductVisual = ({ slug }) => {
   );
 
   if (slug === 'product-agent-traffic') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 0' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
           <div style={{ maxWidth: 760, margin: '0 auto', background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 30px 60px -25px rgba(31,26,20,0.15)' }}>
@@ -93,7 +93,7 @@ const ProductVisual = ({ slug }) => {
   );
 
   if (slug === 'product-site-maps') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 0' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
           <div style={{ maxWidth: 720, margin: '0 auto', background: 'white', border: '1px solid var(--line)', borderRadius: 20, padding: 32, boxShadow: '0 30px 60px -25px rgba(31,26,20,0.15)' }}>
@@ -129,7 +129,7 @@ const ProductVisual = ({ slug }) => {
   );
 
   if (slug === 'product-monitoring') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 0' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
           <div style={{ maxWidth: 760, margin: '0 auto', background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 30px 60px -25px rgba(31,26,20,0.15)' }}>
@@ -161,7 +161,7 @@ const ProductVisual = ({ slug }) => {
   );
 
   if (slug === 'product-insights') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 0' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
           <div style={{ maxWidth: 680, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -262,12 +262,12 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="dark-section galactic" style={{ padding: '80px 0' }}>
+      {/* Stats + Quote */}
+      <section className="dark-section galactic" style={{ padding: '100px 0' }}>
         <Starfield density={60}/>
         <Aurora/>
         <div className="container-wide" style={{ position: 'relative' }}>
-          <div className="page-stats">
+          <div className="page-stats" style={{ marginBottom: 80 }}>
             {c.stats.map((s, i) => (
               <Reveal key={i} variant="up" delay={i + 1} className="page-stat">
                 <div className="page-stat-num">{s.value}</div>
@@ -275,6 +275,20 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
               </Reveal>
             ))}
           </div>
+          <Reveal variant="up" delay={2}>
+            <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.1)', paddingTop: 64 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: 'italic', fontSize: 'clamp(20px,2.5vw,28px)', color: 'var(--cream)', lineHeight: 1.4, marginBottom: 28 }}>
+                "Enigma gave us complete visibility into how AI systems perceive our brand — and a clear roadmap to improve it."
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg,#6B3FFF,#C9A8FF)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, color: 'white' }}>TK</div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--cream)' }}>Taylor Kim</div>
+                  <div style={{ fontSize: 13, color: 'var(--muted-2)' }}>VP of Growth, Arclight SaaS</div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
