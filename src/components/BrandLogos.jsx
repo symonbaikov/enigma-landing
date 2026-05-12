@@ -38,6 +38,20 @@ export const AILogos = {
       <path d="M8 6v12l3-1.5 5-3-3-2.5 3-1.5L8 6z" fill="white"/>
     </svg>
   ),
+  DeepSeek: ({ size = 24 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="12" fill="#003BA6"/>
+      <ellipse cx="12" cy="13" rx="5.5" ry="4" stroke="#4FACF7" strokeWidth="1.3" fill="none"/>
+      <path d="M6.5 11C7.5 8.5 10 7 12 7s4.5 1.5 5.5 4" stroke="#4FACF7" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
+      <circle cx="14.5" cy="10.5" r="1" fill="#4FACF7"/>
+    </svg>
+  ),
+  Grok: ({ size = 24 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="12" fill="#111"/>
+      <path d="M8 8l8 8M16 8l-8 8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  ),
 };
 
 /* Real company logos for the logo bar */
