@@ -123,12 +123,14 @@ export default function Pricing() {
 function FaqItem({ q, a, delay }) {
   const [open, setOpen] = useState(false);
   return (
-    <Reveal variant="up" delay={delay % 3} className={`faq-item ${open ? 'open' : ''}`} onClick={() => setOpen(o => !o)}>
-      <div className="faq-q">
-        {q}
-        <span className="faq-icon">{open ? '−' : '+'}</span>
+    <Reveal variant="up" delay={delay % 3}>
+      <div className={`faq-item ${open ? 'open' : ''}`} onClick={() => setOpen(o => !o)}>
+        <div className="faq-q">
+          {q}
+          <span className="faq-icon">{open ? '−' : '+'}</span>
+        </div>
+        {open && <div className="faq-a">{a}</div>}
       </div>
-      {open && <div className="faq-a">{a}</div>}
     </Reveal>
   );
 }

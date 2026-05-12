@@ -226,7 +226,7 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
       </section>
 
       {/* Product Visual */}
-      <ProductVisual slug={c.slug}/>
+      <ProductVisual slug={slug}/>
 
       {/* How it works */}
       <section style={{ background: 'var(--cream)', padding: '100px 0' }}>
