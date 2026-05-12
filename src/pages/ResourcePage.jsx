@@ -8,13 +8,22 @@ function ChapterList({ chapters }) {
   return (
     <div className="chapter-list">
       {chapters.map((ch, i) => (
-        <Reveal key={i} variant="up" delay={(i % 3) + 1} className="chapter-card">
-          <div className="chapter-num">{ch.num}</div>
-          <div>
-            <h3>{ch.title}</h3>
-            <p>{ch.desc}</p>
-          </div>
-          <div className="chapter-arrow"><ArrowRight size={16}/></div>
+        <Reveal key={i} variant="up" delay={(i % 3) + 1}>
+          {ch.slug
+            ? (
+              <Link to={`/resources/geo-playbook/${ch.slug}`} className="chapter-card" style={{ textDecoration: 'none', display: 'flex' }}>
+                <div className="chapter-num">{ch.num}</div>
+                <div style={{ flex: 1 }}><h3>{ch.title}</h3><p>{ch.desc}</p></div>
+                <div className="chapter-arrow"><ArrowRight size={16}/></div>
+              </Link>
+            ) : (
+              <div className="chapter-card">
+                <div className="chapter-num">{ch.num}</div>
+                <div style={{ flex: 1 }}><h3>{ch.title}</h3><p>{ch.desc}</p></div>
+                <div className="chapter-arrow"><ArrowRight size={16}/></div>
+              </div>
+            )
+          }
         </Reveal>
       ))}
     </div>
@@ -31,7 +40,10 @@ function ArticleList({ articles }) {
             <h3>{a.title}</h3>
             <p>{a.desc}</p>
           </div>
-          <a href="#" className="article-link">Read <ArrowRight size={13}/></a>
+          {a.slug
+            ? <Link to={`/resources/research-lab/${a.slug}`} className="article-link">Read <ArrowRight size={13}/></Link>
+            : <a href="#" className="article-link">Read <ArrowRight size={13}/></a>
+          }
         </Reveal>
       ))}
     </div>

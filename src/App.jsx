@@ -5,6 +5,8 @@ import Pricing from './pages/Pricing.jsx';
 import ProductPage from './pages/ProductPage.jsx';
 import SolutionPage from './pages/SolutionPage.jsx';
 import ResourcePage from './pages/ResourcePage.jsx';
+import ArticlePage from './pages/ArticlePage.jsx';
+import ChapterPage from './pages/ChapterPage.jsx';
 import { products, solutions, resources } from './content/index.js';
 import NotFound from './pages/NotFound.jsx';
 
@@ -32,6 +34,12 @@ export default function App() {
           <Route path="resources/geo-playbook"  element={<ResourcePage {...resources['geo-playbook']}/>}/>
           <Route path="resources/research-lab"  element={<ResourcePage {...resources['research-lab']}/>}/>
           <Route path="resources/changelog"     element={<ResourcePage {...resources.changelog}/>}/>
+
+          {/* Research lab article pages */}
+          <Route path="resources/research-lab/:slug" element={<ArticlePage/>}/>
+
+          {/* GEO Playbook chapter pages */}
+          <Route path="resources/geo-playbook/:slug" element={<ChapterPage/>}/>
 
           <Route path="*" element={<NotFound/>}/>
         </Route>

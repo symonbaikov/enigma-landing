@@ -1,13 +1,11 @@
-import { Starfield, Aurora, Nebula } from '../galactic.jsx';
+import { Starfield } from '../galactic.jsx';
 import { Reveal } from '../scroll-anims.jsx';
 import { Check } from './icons.jsx';
 
 export default function EnterpriseSection() {
   return (
-    <section className="enterprise galactic">
-      <Starfield density={140}/>
-      <Aurora/>
-      <Nebula/>
+    <section className="enterprise">
+      <Starfield density={80}/>
       <div className="enterprise-grid-bg"/>
       <div className="container-wide" style={{position: 'relative'}}>
         <Reveal variant="blur" as="h2" className="h2" style={{maxWidth: 720}}>

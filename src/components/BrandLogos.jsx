@@ -51,25 +51,26 @@ export const AILogos = Object.fromEntries(
 /* ── Company / customer logos ─────────────────────────────────────── */
 
 const COMPANY_LOGO_FILES = {
-  Vercel: { src: '/logos/vercel.svg',  dark: true  },
-  Notion: { src: '/logos/notion.svg',  dark: true  },
-  Figma:  { src: '/logos/figma.svg',   dark: false },
-  Linear: { src: '/logos/linear.svg',  dark: true  },
-  Stripe: { src: '/logos/stripe.svg',  dark: false },
-  Loom:   { src: '/logos/loom.svg',    dark: true  },
+  Vercel: { src: '/logos/vercel.svg',  dark: true,  scale: 1     },
+  Notion: { src: '/logos/notion.svg',  dark: true,  scale: 1.5   },
+  Figma:  { src: '/logos/figma.svg',   dark: false, scale: 1.5   },
+  Linear: { src: '/logos/linear.svg',  dark: true,  scale: 1     },
+  Stripe: { src: '/logos/stripe.svg',  dark: false, scale: 1     },
+  Loom:   { src: '/logos/loom.svg',    dark: true,  scale: 1     },
 };
 
 export function CompanyLogo({ name, height = 22 }) {
   const cfg = COMPANY_LOGO_FILES[name];
   if (!cfg) return null;
+  const h = height * (cfg.scale ?? 1);
   return (
     <img
       src={cfg.src}
       alt={name}
       style={{
-        height,
+        height: h,
         width: 'auto',
-        maxWidth: 100,
+        maxWidth: 120,
         objectFit: 'contain',
         opacity: 0.75,
         filter: cfg.dark ? 'brightness(0)' : 'none',
