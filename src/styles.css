@@ -264,18 +264,22 @@ button.mega-tile {
 }
 
 .url-form {
-  display: flex; gap: 8px;
+  display: flex; align-items: center; gap: 0;
   background: white;
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 6px 6px 6px 22px;
-  max-width: 480px;
+  max-width: 620px;
   box-shadow: 0 10px 30px -10px rgba(31,26,20,0.08);
 }
 .url-form input {
-  flex: 1; border: none; background: transparent;
+  flex: 1; min-width: 0; border: none; background: transparent;
   font-family: inherit; font-size: 15px; color: var(--ink);
-  outline: none;
+  outline: none; padding: 8px 4px;
+}
+.url-form input + input {
+  border-left: 1px solid var(--line);
+  padding-left: 14px; margin-left: 10px;
 }
 .url-form input::placeholder { color: var(--muted-2); }
 .hero-checks {

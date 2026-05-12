@@ -194,15 +194,38 @@ const AICarousel = () => {
   );
 };
 
+const PLATFORM_API = import.meta.env.VITE_PLATFORM_API || 'http://localhost:3000';
+
 export default function Hero() {
   const [url, setUrl] = useState('');
+  const [email, setEmail] = useState('');
   const [scanning, setScanning] = useState(false);
-  const onSubmit = (e) => {
+  const [error, setError] = useState(null);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (!url.trim()) return;
+    if (!url.trim() || !email.trim()) return;
     setScanning(true);
-    setTimeout(() => setScanning(false), 2200);
+    setError(null);
+    try {
+      const res = await fetch(`${PLATFORM_API}/api/audits/free`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: url.trim(), email: email.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || data.error || 'Something went wrong.');
+        setScanning(false);
+        return;
+      }
+      window.location.href = data.handoff_url;
+    } catch (err) {
+      setError('Network error. Please try again.');
+      setScanning(false);
+    }
   };
+
   return (
     <section className="hero">
       <div className="grid-bg"/>
@@ -223,12 +246,21 @@ export default function Hero() {
                 placeholder="Enter your website URL"
                 value={url}
                 onChange={e => setUrl(e.target.value)}
+                required
               />
-              <button type="submit" className="btn btn-cobalt">
+              <input
+                type="email"
+                placeholder="you@company.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="btn btn-cobalt" disabled={scanning}>
                 {scanning ? 'Scanning…' : 'Run AI visibility audit'}
                 {!scanning && <ArrowRight/>}
               </button>
             </form>
+            {error && <p style={{ color: '#DC2626', marginTop: 12, fontSize: 14 }}>{error}</p>}
             <div className="hero-checks">
               <span><Check/> Results in 30 seconds</span>
               <span><Check/> No credit card required</span>

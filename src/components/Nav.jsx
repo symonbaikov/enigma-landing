@@ -167,8 +167,8 @@ export default function Nav() {
           </div>
 
           <div className="nav-right">
-            <button className="btn btn-ghost">Sign in</button>
-            <button className="btn btn-outline">Start free trial</button>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/login`} className="btn btn-ghost">Sign in</a>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline">Start free trial</a>
             <Link to="/pricing" className="btn btn-dark" onClick={close}>Book a demo</Link>
             <button className="burger-btn" onClick={() => setMobileOpen(v => !v)} aria-label="Menu">
               <BurgerIcon open={mobileOpen}/>
@@ -243,7 +243,7 @@ export default function Nav() {
 
           <div className="mobile-cta">
             <button className="btn btn-dark" style={{width:'100%', justifyContent:'center'}}>Book a demo</button>
-            <button className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>Start free trial</button>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>Start free trial</a>
           </div>
         </div>
       </div>

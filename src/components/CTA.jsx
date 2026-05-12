@@ -18,7 +18,7 @@ export default function CTA() {
         </p>
         <div className="cta-actions">
           <button className="btn btn-dark btn-lg">Book a demo <ArrowRight/></button>
-          <button className="btn btn-outline btn-lg">Run free audit</button>
+          <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline btn-lg">Run free audit</a>
         </div>
       </div>
     </section>

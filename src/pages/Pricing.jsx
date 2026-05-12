@@ -7,6 +7,24 @@ import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 import { pricing as fallback } from '../content/index.js';
 
+const PLATFORM_URL = import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000';
+
+function PlanCta({ plan }) {
+  const slug = plan.name.toLowerCase();
+  if (plan.price_monthly === null) {
+    return (
+      <a href="mailto:sales@enigma.com" className={`btn btn-${plan.cta_style} btn-lg plan-cta`}>
+        {plan.cta} {plan.cta_style !== 'outline' && <ArrowRight/>}
+      </a>
+    );
+  }
+  return (
+    <a href={`${PLATFORM_URL}/signup?plan=${slug}`} className={`btn btn-${plan.cta_style} btn-lg plan-cta`}>
+      {plan.cta} {plan.cta_style !== 'outline' && <ArrowRight/>}
+    </a>
+  );
+}
+
 export default function Pricing() {
   const c = useContent('pricing', fallback);
   const [annual, setAnnual] = useState(true);
@@ -60,12 +78,8 @@ export default function Pricing() {
                   <div className="plan-billed">Billed annually</div>
                 )}
                 <p className="plan-desc">{plan.desc}</p>
-                <Link
-                  to={plan.cta_style === 'dark' || plan.cta_style === 'cobalt' ? '/pricing' : '/pricing'}
-                  className={`btn btn-${plan.cta_style} btn-lg plan-cta`}
-                >
-                  {plan.cta} {plan.cta_style !== 'outline' && <ArrowRight/>}
-                </Link>
+                <PlanCta plan={plan} />
+
                 <ul className="plan-features">
                   {plan.features.map((f, j) => (
                     <li key={j}><Check/> {f}</li>
