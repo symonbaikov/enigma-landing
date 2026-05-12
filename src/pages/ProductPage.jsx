@@ -3,6 +3,7 @@ import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { AILogos } from '../components/BrandLogos.jsx';
+import { IllustrationIcon } from '../components/Illustrations.jsx';
 import { Link } from 'react-router-dom';
 
 const ProductVisual = ({ slug }) => {
@@ -258,7 +259,7 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
           <div className="features-grid">
             {c.features.map((f, i) => (
               <Reveal key={i} variant="up" delay={(i % 3) + 1} className="feature-card">
-                <div className="feature-icon-lg">{f.icon}</div>
+                <div className="feature-icon-lg"><IllustrationIcon icon={f.icon} size={44}/></div>
                 <h4>{f.title}</h4>
                 <p>{f.desc}</p>
               </Reveal>

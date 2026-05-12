@@ -3,6 +3,7 @@ import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { CompanyLogo } from '../components/BrandLogos.jsx';
+import { IllustrationIcon } from '../components/Illustrations.jsx';
 import { Link } from 'react-router-dom';
 
 const PROOF_COMPANIES = ['Vercel', 'Notion', 'Figma', 'Linear', 'Stripe'];
@@ -73,7 +74,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
           <div className="benefits-grid">
             {c.benefits.map((b, i) => (
               <Reveal key={i} variant="up" delay={i + 1} className="benefit-card">
-                <div className="benefit-icon">{b.icon}</div>
+                <div className="benefit-icon"><IllustrationIcon icon={b.icon} size={44}/></div>
                 <h4>{b.title}</h4>
                 <p>{b.desc}</p>
               </Reveal>
