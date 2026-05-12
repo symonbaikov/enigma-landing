@@ -5,7 +5,7 @@ import { ArrowRight } from '../components/icons.jsx';
 import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 
-const PROOF_COMPANIES = ['Stratamesh', 'Voltaic', 'Coreframe', 'Halcyon', 'Northwind'];
+const PROOF_COMPANIES = ['Vercel', 'Notion', 'Figma', 'Linear', 'Stripe'];
 
 export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc }) {
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc });
