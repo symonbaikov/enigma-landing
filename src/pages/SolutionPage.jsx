@@ -42,7 +42,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
         <div className="container-wide">
           <div style={{ display: 'flex', alignItems: 'center', gap: 36, flexWrap: 'wrap', justifyContent: 'center' }}>
             <span style={{ fontSize: 11, color: 'var(--muted)', letterSpacing: '0.1em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Trusted by teams at</span>
-            {PROOF_COMPANIES.map(n => <CompanyLogo key={n} name={n} size={15}/>)}
+            {PROOF_COMPANIES.map(n => <CompanyLogo key={n} name={n} height={18}/>)}
           </div>
         </div>
       </section>

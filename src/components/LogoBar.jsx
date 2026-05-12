@@ -10,7 +10,7 @@ export default function LogoBar() {
         <div className="logo-row">
           {COMPANIES.map(n => (
             <div className="logo-cell" key={n}>
-              <CompanyLogo name={n} size={16}/>
+              <CompanyLogo name={n} height={20}/>
             </div>
           ))}
         </div>
