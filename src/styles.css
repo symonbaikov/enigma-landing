@@ -744,6 +744,28 @@ section { position: relative; }
   border-radius: 20px;
   padding: 28px 26px;
 }
+.feature-card-clickable {
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  position: relative;
+}
+.feature-card-clickable:hover {
+  border-color: rgba(107,63,255,0.4);
+  box-shadow: 0 8px 32px -8px rgba(107,63,255,0.18);
+  transform: translateY(-2px);
+}
+.feature-card-read {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--cobalt);
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.feature-card-clickable:hover .feature-card-read {
+  opacity: 1;
+}
 .feature-icon {
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;

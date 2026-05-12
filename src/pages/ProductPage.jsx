@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useContent } from '../hooks/useContent.js';
 import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { AILogos } from '../components/BrandLogos.jsx';
 import { IllustrationIcon } from '../components/Illustrations.jsx';
+import FeatureDrawer from '../components/FeatureDrawer.jsx';
 import { Link } from 'react-router-dom';
 
 const ProductVisual = ({ slug }) => {
@@ -199,6 +201,7 @@ const ProductVisual = ({ slug }) => {
 
 export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badge, steps, features, stats, cta_title, cta_desc }) {
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, badge, steps, features, stats, cta_title, cta_desc });
+  const [activeFeature, setActiveFeature] = useState(null);
 
   const titleLines = c.hero_title.split('\n');
 
@@ -258,10 +261,19 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
           </Reveal>
           <div className="features-grid">
             {c.features.map((f, i) => (
-              <Reveal key={i} variant="up" delay={(i % 3) + 1} className="feature-card">
-                <div className="feature-icon-lg"><IllustrationIcon icon={f.icon} size={44}/></div>
-                <h4>{f.title}</h4>
-                <p>{f.desc}</p>
+              <Reveal key={i} variant="up" delay={(i % 3) + 1}>
+                <div
+                  className="feature-card feature-card-clickable"
+                  onClick={() => setActiveFeature(f)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => e.key === 'Enter' && setActiveFeature(f)}
+                >
+                  <div className="feature-icon-lg"><IllustrationIcon icon={f.icon} size={44}/></div>
+                  <h4>{f.title}</h4>
+                  <p>{f.desc}</p>
+                  <span className="feature-card-read">Read more →</span>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -312,6 +324,8 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
           </div>
         </div>
       </section>
+
+      <FeatureDrawer feature={activeFeature} onClose={() => setActiveFeature(null)}/>
     </>
   );
 }
