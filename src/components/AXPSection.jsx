@@ -3,10 +3,18 @@ import { ArrowRight } from './icons.jsx';
 
 const QUERY = 'Best enterprise AI infrastructure platform for deploying agents?';
 
+const ChatGPTLogo = ({ size = 28 }) => (
+  <div style={{ width: size, height: size, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+    <svg width={size * 0.55} height={size * 0.55} viewBox="0 0 41 41" fill="none">
+      <path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835 9.964 9.964 0 0 0-7.505-3.337 10.079 10.079 0 0 0-9.614 6.977 9.967 9.967 0 0 0-6.664 4.834 10.08 10.08 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 7.504 3.336 10.079 10.079 0 0 0 9.617-6.981 9.967 9.967 0 0 0 6.663-4.834 10.079 10.079 0 0 0-1.243-11.813zM22.498 37.886a7.474 7.474 0 0 1-4.799-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 0 0 .655-1.134V19.054l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.49 7.496zM6.392 31.006a7.471 7.471 0 0 1-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103L16.759 33.2a7.505 7.505 0 0 1-10.368-2.195zm-2.32-17.36a7.471 7.471 0 0 1 3.908-3.285c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 0 0 .654 1.132l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.012L7.044 23.86a7.504 7.504 0 0 1-2.972-10.213zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .114-.012l7.048 4.086a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.293 1.293 0 0 0-.647-1.168zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 0 0-1.308 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l7.624-4.4a7.498 7.498 0 0 1 11.158 7.522zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756 6.94 6.94 0 0 0-.236.134l-7.965 4.6a1.294 1.294 0 0 0-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.5v4.999l-4.331 2.5-4.331-2.5V18.026z" fill="white"/>
+    </svg>
+  </div>
+);
+
 const ChatBubble = ({ text, cited, url }) => (
   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+    <div style={{ marginTop: 2 }}>
+      <ChatGPTLogo size={28}/>
     </div>
     <div style={{ flex: 1, background: 'white', border: '1px solid var(--line)', borderRadius: '4px 16px 16px 16px', padding: '14px 16px', fontSize: 14, lineHeight: 1.6, color: 'var(--ink)' }}>
       {text}
@@ -27,9 +35,7 @@ const CitationDemo = () => (
     <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(31,26,20,0.1)' }}>
       <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-          </div>
+          <ChatGPTLogo size={20}/>
           <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
         </div>
         <span style={{ fontSize: 11, background: 'rgba(239,68,68,0.1)', color: '#DC2626', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>Without AXP</span>
@@ -59,9 +65,7 @@ const CitationDemo = () => (
     <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.3)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(107,63,255,0.2)' }}>
       <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
-          </div>
+          <ChatGPTLogo size={20}/>
           <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
         </div>
         <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>With AXP</span>
