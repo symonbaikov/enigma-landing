@@ -2,6 +2,7 @@ import { useContent } from '../hooks/useContent.js';
 import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
+import { AILogos } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 
 const ProductVisual = ({ slug }) => {
@@ -71,15 +72,16 @@ const ProductVisual = ({ slug }) => {
             </div>
             <div style={{ padding: 22 }}>
               {[
-                { name: 'ChatGPT / OpenAI', pct: 38, color: '#10a37f' },
-                { name: 'Perplexity AI', pct: 29, color: '#6B3FFF' },
-                { name: 'Claude / Anthropic', pct: 18, color: '#d97757' },
-                { name: 'Gemini / Google', pct: 11, color: '#4285f4' },
-                { name: 'Bing AI / Microsoft', pct: 4, color: '#008272' },
+                { name: 'ChatGPT', label: 'ChatGPT / OpenAI', pct: 38, color: '#10a37f', Logo: AILogos.ChatGPT },
+                { name: 'Perplexity', label: 'Perplexity AI', pct: 29, color: '#20B2AA', Logo: AILogos.Perplexity },
+                { name: 'Claude', label: 'Claude / Anthropic', pct: 18, color: '#d97757', Logo: AILogos.Claude },
+                { name: 'Gemini', label: 'Gemini / Google', pct: 11, color: '#4285f4', Logo: AILogos.Gemini },
+                { name: 'Bing', label: 'Bing AI / Microsoft', pct: 4, color: '#0078D4', Logo: AILogos.Bing },
               ].map((row, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
-                  <span style={{ width: 140, fontSize: 13, color: 'var(--ink)', flexShrink: 0 }}>{row.name}</span>
-                  <div style={{ flex: 1, height: 24, background: 'var(--cream)', borderRadius: 999, overflow: 'hidden' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                  <row.Logo size={22}/>
+                  <span style={{ width: 130, fontSize: 13, color: 'var(--ink)', flexShrink: 0 }}>{row.label}</span>
+                  <div style={{ flex: 1, height: 22, background: 'var(--cream)', borderRadius: 999, overflow: 'hidden' }}>
                     <div style={{ width: `${row.pct * 2.4}%`, height: '100%', background: row.color, borderRadius: 999, opacity: 0.85 }}/>
                   </div>
                   <span style={{ width: 36, fontSize: 13, color: 'var(--muted)', textAlign: 'right', flexShrink: 0 }}>{row.pct}%</span>
@@ -138,14 +140,17 @@ const ProductVisual = ({ slug }) => {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
               {[
-                { model: 'ChatGPT', mentioned: true, rank: 1, sentiment: 'Positive' },
-                { model: 'Perplexity', mentioned: true, rank: 2, sentiment: 'Positive' },
-                { model: 'Claude', mentioned: false, rank: null, sentiment: '—' },
-                { model: 'Gemini', mentioned: true, rank: 3, sentiment: 'Neutral' },
+                { model: 'ChatGPT', Logo: AILogos.ChatGPT, mentioned: true, rank: 1, sentiment: 'Positive' },
+                { model: 'Perplexity', Logo: AILogos.Perplexity, mentioned: true, rank: 2, sentiment: 'Positive' },
+                { model: 'Claude', Logo: AILogos.Claude, mentioned: false, rank: null, sentiment: '—' },
+                { model: 'Gemini', Logo: AILogos.Gemini, mentioned: true, rank: 3, sentiment: 'Neutral' },
               ].map((row, i) => (
                 <div key={i} style={{ padding: '18px 22px', borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none', borderBottom: i < 2 ? '1px solid var(--line)' : 'none' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ fontSize: 14, fontWeight: 500 }}>{row.model}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <row.Logo size={20}/>
+                      <span style={{ fontSize: 14, fontWeight: 500 }}>{row.model}</span>
+                    </div>
                     <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: row.mentioned ? 'rgba(107,63,255,0.1)' : 'rgba(31,26,20,0.06)', color: row.mentioned ? 'var(--cobalt)' : 'var(--muted)' }}>
                       {row.mentioned ? '✓ Mentioned' : '✗ Not found'}
                     </span>

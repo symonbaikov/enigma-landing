@@ -806,6 +806,18 @@ section { position: relative; }
 .quote-attr .name { color: var(--cream); font-size: 17px; font-weight: 500; font-family: 'Cormorant Garamond', serif; }
 .quote-attr .role { color: var(--muted-2); font-size: 14px; font-style: italic; }
 
+/* Light variant of stat-quote (for solution pages between two light sections) */
+.stat-quote-light .big-stat {
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 60px -20px rgba(107,63,255,0.12);
+}
+.stat-quote-light .big-stat .num { color: var(--cobalt); }
+.stat-quote-light .big-stat .desc { color: var(--muted); opacity: 1; }
+.stat-quote-light .quote-block blockquote { color: var(--espresso); }
+.stat-quote-light .quote-attr .name { color: var(--espresso); }
+.stat-quote-light .quote-attr .role { color: var(--muted); }
+
 /* Product section: Track and grow / monitoring */
 .product-section {
   display: grid; grid-template-columns: 1fr 1.2fr;

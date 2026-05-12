@@ -1,8 +1,11 @@
 import { useContent } from '../hooks/useContent.js';
-import { Reveal, CountUp } from '../scroll-anims.jsx';
+import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
-import { ArrowRight, Check } from '../components/icons.jsx';
+import { ArrowRight } from '../components/icons.jsx';
+import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
+
+const PROOF_COMPANIES = ['Stratamesh', 'Voltaic', 'Coreframe', 'Halcyon', 'Northwind'];
 
 export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc }) {
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, pain_points, benefits, quote, quote_author, quote_role, stat, stat_label, cta_title, cta_desc });
@@ -33,14 +36,12 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
         </div>
       </section>
 
-      {/* Social proof strip */}
-      <section style={{ background: 'var(--paper)', borderBottom: '1px solid var(--line)', padding: '20px 0' }}>
+      {/* Social proof logo strip */}
+      <section style={{ background: 'var(--paper)', borderBottom: '1px solid var(--line)', padding: '18px 0' }}>
         <div className="container-wide">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <span style={{ fontSize: 12, color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Trusted by teams at</span>
-            {['Streamline', 'Northvault', 'Crestline', 'Halcyon', 'Quanile'].map(n => (
-              <span key={n} style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 17, color: 'var(--muted)', opacity: 0.7 }}>{n}</span>
-            ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 36, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <span style={{ fontSize: 11, color: 'var(--muted)', letterSpacing: '0.1em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Trusted by teams at</span>
+            {PROOF_COMPANIES.map(n => <CompanyLogo key={n} name={n} size={15}/>)}
           </div>
         </div>
       </section>
@@ -81,15 +82,10 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
         </div>
       </section>
 
-      {/* Divider */}
-      <div style={{ height: 1, background: 'linear-gradient(to right, transparent, var(--line), transparent)' }}/>
-
-      {/* Quote + Stat */}
-      <section className="dark-section galactic" style={{ padding: '100px 0' }}>
-        <Starfield density={80}/>
-        <Aurora/>
-        <div className="container-wide" style={{ position: 'relative' }}>
-          <div className="stat-quote">
+      {/* Quote + Stat — light background, avoids dark-dark pattern */}
+      <section style={{ background: 'var(--cream-2)', padding: '100px 0', borderTop: '1px solid var(--line)' }}>
+        <div className="container-wide">
+          <div className="stat-quote stat-quote-light">
             <Reveal variant="right" className="big-stat">
               <div>
                 <div className="num">{c.stat}</div>
