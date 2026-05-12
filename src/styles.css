@@ -1483,8 +1483,26 @@ section { position: relative; }
   font-size: 20px; font-weight: 400;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.faq-icon { font-size: 22px; color: var(--cobalt); flex-shrink: 0; }
-.faq-a { font-size: 15px; color: var(--muted); line-height: 1.6; margin-top: 14px; }
+.faq-icon {
+  font-size: 22px; color: var(--cobalt); flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+/* Grid-trick: animates height from 0 to auto */
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-item.open .faq-body { grid-template-rows: 1fr; }
+.faq-a {
+  overflow: hidden;
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  padding-top: 0;
+  transition: padding-top 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-item.open .faq-a { padding-top: 14px; }
 
 /* ─── Responsive for inner pages ─────────────────────────── */
 @media (max-width: 980px) {

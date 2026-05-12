@@ -127,9 +127,11 @@ function FaqItem({ q, a, delay }) {
       <div className={`faq-item ${open ? 'open' : ''}`} onClick={() => setOpen(o => !o)}>
         <div className="faq-q">
           {q}
-          <span className="faq-icon">{open ? '−' : '+'}</span>
+          <span className="faq-icon">+</span>
         </div>
-        {open && <div className="faq-a">{a}</div>}
+        <div className="faq-body">
+          <div className="faq-a">{a}</div>
+        </div>
       </div>
     </Reveal>
   );
