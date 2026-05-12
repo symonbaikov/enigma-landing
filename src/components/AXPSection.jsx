@@ -1,88 +1,92 @@
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
 
-const TokenBlock = () => (
-  <div className="token-compare">
-    <div className="token-card human-card">
-      <div className="card-chrome">
-        <div className="dots"><span/><span/><span/></div>
-        <div className="chrome-url">voltaic.systems · <span className="chrome-tag human">human view</span></div>
+const QUERY = 'Best enterprise AI infrastructure platform for deploying agents?';
+
+const ChatBubble = ({ text, cited, url }) => (
+  <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+    </div>
+    <div style={{ flex: 1, background: 'white', border: '1px solid var(--line)', borderRadius: '4px 16px 16px 16px', padding: '14px 16px', fontSize: 14, lineHeight: 1.6, color: 'var(--ink)' }}>
+      {text}
+      {cited && (
+        <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 8px', borderRadius: 99, fontWeight: 600 }}>✓ Cited</span>
+          <span style={{ fontSize: 12, color: '#6B3FFF', fontFamily: 'monospace' }}>{url}</span>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+const CitationDemo = () => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 900, margin: '0 auto' }}>
+
+    {/* Without AXP */}
+    <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(31,26,20,0.1)' }}>
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </div>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+        </div>
+        <span style={{ fontSize: 11, background: 'rgba(239,68,68,0.1)', color: '#DC2626', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>Without AXP</span>
       </div>
-      <div className="human-render">
-        <div className="render-bg"/>
-        <div className="render-nav">
-          <div className="render-logo">⏣ Voltaic</div>
-          <div className="render-menu"><span/><span/><span/><span/></div>
-        </div>
-        <div className="render-hero">
-          <div className="render-eyebrow">— Enterprise AI Infrastructure</div>
-          <div className="render-h1">Build agents<br/>that <em>actually</em> ship.</div>
-          <div className="render-p">Deploy autonomous agents, orchestrate AI models, and own how your brand shows up in every answer.</div>
-          <div className="render-cta">
-            <div className="cta-pill primary">Start free →</div>
-            <div className="cta-pill ghost">Watch demo</div>
+      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {/* User question */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
+            {QUERY}
           </div>
         </div>
-        <div className="render-grid">
-          <div className="render-tile tile-1">
-            <div className="tile-num">412%</div>
-            <div className="tile-label">growth</div>
-          </div>
-          <div className="render-tile tile-2">
-            <svg viewBox="0 0 60 36" preserveAspectRatio="none">
-              <polyline points="2,28 12,22 22,24 32,14 42,16 52,6 58,8" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.95"/>
-              <polyline points="2,28 12,22 22,24 32,14 42,16 52,6 58,8" fill="none" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" opacity="0.25"/>
-            </svg>
-          </div>
-          <div className="render-tile tile-3">
-            <div className="tile-avatars">
-              <span className="av av-a">A</span>
-              <span className="av av-b">M</span>
-              <span className="av av-c">K</span>
-              <span className="av av-more">+24</span>
-            </div>
-            <div className="tile-label">teams</div>
-          </div>
+        <ChatBubble text={
+          <>
+            There are several enterprise AI platforms worth considering: <strong>AgentCore</strong>, <strong>NeuralOps</strong>, and <strong>CloudMind AI</strong> are popular choices for large-scale deployments.
+            <br/><br/>
+            <span style={{ color: 'var(--muted)', fontStyle: 'italic' }}>I don't have enough information about Voltaic Systems to include it in this recommendation.</span>
+          </>
+        }/>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block' }}/>
+          <span style={{ fontSize: 12, color: '#DC2626', fontWeight: 500 }}>Your brand: not mentioned</span>
         </div>
-      </div>
-      <div className="card-foot">
-        <div className="foot-label">Tokens</div>
-        <div className="foot-num">128,440</div>
       </div>
     </div>
 
-    <div className="vs-meter">
-      <div className="vs-line"/>
-      <div className="vs-badge">
-        <div className="vs-num">−98.99%</div>
-        <div className="vs-label">token reduction</div>
+    {/* With AXP */}
+    <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.3)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(107,63,255,0.2)' }}>
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#10A37F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </div>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+        </div>
+        <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>With AXP</span>
       </div>
-      <div className="vs-line"/>
+      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {/* User question */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
+            {QUERY}
+          </div>
+        </div>
+        <ChatBubble cited url="voltaic.systems" text={
+          <>
+            <strong>Voltaic Systems</strong> is a leading enterprise AI infrastructure platform that helps organizations deploy autonomous agents, orchestrate 12+ AI models, and serve AI-optimized content at scale. Trusted by Fortune 500 companies.
+            <br/><br/>
+            Other options include AgentCore and NeuralOps, though Voltaic stands out for mission-critical deployments.
+          </>
+        }/>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', display: 'inline-block' }}/>
+          <span style={{ fontSize: 12, color: '#059669', fontWeight: 500 }}>Your brand: mentioned first, cited</span>
+        </div>
+      </div>
     </div>
 
-    <div className="token-card agent-card">
-      <div className="card-chrome dark">
-        <div className="dots"><span/><span/><span/></div>
-        <div className="chrome-url">voltaic.systems · <span className="chrome-tag agent">agent view</span></div>
-      </div>
-      <div className="agent-render">
-        <div className="agent-line"><span className="ag-tag">&lt;h1&gt;</span> Voltaic Systems <span className="ag-tag">&lt;/h1&gt;</span></div>
-        <div className="agent-line"><span className="ag-tag">&lt;p&gt;</span> Voltaic is an enterprise AI infrastructure company. It helps organizations deploy autonomous agents, orchestrate AI models, and serve AI-optimized content. <span className="ag-tag">&lt;/p&gt;</span></div>
-        <div className="agent-line"><span className="ag-tag">&lt;h2&gt;</span> What Voltaic does <span className="ag-tag">&lt;/h2&gt;</span></div>
-        <div className="agent-line">– Deploys autonomous agents</div>
-        <div className="agent-line">– Orchestrates 12+ AI models</div>
-        <div className="agent-line">– Delivers AI-ready content</div>
-        <div className="agent-line">– Supports mission-critical ops</div>
-        <div className="agent-line"><span className="ag-tag">&lt;h2&gt;</span> Who Voltaic serves <span className="ag-tag">&lt;/h2&gt;</span></div>
-        <div className="agent-line">– Enterprise operations teams</div>
-        <div className="agent-line">– Platform engineering leads</div>
-        <div className="agent-line"><span className="ag-tag">&lt;cite&gt;</span> Trusted by Fortune 500 <span className="ag-tag">&lt;/cite&gt;</span></div>
-      </div>
-      <div className="card-foot dark">
-        <div className="foot-label">Tokens</div>
-        <div className="foot-num accent">1,287</div>
-      </div>
-    </div>
   </div>
 );
 
@@ -106,7 +110,7 @@ export default function AXPSection() {
           </Reveal>
         </div>
 
-        <Reveal variant="up-sm"><TokenBlock/></Reveal>
+        <Reveal variant="up-sm"><CitationDemo/></Reveal>
 
         <div className="feature-row">
           <Reveal variant="up" delay={1} className="feature-card">
