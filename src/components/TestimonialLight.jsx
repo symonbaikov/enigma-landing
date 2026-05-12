@@ -1,4 +1,5 @@
 import { Reveal, CountUp } from '../scroll-anims.jsx';
+import { CompanyLogo } from './BrandLogos.jsx';
 
 export default function TestimonialLight() {
   return (
@@ -12,14 +13,14 @@ export default function TestimonialLight() {
             <div className="avatar" style={{background: 'linear-gradient(135deg, #c08060, #604030)'}}>DV</div>
             <div>
               <div style={{fontSize: 14, fontWeight: 500}}>Daniela Volkov</div>
-              <div style={{fontSize: 13, color: 'var(--muted)'}}>VP Demand Generation, Coreframe</div>
+              <div style={{fontSize: 13, color: 'var(--muted)'}}>VP Demand Generation, Linear</div>
             </div>
           </div>
         </Reveal>
         <Reveal variant="scale" delay={2} className="accent-stat">
           <div className="num"><CountUp value={4.2} suffix="×"/></div>
           <div className="desc">growth in new paying customers</div>
-          <div className="brand-tag">⏣ Coreframe</div>
+          <div className="brand-tag"><CompanyLogo name="Linear" height={18}/></div>
         </Reveal>
       </div>
     </section>

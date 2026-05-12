@@ -102,6 +102,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
                   <div className="role">{c.quote_role}</div>
                 </div>
               </div>
+              {(() => { const co = c.quote_role.split(', ').pop(); return <div style={{marginTop: 16}}><CompanyLogo name={co} height={18}/></div>; })()}
             </Reveal>
           </div>
         </div>

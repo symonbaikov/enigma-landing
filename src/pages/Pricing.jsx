@@ -3,6 +3,7 @@ import { useContent } from '../hooks/useContent.js';
 import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight, Check } from '../components/icons.jsx';
+import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 import { pricing as fallback } from '../content/index.js';
 
@@ -81,8 +82,8 @@ export default function Pricing() {
         <div className="container-wide">
           <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>TRUSTED BY DATA-DRIVEN TEAMS</div>
           <div className="logo-row" style={{ marginTop: 28 }}>
-            {['Stratamesh', 'Voltaic', 'Coreframe', 'Halcyon', 'Northwind', 'Quantle'].map(n =>
-              <div className="logo-cell" key={n}>{n}</div>
+            {['Vercel', 'Notion', 'Figma', 'Linear', 'Stripe', 'Loom'].map(n =>
+              <div className="logo-cell" key={n}><CompanyLogo name={n} height={20}/></div>
             )}
           </div>
         </div>

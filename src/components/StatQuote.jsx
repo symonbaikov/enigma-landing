@@ -1,6 +1,7 @@
 import { Starfield, Aurora } from '../galactic.jsx';
 import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
+import { CompanyLogo } from './BrandLogos.jsx';
 
 export default function StatQuote() {
   return (
@@ -14,7 +15,7 @@ export default function StatQuote() {
               <div className="num"><CountUp value={412} suffix="%"/></div>
               <div className="desc">increase in brand presence for non-branded prompts</div>
             </div>
-            <div className="logo">⟁ stratamesh</div>
+            <div className="logo" style={{filter:'brightness(0) invert(1)', opacity: 0.8}}><CompanyLogo name="Vercel" height={20}/></div>
           </Reveal>
           <Reveal variant="left" delay={2} className="quote-block">
             <blockquote>
@@ -24,7 +25,7 @@ export default function StatQuote() {
               <div className="avatar">JD</div>
               <div>
                 <div className="name">Jordan Duarte</div>
-                <div className="role">Senior Director of Web Strategy &amp; Growth, Stratamesh</div>
+                <div className="role">Senior Director of Web Strategy &amp; Growth, Vercel</div>
               </div>
             </div>
             <button className="btn btn-outline" style={{borderColor: 'rgba(244,239,230,0.4)', color: 'var(--cream)', marginTop: 24}}>

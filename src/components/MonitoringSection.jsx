@@ -45,8 +45,8 @@ const MonitoringMock = () => (
         <h5>Competitive presence</h5>
         {[
           { name: 'Enigma', val: 42 },
-          { name: 'Voltaic', val: 28 },
-          { name: 'Stratamesh', val: 19 },
+          { name: 'SearchIQ', val: 28 },
+          { name: 'RankAI', val: 19 },
           { name: 'Recall.io', val: 11 },
         ].map(r => (
           <div className="dash-row" key={r.name}>
