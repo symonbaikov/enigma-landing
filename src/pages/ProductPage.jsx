@@ -10,54 +10,63 @@ import { Link } from 'react-router-dom';
 
 const ProductVisual = ({ slug }) => {
   if (slug === 'product-axp') return (
-    <section style={{ background: 'var(--paper)', padding: '80px 0 80px' }}>
+    <section style={{ background: 'var(--paper)', padding: '80px 0' }}>
       <div className="container-wide">
         <Reveal variant="up-sm">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, alignItems: 'stretch', maxWidth: 900, margin: '0 auto' }}>
-            {/* Human view */}
-            <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 50px -20px rgba(31,26,20,0.12)' }}>
-              <div style={{ background: 'rgba(242,238,246,0.8)', padding: '10px 14px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--muted)' }}>
-                <div style={{ display: 'flex', gap: 5 }}><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(31,26,20,0.15)' }}/><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(31,26,20,0.15)' }}/><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(31,26,20,0.15)' }}/></div>
-                <span style={{ fontStyle: 'italic' }}>Human view · 128,440 tokens</span>
-              </div>
-              <div style={{ padding: 20 }}>
-                <div style={{ height: 10, background: 'var(--line)', borderRadius: 6, width: '60%', marginBottom: 8 }}/>
-                <div style={{ height: 8, background: 'var(--cream-2)', borderRadius: 6, width: '90%', marginBottom: 6 }}/>
-                <div style={{ height: 8, background: 'var(--cream-2)', borderRadius: 6, width: '75%', marginBottom: 6 }}/>
-                <div style={{ height: 8, background: 'var(--cream-2)', borderRadius: 6, width: '85%', marginBottom: 16 }}/>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                  {[...Array(4)].map((_, i) => <div key={i} style={{ height: 60, background: 'var(--cream)', borderRadius: 8 }}/>)}
-                </div>
-              </div>
-            </div>
-            {/* VS */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '0 8px' }}>
-              <div style={{ flex: 1, width: 1, background: 'linear-gradient(to bottom, transparent, var(--cobalt), transparent)' }}/>
-              <div style={{ padding: '8px 14px', borderRadius: 999, background: 'var(--cobalt)', color: 'white', fontSize: 11, fontWeight: 600, textAlign: 'center', whiteSpace: 'nowrap' }}>−98.99%<br/>tokens</div>
-              <div style={{ flex: 1, width: 1, background: 'linear-gradient(to bottom, var(--cobalt), transparent)' }}/>
-            </div>
-            {/* Agent view */}
-            <div style={{ background: '#15102A', border: '1px solid rgba(107,63,255,0.25)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 50px -20px rgba(107,63,255,0.3)' }}>
-              <div style={{ background: 'rgba(255,255,255,0.04)', padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--muted-2)' }}>
-                <div style={{ display: 'flex', gap: 5 }}><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }}/><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }}/><span style={{ width: 9, height: 9, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }}/></div>
-                <span style={{ fontStyle: 'italic' }}>Agent view · 1,287 tokens</span>
-              </div>
-              <div style={{ padding: 20, fontFamily: 'monospace', fontSize: 12 }}>
-                {[
-                  { tag: '<h1>', text: ' Company Name ' },
-                  { tag: '<p>', text: ' One-line description of what company does. ' },
-                  { tag: '<h2>', text: ' Core products ' },
-                  { tag: '—', text: ' Product A — brief fact' },
-                  { tag: '—', text: ' Product B — brief fact' },
-                  { tag: '<cite>', text: ' Trusted by 500+ enterprise teams ' },
-                ].map((l, i) => (
-                  <div key={i} style={{ marginBottom: 6, color: 'rgba(201,168,255,0.9)', display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                    <span style={{ color: 'rgba(107,63,255,0.7)', flexShrink: 0 }}>{l.tag}</span>
-                    <span style={{ color: 'rgba(244,239,230,0.8)' }}>{l.text}</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 20, alignItems: 'center', maxWidth: 860, margin: '0 auto' }}>
+
+            {/* BEFORE: bloated page */}
+            <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, padding: '28px 28px 24px', boxShadow: '0 12px 40px -12px rgba(31,26,20,0.1)' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 6 }}>Without AXP</div>
+              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: 'monospace', color: 'var(--ink)', marginBottom: 4 }}>128,440</div>
+              <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 24 }}>tokens sent to AI</div>
+              {[
+                { label: 'JavaScript bundles', pct: 47, color: '#e5e7eb' },
+                { label: 'Navigation & menus', pct: 13, color: '#e5e7eb' },
+                { label: 'Images & media refs', pct: 22, color: '#e5e7eb' },
+                { label: 'CSS & decorative markup', pct: 11, color: '#e5e7eb' },
+                { label: 'Actual useful content', pct: 7, color: '#6B3FFF' },
+              ].map((row, i) => (
+                <div key={i} style={{ marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: i === 4 ? '#6B3FFF' : 'var(--muted)', marginBottom: 4, fontWeight: i === 4 ? 600 : 400 }}>
+                    <span>{row.label}</span><span>{row.pct}%</span>
                   </div>
-                ))}
-              </div>
+                  <div style={{ height: 6, background: 'var(--cream)', borderRadius: 99, overflow: 'hidden' }}>
+                    <div style={{ width: `${row.pct}%`, height: '100%', background: row.color, borderRadius: 99 }}/>
+                  </div>
+                </div>
+              ))}
             </div>
+
+            {/* Arrow */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--cobalt)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(107,63,255,0.4)' }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--cobalt)', textAlign: 'center', letterSpacing: '-0.01em' }}>−98.99%<br/>tokens</div>
+            </div>
+
+            {/* AFTER: clean content */}
+            <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.25)', borderRadius: 20, padding: '28px 28px 24px', boxShadow: '0 12px 40px -12px rgba(107,63,255,0.2)' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#6B3FFF', marginBottom: 6 }}>With AXP</div>
+              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: 'monospace', color: 'var(--ink)', marginBottom: 4 }}>1,287</div>
+              <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 24 }}>tokens — pure signal</div>
+              {[
+                'Company overview & key facts',
+                'Product descriptions & specs',
+                'Pricing & packaging details',
+                'Reviews & trust signals',
+                'Schema.org structured data',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, fontSize: 13, color: 'var(--ink)' }}>
+                  <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(107,63,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#6B3FFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
+                  {item}
+                </div>
+              ))}
+            </div>
+
           </div>
         </Reveal>
       </div>
@@ -281,28 +290,26 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, badg
       </section>
 
       {/* Stats + Quote */}
-      <section className="dark-section galactic" style={{ padding: '100px 0' }}>
-        <Starfield density={60}/>
-        <Aurora/>
-        <div className="container-wide" style={{ position: 'relative' }}>
+      <section style={{ background: 'var(--cream-2)', padding: '100px 0', borderTop: '1px solid var(--line)' }}>
+        <div className="container-wide">
           <div className="page-stats" style={{ marginBottom: 80 }}>
             {c.stats.map((s, i) => (
               <Reveal key={i} variant="up" delay={i + 1} className="page-stat">
-                <div className="page-stat-num">{s.value}</div>
-                <div className="page-stat-label">{s.label}</div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 'clamp(52px,6vw,80px)', lineHeight: 0.9, letterSpacing: '-0.03em', color: 'var(--cobalt)', marginBottom: 12 }}>{s.value}</div>
+                <div style={{ fontSize: 15, color: 'var(--muted)', maxWidth: 200, margin: '0 auto' }}>{s.label}</div>
               </Reveal>
             ))}
           </div>
           <Reveal variant="up" delay={2}>
-            <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.1)', paddingTop: 64 }}>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: 'italic', fontSize: 'clamp(20px,2.5vw,28px)', color: 'var(--cream)', lineHeight: 1.4, marginBottom: 28 }}>
+            <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center', borderTop: '1px solid var(--line)', paddingTop: 64 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: 'italic', fontSize: 'clamp(20px,2.5vw,28px)', color: 'var(--ink)', lineHeight: 1.4, marginBottom: 28 }}>
                 "Enigma gave us complete visibility into how AI systems perceive our brand — and a clear roadmap to improve it."
               </p>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
                 <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg,#6B3FFF,#C9A8FF)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 600, color: 'white' }}>TK</div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--cream)' }}>Taylor Kim</div>
-                  <div style={{ fontSize: 13, color: 'var(--muted-2)' }}>VP of Growth, Arclight SaaS</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--ink)' }}>Taylor Kim</div>
+                  <div style={{ fontSize: 13, color: 'var(--muted)' }}>VP of Growth, Arclight SaaS</div>
                 </div>
               </div>
             </div>
