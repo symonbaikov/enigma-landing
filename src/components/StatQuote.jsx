@@ -1,38 +1,23 @@
+import { useTranslation } from 'react-i18next';
 import { Starfield, Aurora } from '../galactic.jsx';
-import { Reveal, CountUp } from '../scroll-anims.jsx';
-import { ArrowRight } from './icons.jsx';
-import { CompanyLogo } from './BrandLogos.jsx';
+import { Reveal } from '../scroll-anims.jsx';
+import { renderText } from '../lib/cite.jsx';
 
 export default function StatQuote() {
+  const { t } = useTranslation();
   return (
-    <section className="dark-section galactic">
+    <section className="dark-section galactic" style={{ padding: 'clamp(80px,12vw,140px) 0' }}>
       <Starfield density={100}/>
       <Aurora/>
-      <div className="container-wide" style={{position: 'relative'}}>
-        <div className="stat-quote">
-          <Reveal variant="right" className="big-stat">
-            <div>
-              <div className="num"><CountUp value={412} suffix="%"/></div>
-              <div className="desc">increase in brand presence for non-branded prompts</div>
-            </div>
-            <div className="logo" style={{filter:'brightness(0) invert(1)', opacity: 0.8}}><CompanyLogo name="Vercel" height={20}/></div>
-          </Reveal>
-          <Reveal variant="left" delay={2} className="quote-block">
-            <blockquote>
-              "More of the buying journey now happens inside an AI answer — not on our site. Enigma made sure high-intent buyers find us, trust us, and pick us in those channels."
-            </blockquote>
-            <div className="quote-attr">
-              <div className="avatar">JD</div>
-              <div>
-                <div className="name">Jordan Duarte</div>
-                <div className="role">Senior Director of Web Strategy &amp; Growth, Vercel</div>
-              </div>
-            </div>
-            <button className="btn btn-outline" style={{borderColor: 'rgba(244,239,230,0.4)', color: 'var(--cream)', marginTop: 24}}>
-              Read case study <ArrowRight/>
-            </button>
-          </Reveal>
-        </div>
+      <div className="container-wide" style={{ position: 'relative' }}>
+        <Reveal variant="up" style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 'clamp(24px,3vw,34px)', lineHeight: 1.4, color: 'var(--cream)', marginBottom: 24 }}>
+            {t('statQuote.statement')}
+          </p>
+          <div style={{ fontSize: 13, color: 'rgba(244,239,230,0.55)' }}>
+            {renderText(t('statQuote.source'))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

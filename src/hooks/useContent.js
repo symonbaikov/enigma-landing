@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getPageContent } from '../lib/directus.js';
 
 export function useContent(slug, fallback) {
+  const { i18n } = useTranslation();
   const fallbackRef = useRef(fallback);
   fallbackRef.current = fallback;
 
@@ -12,7 +14,7 @@ export function useContent(slug, fallback) {
     getPageContent(slug).then(remote => {
       if (remote) setContent(prev => ({ ...prev, ...remote }));
     });
-  }, [slug]);
+  }, [slug, i18n.language]);
 
   return content;
 }

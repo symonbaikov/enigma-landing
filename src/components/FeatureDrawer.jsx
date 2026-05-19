@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IllustrationIcon } from './Illustrations.jsx';
+import { renderText } from '../lib/cite.jsx';
 
 export default function FeatureDrawer({ feature, onClose }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!feature) return;
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
@@ -15,7 +19,6 @@ export default function FeatureDrawer({ feature, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
       <div
         onClick={onClose}
         style={{
@@ -27,8 +30,6 @@ export default function FeatureDrawer({ feature, onClose }) {
           pointerEvents: feature ? 'auto' : 'none',
         }}
       />
-
-      {/* Panel */}
       <div style={{
         position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 1001,
         width: 'min(520px, 100vw)',
@@ -39,7 +40,6 @@ export default function FeatureDrawer({ feature, onClose }) {
         display: 'flex', flexDirection: 'column',
         overflowY: 'auto',
       }}>
-        {/* Close button */}
         <button
           onClick={onClose}
           aria-label="Close"
@@ -61,7 +61,6 @@ export default function FeatureDrawer({ feature, onClose }) {
 
         {feature && (
           <div style={{ padding: '48px 40px 64px' }}>
-            {/* Illustration */}
             <div style={{
               width: 80, height: 80,
               background: 'white',
@@ -73,7 +72,6 @@ export default function FeatureDrawer({ feature, onClose }) {
               <IllustrationIcon icon={feature.icon} size={52}/>
             </div>
 
-            {/* Title */}
             <h2 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 500, fontSize: 'clamp(28px,4vw,36px)',
@@ -82,24 +80,21 @@ export default function FeatureDrawer({ feature, onClose }) {
               marginBottom: 10,
             }}>{feature.title}</h2>
 
-            {/* Short desc */}
             <p style={{
               fontSize: 15, color: 'var(--muted, #7a6f65)',
               lineHeight: 1.6, marginBottom: 32,
               borderBottom: '1px solid var(--line, rgba(31,26,20,0.08))',
               paddingBottom: 28,
-            }}>{feature.desc}</p>
+            }}>{renderText(feature.desc)}</p>
 
-            {/* Article body */}
             {(feature.body || []).map((para, i) => (
               <p key={i} style={{
                 fontSize: 15, color: 'var(--ink, #1f1a14)',
                 lineHeight: 1.75, marginBottom: 18,
                 opacity: 0.85,
-              }}>{para}</p>
+              }}>{renderText(para)}</p>
             ))}
 
-            {/* Key points */}
             {feature.points?.length > 0 && (
               <div style={{
                 marginTop: 32,
@@ -112,32 +107,36 @@ export default function FeatureDrawer({ feature, onClose }) {
                   fontSize: 11, fontWeight: 700, letterSpacing: '0.1em',
                   textTransform: 'uppercase', color: '#5B21B6',
                   marginBottom: 14,
-                }}>Key capabilities</div>
+                }}>{t('featureDrawer.keyCapabilities')}</div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {feature.points.map((pt, i) => (
                     <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: 'var(--ink, #1f1a14)', lineHeight: 1.5 }}>
                       <span style={{ color: '#5B21B6', flexShrink: 0, marginTop: 2, fontSize: 12 }}>◆</span>
-                      {pt}
+                      <span>{renderText(pt)}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {/* CTA */}
             <div style={{ marginTop: 36 }}>
-              <a href="#" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                background: '#5B21B6', color: 'white',
-                borderRadius: 999, padding: '12px 24px',
-                fontSize: 14, fontWeight: 600, textDecoration: 'none',
-                transition: 'opacity 0.15s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              <button type="button"
+                data-cal-link="symon-baikov"
+                data-cal-namespace="demo"
+                data-cal-config='{"layout":"month_view"}'
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  background: '#5B21B6', color: 'white',
+                  border: 'none', cursor: 'pointer',
+                  borderRadius: 999, padding: '12px 24px',
+                  fontSize: 14, fontWeight: 600,
+                  transition: 'opacity 0.15s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
               >
-                Book a demo →
-              </a>
+                {t('featureDrawer.bookDemo')}
+              </button>
             </div>
           </div>
         )}

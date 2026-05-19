@@ -48,15 +48,15 @@ export const AILogos = Object.fromEntries(
   ])
 );
 
-/* ── Company / customer logos ─────────────────────────────────────── */
+/* ── Company / customer logos (Ukrainian IT companies) ───────────── */
 
 const COMPANY_LOGO_FILES = {
-  Vercel: { src: '/logos/vercel.svg',  dark: true,  scale: 1     },
-  Notion: { src: '/logos/notion.svg',  dark: true,  scale: 1.5   },
-  Figma:  { src: '/logos/figma.svg',   dark: false, scale: 1.5   },
-  Linear: { src: '/logos/linear.svg',  dark: true,  scale: 1     },
-  Stripe: { src: '/logos/stripe.svg',  dark: false, scale: 1     },
-  Loom:   { src: '/logos/loom.svg',    dark: true,  scale: 1     },
+  Grammarly: { src: '/logos/grammarly_ua.svg', dark: true,  scale: 1,   maxWidth: 130 },
+  MacPaw:    { src: '/logos/macpaw_ua.svg',    dark: true,  scale: 1.4, maxWidth: 110 },
+  Preply:    { src: '/logos/preply.png',        dark: false, scale: 1.4, maxWidth: 110 },
+  Monobank:  { src: '/logos/monobank_ua.svg',  dark: true,  scale: 1.8, maxWidth: 140 },
+  Ajax:      { src: '/logos/ajax.png',          dark: false, scale: 1.2, maxWidth: 100 },
+  Rozetka:   { src: '/logos/rozetka.png',       dark: false, scale: 1.4, maxWidth: 120 },
 };
 
 export function CompanyLogo({ name, height = 22 }) {
@@ -70,7 +70,7 @@ export function CompanyLogo({ name, height = 22 }) {
       style={{
         height: h,
         width: 'auto',
-        maxWidth: 120,
+        maxWidth: cfg.maxWidth ?? 120,
         objectFit: 'contain',
         opacity: 0.75,
         filter: cfg.dark ? 'brightness(0)' : 'none',

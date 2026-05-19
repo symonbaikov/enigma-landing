@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18nSingleton from '../i18n/index.js';
 import { EnigmaMark, ChevronDown, ArrowRight } from './icons.jsx';
 
 function BurgerIcon({ open }) {
@@ -15,10 +17,53 @@ function BurgerIcon({ open }) {
   );
 }
 
+function LangSwitch() {
+  const { i18n } = useTranslation();
+  const isUk = i18n.language === 'uk';
+
+  const toggle = () => i18nSingleton.changeLanguage(isUk ? 'ru' : 'uk');
+
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Switch language"
+      style={{
+        display: 'flex', alignItems: 'center', gap: 0,
+        background: 'rgba(31,26,20,0.06)',
+        border: '1px solid rgba(31,26,20,0.12)',
+        borderRadius: 999,
+        padding: '3px 4px',
+        cursor: 'pointer',
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: '0.04em',
+        userSelect: 'none',
+        flexShrink: 0,
+      }}
+    >
+      <span style={{
+        padding: '3px 8px',
+        borderRadius: 999,
+        background: isUk ? 'var(--ink, #1f1a14)' : 'transparent',
+        color: isUk ? '#fff' : 'var(--muted, #7a6f65)',
+        transition: 'background 0.2s, color 0.2s',
+      }}>UK</span>
+      <span style={{
+        padding: '3px 8px',
+        borderRadius: 999,
+        background: !isUk ? 'var(--ink, #1f1a14)' : 'transparent',
+        color: !isUk ? '#fff' : 'var(--muted, #7a6f65)',
+        transition: 'background 0.2s, color 0.2s',
+      }}>RU</span>
+    </button>
+  );
+}
+
 export default function Nav() {
   const [open, setOpen] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const close = () => setOpen(null);
   const go = (path) => { close(); navigate(path); };
@@ -30,62 +75,61 @@ export default function Nav() {
         <div className="nav-inner">
           <div className="nav-left">
             <Link to="/" className="brand" onClick={() => { close(); setMobileOpen(false); }}>
-              <span className="brand-mark"><EnigmaMark size={26} color="#1F1A14"/></span>
-              enigma
+              <img src="/logo_1.png" alt="Enigma" style={{ height: 80, width: 'auto', display: 'block' }}/>
             </Link>
             <div className="nav-links">
 
               {/* Product */}
               <div className={`nav-item ${open === 'product' ? 'open' : ''}`} onMouseEnter={() => setOpen('product')} onMouseLeave={close}>
-                <button className="nav-link">Product <ChevronDown/></button>
+                <button className="nav-link">{t('nav.product')} <ChevronDown/></button>
                 <div className="mega mega-tiles">
                   <div className="mega-inner">
                   <div className="mega-cols">
                     <div className="mega-col">
-                      <div className="mega-group">Agent Experience</div>
+                      <div className="mega-group">{t('nav.groups.agentExperience')}</div>
                       <button className="mega-tile" onClick={() => go('/product/axp')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>✦</div>
                         <div>
-                          <div className="tile-title">AXP <span className="tile-sub">(Agent Experience Platform)</span></div>
-                          <div className="tile-desc">Deliver an optimized experience to AI agents.</div>
+                          <div className="tile-title">{t('nav.tiles.axpTitle')} <span className="tile-sub">{t('nav.tiles.axpSub')}</span></div>
+                          <div className="tile-desc">{t('nav.tiles.axpDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/product/agent-traffic')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◐</div>
                         <div>
-                          <div className="tile-title">Agent Traffic</div>
-                          <div className="tile-desc">Analyze AI website traffic.</div>
+                          <div className="tile-title">{t('nav.tiles.agentTraffic')}</div>
+                          <div className="tile-desc">{t('nav.tiles.agentTrafficDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/product/site-maps')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#241A35,#6B3FFF)'}}>⌗</div>
                         <div>
-                          <div className="tile-title">Site Maps</div>
-                          <div className="tile-desc">Understand how AI consumes your site.</div>
+                          <div className="tile-title">{t('nav.tiles.siteMaps')}</div>
+                          <div className="tile-desc">{t('nav.tiles.siteMapsDesc')}</div>
                         </div>
                       </button>
                     </div>
                     <div className="mega-col">
-                      <div className="mega-group">Monitoring &amp; Insights</div>
+                      <div className="mega-group">{t('nav.groups.monitoringInsights')}</div>
                       <button className="mega-tile" onClick={() => go('/product/monitoring')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#C9A876,#8A4FC9)'}}>⟁</div>
                         <div>
-                          <div className="tile-title">Monitoring &amp; Citations</div>
-                          <div className="tile-desc">Know how your brand shows up in AI.</div>
+                          <div className="tile-title">{t('nav.tiles.monitoringCitations')}</div>
+                          <div className="tile-desc">{t('nav.tiles.monitoringDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/product/insights')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⌬</div>
                         <div>
-                          <div className="tile-title">Insights</div>
-                          <div className="tile-desc">Get actionable tips to grow your AI presence.</div>
+                          <div className="tile-title">{t('nav.tiles.insights')}</div>
+                          <div className="tile-desc">{t('nav.tiles.insightsDesc')}</div>
                         </div>
                       </button>
                     </div>
                   </div>
-                  <button className="mega-feature" onClick={() => go('/resources/changelog')}>
-                    <div className="feature-title">AI Search Trends</div>
-                    <div className="feature-desc">Explore emerging AI search patterns and behaviors.</div>
+                  <button className="mega-feature" onClick={() => go('/blog')}>
+                    <div className="feature-title">{t('nav.tiles.aiSearchTrends')}</div>
+                    <div className="feature-desc">{t('nav.tiles.aiSearchTrendsDesc')}</div>
                     <div className="feature-arrow"><ArrowRight/></div>
                   </button>
                   </div>
@@ -94,31 +138,31 @@ export default function Nav() {
 
               {/* Use cases */}
               <div className={`nav-item ${open === 'solutions' ? 'open' : ''}`} onMouseEnter={() => setOpen('solutions')} onMouseLeave={close}>
-                <button className="nav-link">Use cases <ChevronDown/></button>
+                <button className="nav-link">{t('nav.useCases')} <ChevronDown/></button>
                 <div className="mega mega-tiles mega-sm">
                   <div className="mega-inner">
                   <div className="mega-cols">
                     <div className="mega-col">
-                      <div className="mega-group">By industry</div>
+                      <div className="mega-group">{t('nav.groups.byIndustry')}</div>
                       <button className="mega-tile" onClick={() => go('/solutions/b2b-saas')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>◇</div>
                         <div>
-                          <div className="tile-title">B2B SaaS</div>
-                          <div className="tile-desc">Win deals decided in AI search.</div>
+                          <div className="tile-title">{t('nav.tiles.b2bSaas')}</div>
+                          <div className="tile-desc">{t('nav.tiles.b2bSaasDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/solutions/ecommerce')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◈</div>
                         <div>
-                          <div className="tile-title">E-commerce</div>
-                          <div className="tile-desc">Be recommended by shopping agents.</div>
+                          <div className="tile-title">{t('nav.tiles.ecommerce')}</div>
+                          <div className="tile-desc">{t('nav.tiles.ecommerceDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/solutions/agencies')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>◍</div>
                         <div>
-                          <div className="tile-title">Agencies</div>
-                          <div className="tile-desc">Multi-brand AEO management.</div>
+                          <div className="tile-title">{t('nav.tiles.agencies')}</div>
+                          <div className="tile-desc">{t('nav.tiles.agenciesDesc')}</div>
                         </div>
                       </button>
                     </div>
@@ -129,31 +173,38 @@ export default function Nav() {
 
               {/* Resources */}
               <div className={`nav-item ${open === 'resources' ? 'open' : ''}`} onMouseEnter={() => setOpen('resources')} onMouseLeave={close}>
-                <button className="nav-link">Resources <ChevronDown/></button>
+                <button className="nav-link">{t('nav.resources')} <ChevronDown/></button>
                 <div className="mega mega-tiles mega-sm">
                   <div className="mega-inner">
                   <div className="mega-cols">
                     <div className="mega-col">
-                      <div className="mega-group">Learn</div>
+                      <div className="mega-group">{t('nav.groups.learn')}</div>
                       <button className="mega-tile" onClick={() => go('/resources/geo-playbook')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>✎</div>
                         <div>
-                          <div className="tile-title">GEO Playbook</div>
-                          <div className="tile-desc">Generative Engine Optimization 101.</div>
+                          <div className="tile-title">{t('nav.tiles.geoPlaybook')}</div>
+                          <div className="tile-desc">{t('nav.tiles.geoPlaybookDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/resources/research-lab')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>⌬</div>
                         <div>
-                          <div className="tile-title">Research Lab</div>
-                          <div className="tile-desc">How LLMs choose what to cite.</div>
+                          <div className="tile-title">{t('nav.tiles.researchLab')}</div>
+                          <div className="tile-desc">{t('nav.tiles.researchLabDesc')}</div>
+                        </div>
+                      </button>
+                      <button className="mega-tile" onClick={() => go('/resources/aeo-faq')}>
+                        <div className="tile-icon" style={{background: 'linear-gradient(135deg,#5A3A8A,#A87FD0)'}}>❔</div>
+                        <div>
+                          <div className="tile-title">{t('nav.tiles.aeoFaq')}</div>
+                          <div className="tile-desc">{t('nav.tiles.aeoFaqDesc')}</div>
                         </div>
                       </button>
                       <button className="mega-tile" onClick={() => go('/resources/changelog')}>
                         <div className="tile-icon" style={{background: 'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⟳</div>
                         <div>
-                          <div className="tile-title">Changelog</div>
-                          <div className="tile-desc">New features, every week.</div>
+                          <div className="tile-title">{t('nav.tiles.changelog')}</div>
+                          <div className="tile-desc">{t('nav.tiles.changelogDesc')}</div>
                         </div>
                       </button>
                     </div>
@@ -162,14 +213,15 @@ export default function Nav() {
                 </div>
               </div>
 
-              <Link to="/pricing" className="nav-link" style={{ textDecoration: 'none' }} onClick={close}>Pricing</Link>
+              <Link to="/pricing" className="nav-link" style={{ textDecoration: 'none' }} onClick={close}>{t('nav.pricing')}</Link>
             </div>
           </div>
 
           <div className="nav-right">
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/login`} className="btn btn-ghost">Sign in</a>
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline">Start free trial</a>
-            <Link to="/pricing" className="btn btn-dark" onClick={close}>Book a demo</Link>
+            <LangSwitch/>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/login`} className="btn btn-ghost">{t('nav.signIn')}</a>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline">{t('nav.startFreeTrial')}</a>
+            <button type="button" className="btn btn-dark" data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('nav.bookDemo')}</button>
             <button className="burger-btn" onClick={() => setMobileOpen(v => !v)} aria-label="Menu">
               <BurgerIcon open={mobileOpen}/>
             </button>
@@ -191,59 +243,65 @@ export default function Nav() {
           </button>
 
           <div className="mobile-section">
-            <div className="mobile-section-label">Product</div>
+            <div className="mobile-section-label">{t('nav.mobile.product')}</div>
             <button className="mobile-link" onClick={() => mobileGo('/product/axp')}>
               <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>✦</span>AXP
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/product/agent-traffic')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◐</span>Agent Traffic
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◐</span>{t('nav.tiles.agentTraffic')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/product/site-maps')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#241A35,#6B3FFF)'}}>⌗</span>Site Maps
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#241A35,#6B3FFF)'}}>⌗</span>{t('nav.tiles.siteMaps')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/product/monitoring')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#C9A876,#8A4FC9)'}}>⟁</span>Monitoring
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#C9A876,#8A4FC9)'}}>⟁</span>{t('nav.tiles.monitoringCitations')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/product/insights')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⌬</span>Insights
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⌬</span>{t('nav.tiles.insights')}
             </button>
           </div>
 
           <div className="mobile-section">
-            <div className="mobile-section-label">Use cases</div>
+            <div className="mobile-section-label">{t('nav.mobile.useCases')}</div>
             <button className="mobile-link" onClick={() => mobileGo('/solutions/b2b-saas')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>◇</span>B2B SaaS
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>◇</span>{t('nav.tiles.b2bSaas')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/solutions/ecommerce')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◈</span>E-commerce
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>◈</span>{t('nav.tiles.ecommerce')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/solutions/agencies')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>◍</span>Agencies
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>◍</span>{t('nav.tiles.agencies')}
             </button>
           </div>
 
           <div className="mobile-section">
-            <div className="mobile-section-label">Resources</div>
+            <div className="mobile-section-label">{t('nav.mobile.resources')}</div>
             <button className="mobile-link" onClick={() => mobileGo('/resources/geo-playbook')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>✎</span>GEO Playbook
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#6B3FFF,#C9A8FF)'}}>✎</span>{t('nav.tiles.geoPlaybook')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/resources/research-lab')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>⌬</span>Research Lab
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#3A1A55,#7A3FAA)'}}>⌬</span>{t('nav.tiles.researchLab')}
+            </button>
+            <button className="mobile-link" onClick={() => mobileGo('/resources/aeo-faq')}>
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#5A3A8A,#A87FD0)'}}>❔</span>{t('nav.tiles.aeoFaq')}
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/resources/changelog')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⟳</span>Changelog
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⟳</span>{t('nav.tiles.changelog')}
             </button>
           </div>
 
           <div className="mobile-section">
             <button className="mobile-link" onClick={() => mobileGo('/pricing')}>
-              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#C9A876,#6B3FFF)'}}>$</span>Pricing
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#C9A876,#6B3FFF)'}}>$</span>{t('nav.pricing')}
             </button>
           </div>
 
           <div className="mobile-cta">
-            <button className="btn btn-dark" style={{width:'100%', justifyContent:'center'}}>Book a demo</button>
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>Start free trial</a>
+            <div style={{display:'flex', justifyContent:'center', marginBottom:12}}>
+              <LangSwitch/>
+            </div>
+            <button type="button" className="btn btn-dark" style={{width:'100%', justifyContent:'center'}} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}' onClick={() => setMobileOpen(false)}>{t('nav.bookDemo')}</button>
+            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>{t('nav.startFreeTrial')}</a>
           </div>
         </div>
       </div>

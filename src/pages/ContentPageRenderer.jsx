@@ -1,7 +1,9 @@
 /* Shared article/chapter renderer — used by ArticlePage and ChapterPage */
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora } from '../galactic.jsx';
+import { renderText, sourceId } from '../lib/cite.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 
 /* ── Charts ─────────────────────────────────────────────────────────── */
@@ -60,25 +62,27 @@ function TokenPositionChart() {
 }
 
 function StructuredVsProseChart() {
+  const { t } = useTranslation();
+  const labels = t('charts.structuredVsProse', { returnObjects: true });
   const data = [
-    { label: 'Table', s: 31 }, { label: 'FAQ schema', s: 29 },
-    { label: 'Bullet list', s: 24 }, { label: 'Fact block', s: 22 },
+    { label: labels[0], s: 31 }, { label: labels[1], s: 29 },
+    { label: labels[2], s: 24 }, { label: labels[3], s: 22 },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div style={{ display: 'flex', gap: 16, marginBottom: 4 }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}><span style={{ width: 12, height: 12, background: '#6B3FFF', borderRadius: 2 }}/> Structured</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}><span style={{ width: 12, height: 12, background: '#d4c8b8', borderRadius: 2 }}/> Prose</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}><span style={{ width: 12, height: 12, background: '#6B3FFF', borderRadius: 2 }}/> {t('charts.structured')}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}><span style={{ width: 12, height: 12, background: '#d4c8b8', borderRadius: 2 }}/> {t('charts.prose')}</span>
       </div>
       {data.map(d => (
         <div key={d.label}>
           <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 4 }}>{d.label}</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <div style={{ width: `${d.s * 2}%`, height: 22, background: '#6B3FFF', borderRadius: 4, display: 'flex', alignItems: 'center', paddingLeft: 8 }}>
-              <span style={{ fontSize: 11, color: '#fff', fontWeight: 600 }}>{d.s} citations/1k</span>
+              <span style={{ fontSize: 11, color: '#fff', fontWeight: 600 }}>{d.s} {t('charts.citationsPer1k')}</span>
             </div>
             <div style={{ width: '20%', height: 22, background: '#d4c8b8', borderRadius: 4, display: 'flex', alignItems: 'center', paddingLeft: 8 }}>
-              <span style={{ fontSize: 11, color: '#6b5f4f', fontWeight: 600 }}>10 citations/1k</span>
+              <span style={{ fontSize: 11, color: '#6b5f4f', fontWeight: 600 }}>10 {t('charts.citationsPer1k')}</span>
             </div>
           </div>
         </div>
@@ -88,6 +92,7 @@ function StructuredVsProseChart() {
 }
 
 function ModelComparisonChart() {
+  const { t } = useTranslation();
   const models = [
     { name: 'Perplexity', overlap: 47, color: '#1a6464' },
     { name: 'ChatGPT', overlap: 47, color: '#10A37F' },
@@ -104,7 +109,7 @@ function ModelComparisonChart() {
               <circle cx="55" cy="55" r={r} fill="none" stroke={m.color} strokeWidth="10"
                 strokeDasharray={`${c * m.overlap / 100} ${c}`} strokeLinecap="round" transform="rotate(-90 55 55)"/>
               <text x="55" y="50" textAnchor="middle" fontSize="18" fontWeight="700" fill="#1a1612">{m.overlap}%</text>
-              <text x="55" y="67" textAnchor="middle" fontSize="10" fill="#9e9484">overlap</text>
+              <text x="55" y="67" textAnchor="middle" fontSize="10" fill="#9e9484">{t('charts.overlap')}</text>
             </svg>
             <div style={{ fontSize: 13, fontWeight: 600, marginTop: 4 }}>{m.name}</div>
           </div>
@@ -134,10 +139,12 @@ function DomainAgeChart() {
 }
 
 function EntityConfusionChart() {
+  const { t } = useTranslation();
+  const ecLabels = t('charts.entityConfusion', { returnObjects: true });
   const data = [
-    { label: 'Common word names', pct: 34 }, { label: 'Shared industry names', pct: 28 },
-    { label: 'Abbreviation-based', pct: 21 }, { label: 'Geographic names', pct: 18 },
-    { label: 'Unique coined names', pct: 3 },
+    { label: ecLabels[0], pct: 34 }, { label: ecLabels[1], pct: 28 },
+    { label: ecLabels[2], pct: 21 }, { label: ecLabels[3], pct: 18 },
+    { label: ecLabels[4], pct: 3 },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -157,11 +164,13 @@ function EntityConfusionChart() {
 
 /* GEO Playbook charts */
 function GeoVsSeoChart() {
+  const { t } = useTranslation();
+  const g = t('charts.geoVsSeo', { returnObjects: true });
   const data = [
-    { label: 'Google Search', v2024: 68, v2026: 51 },
-    { label: 'AI Assistants', v2024: 14, v2026: 31 },
-    { label: 'Social / Video', v2024: 11, v2026: 12 },
-    { label: 'Direct / Other', v2024: 7, v2026: 6 },
+    { label: g.googleSearch, v2024: 68, v2026: 51 },
+    { label: g.aiAssistants, v2024: 14, v2026: 31 },
+    { label: g.socialVideo, v2024: 11, v2026: 12 },
+    { label: g.directOther, v2024: 7, v2026: 6 },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -187,13 +196,15 @@ function GeoVsSeoChart() {
 }
 
 function SignalHierarchyChart() {
+  const { t } = useTranslation();
+  const sLabels = t('charts.signalHierarchy', { returnObjects: true });
   const signals = [
-    { label: 'Domain authority (training-time)', val: 92, color: '#6B3FFF' },
-    { label: 'Entity graph connections', val: 84, color: '#6B3FFF' },
-    { label: 'Content structure (schema)', val: 76, color: '#8B5FFF' },
-    { label: 'Content freshness', val: 58, color: '#AB8FFF' },
-    { label: 'Keyword relevance', val: 44, color: '#CBBFFF' },
-    { label: 'Page word count', val: 18, color: '#E8E3FA' },
+    { label: sLabels[0], val: 92, color: '#6B3FFF' },
+    { label: sLabels[1], val: 84, color: '#6B3FFF' },
+    { label: sLabels[2], val: 76, color: '#8B5FFF' },
+    { label: sLabels[3], val: 58, color: '#AB8FFF' },
+    { label: sLabels[4], val: 44, color: '#CBBFFF' },
+    { label: sLabels[5], val: 18, color: '#E8E3FA' },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -212,18 +223,20 @@ function SignalHierarchyChart() {
 }
 
 function ContentFormatsChart() {
+  const { t } = useTranslation();
+  const cfLabels = t('charts.contentFormats', { returnObjects: true });
   const data = [
-    { label: 'FAQ schema', val: 29 }, { label: 'Comparison table', val: 31 },
-    { label: 'Stat block', val: 26 }, { label: 'Definition', val: 22 },
-    { label: 'Bullet list', val: 18 }, { label: 'Prose only', val: 10 },
+    { label: cfLabels[0], val: 29, prose: false }, { label: cfLabels[1], val: 31, prose: false },
+    { label: cfLabels[2], val: 26, prose: false }, { label: cfLabels[3], val: 22, prose: false },
+    { label: cfLabels[4], val: 18, prose: false }, { label: cfLabels[5], val: 10, prose: true },
   ];
   const max = 35;
   return (
     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 12, height: 160, paddingBottom: 28 }}>
       {data.map(d => (
         <div key={d.label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-          <span style={{ fontSize: 10, fontWeight: 600, color: d.label === 'Prose only' ? '#9e9484' : '#6B3FFF' }}>{d.val}</span>
-          <div style={{ width: '100%', height: (d.val / max) * 120, background: d.label === 'Prose only' ? '#d4c8b8' : 'linear-gradient(180deg, #6B3FFF, #9B7FFF)', borderRadius: '4px 4px 0 0', minHeight: 4 }}/>
+          <span style={{ fontSize: 10, fontWeight: 600, color: d.prose ? '#9e9484' : '#6B3FFF' }}>{d.val}</span>
+          <div style={{ width: '100%', height: (d.val / max) * 120, background: d.prose ? '#d4c8b8' : 'linear-gradient(180deg, #6B3FFF, #9B7FFF)', borderRadius: '4px 4px 0 0', minHeight: 4 }}/>
           <span style={{ fontSize: 9, color: 'var(--muted)', textAlign: 'center', lineHeight: 1.2 }}>{d.label}</span>
         </div>
       ))}
@@ -267,12 +280,14 @@ function PresenceDashboardChart() {
 }
 
 function AxpLiftChart() {
+  const { t } = useTranslation();
+  const axpLabels = t('charts.axpLift', { returnObjects: true });
   const data = [
-    { label: 'Baseline (standard HTML)', val: 18 },
-    { label: '+ Schema markup', val: 28 },
-    { label: '+ Structured AXP response', val: 42 },
-    { label: '+ FAQ payload', val: 54 },
-    { label: '+ Entity block + claims', val: 61 },
+    { label: axpLabels[0], val: 18 },
+    { label: axpLabels[1], val: 28 },
+    { label: axpLabels[2], val: 42 },
+    { label: axpLabels[3], val: 54 },
+    { label: axpLabels[4], val: 61 },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -311,13 +326,13 @@ export function renderSection(s, i) {
     case 'lead':
       return (
         <p key={i} style={{ fontSize: 20, lineHeight: 1.65, color: '#3a3328', fontWeight: 400, marginBottom: 40, maxWidth: 680 }}>
-          {s.text}
+          {renderText(s.text)}
         </p>
       );
     case 'paragraph':
       return (
         <p key={i} style={{ fontSize: 17, lineHeight: 1.7, color: '#4a4238', marginBottom: 28 }}>
-          {s.text}
+          {renderText(s.text)}
         </p>
       );
     case 'heading':
@@ -338,7 +353,7 @@ export function renderSection(s, i) {
             </div>
             <div style={{ flex: 1, minWidth: 200 }}>
               <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#8a7e6e', textTransform: 'uppercase', marginBottom: 8 }}>{s.label}</div>
-              <p style={{ fontSize: 16, lineHeight: 1.6, color: '#c8bfa8', margin: 0 }}>{s.text}</p>
+              <p style={{ fontSize: 16, lineHeight: 1.6, color: '#c8bfa8', margin: 0 }}>{renderText(s.text)}</p>
             </div>
           </div>
         </Reveal>
@@ -360,11 +375,11 @@ export function renderSection(s, i) {
         <Reveal key={i} variant="up">
           <div style={{ margin: '32px 0' }}>
             {s.items.map((item, j) => (
-              <div key={j} style={{ display: 'flex', gap: 16, marginBottom: 20, paddingBottom: 20, borderBottom: j < s.items.length - 1 ? '1px solid var(--line)' : 'none' }}>
+              <div key={j} id={sourceId(item.title)} style={{ display: 'flex', gap: 16, marginBottom: 20, paddingBottom: 20, borderBottom: j < s.items.length - 1 ? '1px solid var(--line)' : 'none' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6B3FFF', marginTop: 8, flexShrink: 0 }}/>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 4 }}>{item.title}</div>
-                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 4 }}>{renderText(item.title)}</div>
+                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
                 </div>
               </div>
             ))}
@@ -379,8 +394,8 @@ export function renderSection(s, i) {
               <div key={j} style={{ display: 'flex', gap: 24, marginBottom: 28 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 300, color: '#c8bfa8', lineHeight: 1, minWidth: 32 }}>{item.num}</div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 6 }}>{item.title}</div>
-                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 6 }}>{renderText(item.title)}</div>
+                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
                 </div>
               </div>
             ))}
@@ -391,8 +406,8 @@ export function renderSection(s, i) {
       return (
         <Reveal key={i} variant="up">
           <blockquote style={{ borderLeft: '3px solid #6B3FFF', paddingLeft: 28, margin: '40px 0', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, fontWeight: 400, color: '#1a1612' }}>
-            "{s.text}"
-            <cite style={{ display: 'block', fontStyle: 'normal', fontSize: 13, fontFamily: "'Inter', sans-serif", color: 'var(--muted)', marginTop: 12, letterSpacing: '0.06em', textTransform: 'uppercase' }}>— {s.attr}</cite>
+            "{renderText(s.text)}"
+            <cite style={{ display: 'block', fontStyle: 'normal', fontSize: 13, fontFamily: "'Inter', sans-serif", color: 'var(--muted)', marginTop: 12, letterSpacing: '0.06em', textTransform: 'uppercase' }}>— {renderText(s.attr)}</cite>
           </blockquote>
         </Reveal>
       );
@@ -404,6 +419,7 @@ export function renderSection(s, i) {
 /* ── Shared page layout ──────────────────────────────────────────────── */
 
 export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPath }) {
+  const { t } = useTranslation();
   return (
     <>
       <section className="page-hero galactic" style={{ paddingBottom: 80 }}>
@@ -413,7 +429,7 @@ export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPat
           <Reveal variant="up">
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28 }}>
               <Link to={backPath} style={{ fontSize: 13, color: 'rgba(244,239,230,0.5)', textDecoration: 'none' }}>
-                ← {backLabel}
+                {t('contentPage.back')} {backLabel}
               </Link>
               <span style={{ color: 'rgba(244,239,230,0.2)' }}>·</span>
               <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,239,230,0.5)' }}>{item.eyebrow}</span>
@@ -442,10 +458,10 @@ export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPat
       {nextItem && (
         <section style={{ background: 'var(--paper)', borderTop: '1px solid var(--line)', padding: '60px 0' }}>
           <div className="container-wide" style={{ maxWidth: 720 }}>
-            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 20 }}>Next</div>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 20 }}>{t('contentPage.next')}</div>
             <Link to={`${nextPath}/${nextItem.slug}`} style={{ textDecoration: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24 }}>
               <div>
-                {nextItem.num && <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>Chapter {nextItem.num}</div>}
+                {nextItem.num && <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>{t('contentPage.chapter')} {nextItem.num}</div>}
                 {nextItem.date && <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>{nextItem.date} · {nextItem.eyebrow}</div>}
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 'clamp(22px, 3vw, 30px)', color: '#1a1612', lineHeight: 1.2, margin: 0 }}>{nextItem.title}</h3>
               </div>

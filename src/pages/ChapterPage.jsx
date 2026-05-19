@@ -1,8 +1,10 @@
 import { useParams, Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { chapters } from '../content/chapters.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function ChapterPage() {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const idx = chapters.findIndex(c => c.slug === slug);
   if (idx === -1) return <Navigate to="/resources/geo-playbook" replace/>;
@@ -14,7 +16,7 @@ export default function ChapterPage() {
     <ContentPageLayout
       item={chapter}
       backPath="/resources/geo-playbook"
-      backLabel="GEO Playbook"
+      backLabel={t('nav.tiles.geoPlaybook')}
       nextItem={next}
       nextPath="/resources/geo-playbook"
     />

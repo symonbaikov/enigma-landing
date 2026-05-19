@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useContent } from '../hooks/useContent.js';
 import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
@@ -31,6 +32,7 @@ function ChapterList({ chapters }) {
 }
 
 function ArticleList({ articles }) {
+  const { t } = useTranslation();
   return (
     <div className="article-list">
       {articles.map((a, i) => (
@@ -41,8 +43,8 @@ function ArticleList({ articles }) {
             <p>{a.desc}</p>
           </div>
           {a.slug
-            ? <Link to={`/resources/research-lab/${a.slug}`} className="article-link">Read <ArrowRight size={13}/></Link>
-            : <a href="#" className="article-link">Read <ArrowRight size={13}/></a>
+            ? <Link to={`/resources/research-lab/${a.slug}`} className="article-link">{t('resourcePage.read')} <ArrowRight size={13}/></Link>
+            : <a href="#" className="article-link">{t('resourcePage.read')} <ArrowRight size={13}/></a>
           }
         </Reveal>
       ))}
@@ -71,6 +73,7 @@ function ChangelogList({ updates }) {
 }
 
 export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc }) {
+  const { t } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc });
   const titleLines = c.hero_title.split('\n');
 
@@ -109,10 +112,10 @@ export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, cha
         <Nebula/>
         <div className="container-wide" style={{ position: 'relative' }}>
           <Reveal variant="blur" as="h2" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 'clamp(48px,5vw,72px)', lineHeight: 0.98, letterSpacing: '-0.02em', color: 'var(--cream)', marginBottom: 18 }}>{c.cta_title}</Reveal>
-          <p style={{ fontSize: 17, color: 'var(--muted-2)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
+          <p style={{ fontSize: 18, color: 'rgba(244,239,230,0.72)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
           <div className="cta-actions">
-            <Link to="/pricing" className="btn btn-cobalt btn-lg">Start free trial <ArrowRight/></Link>
-            <a href="#" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', cursor: 'pointer' }}>Book a demo</a>
+            <Link to="/pricing" className="btn btn-cobalt btn-lg">{t('resourcePage.startFreeTrial')} <ArrowRight/></Link>
+            <button type="button" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('resourcePage.bookDemo')}</button>
           </div>
         </div>
       </section>

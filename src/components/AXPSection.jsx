@@ -1,10 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
 import { AILogoAvatar } from './BrandLogos.jsx';
 
-const QUERY = 'Best enterprise AI infrastructure platform for deploying agents?';
 
-const ChatBubble = ({ text, cited, url }) => (
+const ChatBubble = ({ text, cited, citedLabel, url }) => (
   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
     <div style={{ marginTop: 2 }}>
       <AILogoAvatar name="ChatGPT" size={28}/>
@@ -13,7 +13,7 @@ const ChatBubble = ({ text, cited, url }) => (
       {text}
       {cited && (
         <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 8px', borderRadius: 99, fontWeight: 600 }}>✓ Cited</span>
+          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 8px', borderRadius: 99, fontWeight: 600 }}>{citedLabel}</span>
           <span style={{ fontSize: 12, color: '#6B3FFF', fontFamily: 'monospace' }}>{url}</span>
         </div>
       )}
@@ -21,89 +21,89 @@ const ChatBubble = ({ text, cited, url }) => (
   </div>
 );
 
-const CitationDemo = () => (
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 900, margin: '0 auto' }}>
+const CitationDemo = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="axp-citation-demo" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 900, margin: '0 auto' }}>
 
-    {/* Without AXP */}
-    <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(31,26,20,0.1)' }}>
-      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <AILogoAvatar name="ChatGPT" size={20}/>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+      {/* Without AXP */}
+      <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(31,26,20,0.1)' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <AILogoAvatar name="ChatGPT" size={20}/>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+          </div>
+          <span style={{ fontSize: 11, background: 'rgba(239,68,68,0.1)', color: '#DC2626', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>{t('axp.withoutLabel')}</span>
         </div>
-        <span style={{ fontSize: 11, background: 'rgba(239,68,68,0.1)', color: '#DC2626', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>Without AXP</span>
-      </div>
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {/* User question */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
-            {QUERY}
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
+              {t('axp.query')}
+            </div>
+          </div>
+          <ChatBubble text={
+            <>
+              {t('axp.withoutText1')} <strong>AgentCore</strong>, <strong>NeuralOps</strong> {t('axp.withoutAnd')} <strong>CloudMind AI</strong> {t('axp.withoutText2')}
+              <br/><br/>
+              <span style={{ color: 'var(--muted)', fontStyle: 'italic' }}>{t('axp.withoutText3')}</span>
+            </>
+          }/>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block' }}/>
+            <span style={{ fontSize: 12, color: '#DC2626', fontWeight: 500 }}>{t('axp.brandNotMentioned')}</span>
           </div>
         </div>
-        <ChatBubble text={
-          <>
-            There are several enterprise AI platforms worth considering: <strong>AgentCore</strong>, <strong>NeuralOps</strong>, and <strong>CloudMind AI</strong> are popular choices for large-scale deployments.
-            <br/><br/>
-            <span style={{ color: 'var(--muted)', fontStyle: 'italic' }}>I don't have enough information about Voltaic Systems to include it in this recommendation.</span>
-          </>
-        }/>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block' }}/>
-          <span style={{ fontSize: 12, color: '#DC2626', fontWeight: 500 }}>Your brand: not mentioned</span>
-        </div>
       </div>
-    </div>
 
-    {/* With AXP */}
-    <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.3)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(107,63,255,0.2)' }}>
-      <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <AILogoAvatar name="ChatGPT" size={20}/>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+      {/* With AXP */}
+      <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.3)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(107,63,255,0.2)' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <AILogoAvatar name="ChatGPT" size={20}/>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
+          </div>
+          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>{t('axp.withLabel')}</span>
         </div>
-        <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>With AXP</span>
-      </div>
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {/* User question */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
-            {QUERY}
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
+              {t('axp.query')}
+            </div>
+          </div>
+          <ChatBubble cited citedLabel={t('axp.cited')} url="voltaic.systems" text={
+            <>
+              <strong>Voltaic Systems</strong> {t('axp.withText1')}
+              <br/><br/>
+              {t('axp.withText2')}
+            </>
+          }/>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', display: 'inline-block' }}/>
+            <span style={{ fontSize: 12, color: '#059669', fontWeight: 500 }}>{t('axp.brandCitedFirst')}</span>
           </div>
         </div>
-        <ChatBubble cited url="voltaic.systems" text={
-          <>
-            <strong>Voltaic Systems</strong> is a leading enterprise AI infrastructure platform that helps organizations deploy autonomous agents, orchestrate 12+ AI models, and serve AI-optimized content at scale. Trusted by Fortune 500 companies.
-            <br/><br/>
-            Other options include AgentCore and NeuralOps, though Voltaic stands out for mission-critical deployments.
-          </>
-        }/>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', display: 'inline-block' }}/>
-          <span style={{ fontSize: 12, color: '#059669', fontWeight: 500 }}>Your brand: mentioned first, cited</span>
-        </div>
       </div>
-    </div>
 
-  </div>
-);
+    </div>
+  );
+};
 
 export default function AXPSection() {
+  const { t } = useTranslation();
   return (
     <section style={{background: 'var(--cream)', paddingBottom: 120}}>
       <div className="container-wide">
         <div className="split-section">
           <Reveal variant="right" className="col-l">
-            <div className="col-eye">AXP — AGENT EXPERIENCE PLATFORM</div>
+            <div className="col-eye">{t('axp.eyebrow')}</div>
             <h3 className="h2">
-              Your site isn't built for AI.<br/>
-              <span className="serif italic">Now it can be.</span>
+              {t('axp.h2Line1')}<br/>
+              <span className="serif italic">{t('axp.h2Highlight')}</span>
             </h3>
           </Reveal>
           <Reveal variant="left" delay={2} className="col-r">
-            <p>
-              Agent Experience Platform detects AI crawlers at the edge and serves them token-efficient, structured content — no JavaScript, no chrome, just facts. Humans still get the full experience.
-            </p>
-            <button className="btn btn-cobalt btn-lg">Explore AXP <ArrowRight/></button>
+            <p>{t('axp.desc')}</p>
+            <button className="btn btn-cobalt btn-lg">{t('axp.exploreBtn')} <ArrowRight/></button>
           </Reveal>
         </div>
 
@@ -113,22 +113,27 @@ export default function AXPSection() {
           <Reveal variant="up" delay={1} className="feature-card">
             <div className="feature-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M3 11h22M8 17h6" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="1.5" opacity="0.45"/>
+                <circle cx="14" cy="14" r="5.5" stroke="currentColor" strokeWidth="1.5" opacity="0.7"/>
+                <line x1="14" y1="14" x2="21.5" y2="8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="14" cy="14" r="1.8" fill="currentColor"/>
+                <circle cx="20.5" cy="9.5" r="2" fill="currentColor"/>
               </svg>
             </div>
-            <h4>Edge agent detection</h4>
-            <p>Identify ChatGPT, Perplexity, Claude, Bing AI, and 60+ other agents at the network edge — &lt;5ms overhead.</p>
+            <h4>{t('axp.feature1.title')}</h4>
+            <p>{t('axp.feature1.desc')}</p>
           </Reveal>
           <Reveal variant="up" delay={2} className="feature-card">
             <div className="feature-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M5 14l4 4 14-14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M5 22h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M11 4v5a2 2 0 0 1-2 2H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M17 4v5a2 2 0 0 0 2 2h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M11 24v-5a2 2 0 0 0-2-2H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M17 24v-5a2 2 0 0 1 2-2h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h4>Token-optimized content</h4>
-            <p>Compress your pages 90%+ for LLMs without touching the human experience. Serve the version each audience needs.</p>
+            <h4>{t('axp.feature2.title')}</h4>
+            <p>{t('axp.feature2.desc')}</p>
           </Reveal>
           <Reveal variant="up" delay={3} className="feature-card">
             <div className="feature-icon">
@@ -137,8 +142,8 @@ export default function AXPSection() {
                 <path d="M14 8v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
-            <h4>Live citations</h4>
-            <p>Watch which pages get cited by which models, in real time. Iterate on content the way you'd A/B test a landing page.</p>
+            <h4>{t('axp.feature3.title')}</h4>
+            <p>{t('axp.feature3.desc')}</p>
           </Reveal>
         </div>
       </div>

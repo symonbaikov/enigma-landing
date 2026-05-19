@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useContent } from '../hooks/useContent.js';
 import { Reveal, CountUp } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight, Check } from '../components/icons.jsx';
 import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
-import { pricing as fallback } from '../content/index.js';
+import { getPricing } from '../content/index.js';
 
 const PLATFORM_URL = import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000';
 
@@ -26,7 +27,8 @@ function PlanCta({ plan }) {
 }
 
 export default function Pricing() {
-  const c = useContent('pricing', fallback);
+  const { t } = useTranslation();
+  const c = useContent('pricing', getPricing(t));
   const [annual, setAnnual] = useState(true);
 
   return (
@@ -42,12 +44,12 @@ export default function Pricing() {
 
             {/* Toggle */}
             <div className="billing-toggle">
-              <span className={!annual ? 'active' : ''} onClick={() => setAnnual(false)}>Monthly</span>
+              <span className={!annual ? 'active' : ''} onClick={() => setAnnual(false)}>{t('pricing.monthly')}</span>
               <button className={`toggle-pill ${annual ? 'on' : ''}`} onClick={() => setAnnual(a => !a)}>
                 <span className="toggle-knob"/>
               </button>
               <span className={annual ? 'active' : ''} onClick={() => setAnnual(true)}>
-                Annual <span className="save-badge">Save 17%</span>
+                {t('pricing.annual')} <span className="save-badge">{t('pricing.save17')}</span>
               </span>
             </div>
           </Reveal>
@@ -60,22 +62,22 @@ export default function Pricing() {
           <div className="plans-grid">
             {c.plans.map((plan, i) => (
               <Reveal key={i} variant="up" delay={i + 1} className={`plan-card ${plan.highlight ? 'plan-highlight' : ''}`}>
-                {plan.highlight && <div className="plan-badge-top">Most popular</div>}
+                {plan.highlight && <div className="plan-badge-top">{t('pricing.mostPopular')}</div>}
                 <div className="plan-name">{plan.name}</div>
                 <div className="plan-price">
                   {plan.price_monthly === null ? (
-                    <span className="plan-price-custom">Custom</span>
+                    <span className="plan-price-custom">{t('pricing.custom')}</span>
                   ) : plan.price_monthly === 0 ? (
-                    <span className="plan-price-num">Free</span>
+                    <span className="plan-price-num">{t('pricing.free')}</span>
                   ) : (
                     <>
                       <span className="plan-price-num">${annual ? plan.price_annual : plan.price_monthly}</span>
-                      <span className="plan-price-period">/mo</span>
+                      <span className="plan-price-period">{t('pricing.perMonth')}</span>
                     </>
                   )}
                 </div>
                 {plan.price_monthly > 0 && annual && (
-                  <div className="plan-billed">Billed annually</div>
+                  <div className="plan-billed">{t('pricing.billedAnnually')}</div>
                 )}
                 <p className="plan-desc">{plan.desc}</p>
                 <PlanCta plan={plan} />
@@ -94,9 +96,9 @@ export default function Pricing() {
       {/* Logos */}
       <section style={{ background: 'var(--paper)', padding: '60px 0 80px', borderTop: '1px solid var(--line)' }}>
         <div className="container-wide">
-          <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>TRUSTED BY DATA-DRIVEN TEAMS</div>
+          <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>{t('pricing.trustedBy')}</div>
           <div className="logo-row" style={{ marginTop: 28 }}>
-            {['Vercel', 'Notion', 'Figma', 'Linear', 'Stripe', 'Loom'].map(n =>
+            {['Grammarly', 'MacPaw', 'Preply', 'Monobank', 'Ajax', 'Rozetka'].map(n =>
               <div className="logo-cell" key={n}><CompanyLogo name={n} height={20}/></div>
             )}
           </div>
@@ -107,7 +109,7 @@ export default function Pricing() {
       <section style={{ background: 'var(--cream)', padding: '80px 0 100px' }}>
         <div className="container-wide">
           <Reveal variant="up" as="h2" className="h2" style={{ marginBottom: 56, textAlign: 'center' }}>
-            Frequently asked <span className="serif italic">questions.</span>
+            {t('pricing.faqTitle')}
           </Reveal>
           <div className="faq-list">
             {c.faqs.map((faq, i) => (
@@ -123,11 +125,11 @@ export default function Pricing() {
         <Aurora/>
         <Nebula/>
         <div className="container-wide" style={{ position: 'relative' }}>
-          <Reveal variant="blur" as="h2">Start for <span className="serif italic">free</span> today.</Reveal>
-          <p className="lede" style={{ margin: '16px auto 36px' }}>No credit card required. Upgrade when you're ready.</p>
+          <Reveal variant="blur" as="h2">{t('pricing.finalCtaTitle')}</Reveal>
+          <p className="lede" style={{ margin: '16px auto 36px' }}>{t('pricing.finalCtaDesc')}</p>
           <div className="cta-actions">
-            <a href="#" className="btn btn-dark btn-lg">Get started free <ArrowRight/></a>
-            <a href="#" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}>Book a demo</a>
+            <a href="#" className="btn btn-dark btn-lg">{t('pricing.getStartedFree')} <ArrowRight/></a>
+            <button type="button" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('pricing.bookDemo')}</button>
           </div>
         </div>
       </section>

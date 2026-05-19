@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Layout from './Layout.jsx';
 import Home from './pages/Home.jsx';
 import Pricing from './pages/Pricing.jsx';
@@ -7,10 +8,18 @@ import SolutionPage from './pages/SolutionPage.jsx';
 import ResourcePage from './pages/ResourcePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
 import ChapterPage from './pages/ChapterPage.jsx';
-import { products, solutions, resources } from './content/index.js';
+import AeoFaqPage from './pages/AeoFaqPage.jsx';
+import BlogPage from './pages/BlogPage.jsx';
+import BlogPostPage from './pages/BlogPostPage.jsx';
+import { getProducts, getSolutions, getResources } from './content/index.js';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
+  const { t } = useTranslation();
+  const products = getProducts(t);
+  const solutions = getSolutions(t);
+  const resources = getResources(t);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -34,6 +43,11 @@ export default function App() {
           <Route path="resources/geo-playbook"  element={<ResourcePage {...resources['geo-playbook']}/>}/>
           <Route path="resources/research-lab"  element={<ResourcePage {...resources['research-lab']}/>}/>
           <Route path="resources/changelog"     element={<ResourcePage {...resources.changelog}/>}/>
+          <Route path="resources/aeo-faq"       element={<AeoFaqPage {...resources['aeo-faq']}/>}/>
+
+          {/* Blog — AI-search trends */}
+          <Route path="blog"        element={<BlogPage/>}/>
+          <Route path="blog/:slug"  element={<BlogPostPage/>}/>
 
           {/* Research lab article pages */}
           <Route path="resources/research-lab/:slug" element={<ArticlePage/>}/>
