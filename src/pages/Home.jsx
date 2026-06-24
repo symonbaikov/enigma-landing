@@ -8,6 +8,7 @@ import EnterpriseSection from '../components/EnterpriseSection.jsx';
 import TestimonialLight from '../components/TestimonialLight.jsx';
 import LogoBar from '../components/LogoBar.jsx';
 import FeatCards from '../components/FeatCards.jsx';
+import ReviewsSection from '../components/ReviewsSection.jsx';
 import CTA from '../components/CTA.jsx';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <TestimonialLight/>
       <LogoBar/>
       <FeatCards/>
+      <ReviewsSection/>
       <CTA/>
     </>
   );

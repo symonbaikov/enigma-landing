@@ -75,7 +75,7 @@ export default function Nav() {
         <div className="nav-inner">
           <div className="nav-left">
             <Link to="/" className="brand" onClick={() => { close(); setMobileOpen(false); }}>
-              <img src="/logo_1.png" alt="Enigma" style={{ height: 80, width: 'auto', display: 'block' }}/>
+              <img src="/logo_1.png" alt="Enigma" style={{ height: 80, width: 'auto', display: 'block', filter: 'brightness(0) saturate(100%)' }}/>
             </Link>
             <div className="nav-links">
 
