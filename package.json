@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "rag:test": "node --test scripts/geo-rag/geo-rag.test.mjs",
+    "rag:crawl": "node scripts/geo-rag/crawl.mjs",
+    "rag:index": "node scripts/geo-rag/build-index.mjs",
+    "rag:ask": "node scripts/geo-rag/ask.mjs",
+    "rag:build": "npm run rag:crawl && npm run rag:index",
+    "graphify:build": "graphify update . --no-cluster",
+    "graphify:query": "graphify query"
   },
   "dependencies": {
     "@directus/sdk": "^21.3.0",
@@ -18,7 +25,10 @@
     "react-router-dom": "^7.15.0"
   },
   "devDependencies": {
+    "@mozilla/readability": "^0.6.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^29.1.1",
+    "minisearch": "^7.2.0",
     "vite": "^6.3.5"
   }
 }
