@@ -3,13 +3,52 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="/logo.png"/>
-  <title>Enigma — The AI search visibility platform</title>
-  <script type="text/javascript">
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", "demo", {origin:"https://cal.com"});
-    Cal.ns.demo("ui", {hideEventTypeDetails:false, layout:"month_view"});
+  <meta name="description" content="Enigma helps teams audit, structure, and monitor content for AI search visibility without promising guaranteed inclusion."/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://enigma.com/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Enigma"/>
+  <meta property="og:title" content="Enigma — The AI search visibility platform"/>
+  <meta property="og:description" content="Audit AI visibility, structure source-backed answer blocks, and monitor mentions and citations across AI search systems."/>
+  <meta property="og:url" content="https://enigma.com/"/>
+  <meta property="og:image" content="https://enigma.com/logo.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Enigma — The AI search visibility platform"/>
+  <meta name="twitter:description" content="Audit AI visibility, structure source-backed answer blocks, and monitor mentions and citations across AI search systems."/>
+  <meta name="twitter:image" content="https://enigma.com/logo.png"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <script id="enigma-base-jsonld" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://enigma.com/#organization",
+          "name": "Enigma",
+          "legalName": "Enigma Labs Inc.",
+          "alternateName": ["Enigma Labs Inc."],
+          "url": "https://enigma.com/",
+          "logo": "https://enigma.com/logo.png",
+          "description": "Enigma is a GEO/AEO platform for structuring, auditing and monitoring brand visibility in AI answers.",
+          "knowsAbout": [
+            "Generative Engine Optimization",
+            "Answer Engine Optimization",
+            "AI search visibility",
+            "AI crawler access",
+            "AI citation monitoring"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://enigma.com/#website",
+          "name": "Enigma",
+          "url": "https://enigma.com/",
+          "publisher": { "@id": "https://enigma.com/#organization" }
+        }
+      ]
+    }
   </script>
+  <title>Enigma — The AI search visibility platform</title>
 </head>
 <body>
   <div id="root"></div>

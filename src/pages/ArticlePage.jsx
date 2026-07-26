@@ -1,11 +1,12 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { articles } from '../content/articles.js';
+import { getArticles } from '../content/articles.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function ArticlePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { slug } = useParams();
+  const articles = getArticles(i18n.language);
   const idx = articles.findIndex(a => a.slug === slug);
   if (idx === -1) return <Navigate to="/resources/research-lab" replace/>;
 

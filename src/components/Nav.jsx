@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18nSingleton from '../i18n/index.js';
 import { EnigmaMark, ChevronDown, ArrowRight } from './icons.jsx';
+import DemoButton from './DemoButton.jsx';
 
 function BurgerIcon({ open }) {
   return (
@@ -32,9 +33,9 @@ function LangSwitch() {
         background: 'rgba(31,26,20,0.06)',
         border: '1px solid rgba(31,26,20,0.12)',
         borderRadius: 999,
-        padding: '3px 4px',
+        padding: '4px 5px',
         cursor: 'pointer',
-        fontSize: 11,
+        fontSize: 13,
         fontWeight: 700,
         letterSpacing: '0.04em',
         userSelect: 'none',
@@ -42,14 +43,14 @@ function LangSwitch() {
       }}
     >
       <span style={{
-        padding: '3px 8px',
+        padding: '5px 11px',
         borderRadius: 999,
         background: isUk ? 'var(--ink, #1f1a14)' : 'transparent',
         color: isUk ? '#fff' : 'var(--muted, #7a6f65)',
         transition: 'background 0.2s, color 0.2s',
       }}>UK</span>
       <span style={{
-        padding: '3px 8px',
+        padding: '5px 11px',
         borderRadius: 999,
         background: !isUk ? 'var(--ink, #1f1a14)' : 'transparent',
         color: !isUk ? '#fff' : 'var(--muted, #7a6f65)',
@@ -221,7 +222,7 @@ export default function Nav() {
             <LangSwitch/>
             <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/login`} className="btn btn-ghost">{t('nav.signIn')}</a>
             <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline">{t('nav.startFreeTrial')}</a>
-            <button type="button" className="btn btn-dark" data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('nav.bookDemo')}</button>
+            <DemoButton className="btn btn-dark">{t('nav.bookDemo')}</DemoButton>
             <button className="burger-btn" onClick={() => setMobileOpen(v => !v)} aria-label="Menu">
               <BurgerIcon open={mobileOpen}/>
             </button>
@@ -300,7 +301,13 @@ export default function Nav() {
             <div style={{display:'flex', justifyContent:'center', marginBottom:12}}>
               <LangSwitch/>
             </div>
-            <button type="button" className="btn btn-dark" style={{width:'100%', justifyContent:'center'}} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}' onClick={() => setMobileOpen(false)}>{t('nav.bookDemo')}</button>
+            <DemoButton
+              className="btn btn-dark"
+              style={{ width: '100%', justifyContent: 'center' }}
+              onClick={() => setMobileOpen(false)}
+            >
+              {t('nav.bookDemo')}
+            </DemoButton>
             <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>{t('nav.startFreeTrial')}</a>
           </div>
         </div>

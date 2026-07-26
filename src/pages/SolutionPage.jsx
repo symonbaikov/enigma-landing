@@ -6,26 +6,54 @@ import { ArrowRight } from '../components/icons.jsx';
 import { IllustrationIcon } from '../components/Illustrations.jsx';
 import { Link } from 'react-router-dom';
 import { renderText, sourceId } from '../lib/cite.jsx';
+import DemoButton from '../components/DemoButton.jsx';
+import OwnershipStories from '../components/OwnershipStories.jsx';
+import PageExplainer from '../components/PageExplainer.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '../lib/seo.js';
 
 export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pain_points, benefits, eeat, faq, cta_title, cta_desc }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, pain_points, benefits, eeat, faq, cta_title, cta_desc });
+  const explainerLabels = t('pageExplainers.labels', { returnObjects: true });
+  const rawExplainer = t(`pageExplainers.solutions.${slug.replace(/^solution-/, '')}`, { returnObjects: true });
+  const explainer = rawExplainer && typeof rawExplainer === 'object'
+    ? { ...(typeof explainerLabels === 'object' ? explainerLabels : {}), ...rawExplainer }
+    : null;
 
+  const lang = String(i18n.language || 'uk').split('-')[0];
+  const path = `/solutions/${slug.replace(/^solution-/, '')}`;
   const titleLines = c.hero_title.split('\n');
   const sources = Array.isArray(c.eeat) ? c.eeat : [];
   const faqs = Array.isArray(c.faq) ? c.faq : [];
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: c.hero_title.replace(/\n/g, ' '),
-    about: c.eyebrow,
-    isPartOf: { '@type': 'WebSite', name: 'Enigma' },
-  };
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>
+      <Seo
+        title={c.hero_title}
+        description={c.hero_desc}
+        path={path}
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({ path, title: c.hero_title, description: c.hero_desc, lang }),
+          buildArticleSchema({ path, title: c.hero_title, description: c.hero_desc, lang, section: c.eyebrow }),
+          buildFaqSchema(faqs),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.useCases'), path: '/solutions/b2b-saas' },
+            { name: c.hero_title.replace(/\n/g, ' '), path },
+          ]),
+        ]}
+      />
 
       {/* Hero */}
       <section className="page-hero galactic">
@@ -42,7 +70,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
             </h1>
             <p className="page-hero-desc">{c.hero_desc}</p>
             <div className="page-hero-actions">
-              <button type="button" className="btn btn-dark btn-lg" data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('solutionPage.bookDemo')} <ArrowRight/></button>
+              <DemoButton className="btn btn-dark btn-lg">{t('solutionPage.bookDemo')} <ArrowRight/></DemoButton>
               <Link to="/pricing" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}>{t('solutionPage.viewPricing')}</Link>
             </div>
           </Reveal>
@@ -66,6 +94,8 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
           </div>
         </div>
       </section>
+
+      <PageExplainer content={explainer}/>
 
       {/* Benefits */}
       <section className="inner-section" style={{ background: 'var(--paper)', padding: '100px 0' }}>
@@ -109,6 +139,8 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
         </section>
       )}
 
+      <OwnershipStories compact/>
+
       {/* FAQ */}
       {faqs.length > 0 && (
         <section className="inner-section" style={{ background: 'var(--paper)', padding: '100px 0' }}>
@@ -137,7 +169,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
           <Reveal variant="blur" as="h2" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: 'clamp(48px,5vw,72px)', lineHeight: 0.98, letterSpacing: '-0.02em', color: 'var(--cream)', marginBottom: 18 }}>{c.cta_title}</Reveal>
           <p style={{ fontSize: 18, color: 'rgba(244,239,230,0.72)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
           <div className="cta-actions">
-            <button type="button" className="btn btn-cobalt btn-lg" data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('solutionPage.bookDemo')} <ArrowRight/></button>
+            <DemoButton className="btn btn-cobalt btn-lg">{t('solutionPage.bookDemo')} <ArrowRight/></DemoButton>
             <Link to="/pricing" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', cursor: 'pointer' }}>{t('solutionPage.viewPricing')}</Link>
           </div>
         </div>

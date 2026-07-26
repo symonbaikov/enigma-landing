@@ -5,27 +5,59 @@ import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { Link } from 'react-router-dom';
 import { renderText, sourceId } from '../lib/cite.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  absoluteUrl,
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+  plainText,
+} from '../lib/seo.js';
 
 export default function AeoFaqPage({ slug, eyebrow, hero_title, hero_desc, glossary, faq, eeat, cta_title, cta_desc }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, glossary, faq, eeat, cta_title, cta_desc });
 
+  const lang = String(i18n.language || 'uk').split('-')[0];
+  const path = '/resources/aeo-faq';
   const titleLines = c.hero_title.split('\n');
   const terms = Array.isArray(c.glossary) ? c.glossary : [];
   const faqs = Array.isArray(c.faq) ? c.faq : [];
   const sources = Array.isArray(c.eeat) ? c.eeat : [];
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: c.hero_title.replace(/\n/g, ' '),
-    about: ['GEO glossary', 'AEO definitions', 'RAG', 'citation absorption'],
-    isPartOf: { '@type': 'WebSite', name: 'Enigma' },
-  };
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>
+      <Seo
+        title={c.hero_title}
+        description={c.hero_desc}
+        path={path}
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({ path, title: c.hero_title, description: c.hero_desc, lang }),
+          buildArticleSchema({ path, title: c.hero_title, description: c.hero_desc, lang, section: c.eyebrow }),
+          terms.length ? {
+            '@type': 'DefinedTermSet',
+            '@id': absoluteUrl(`${path}#terms`),
+            name: plainText(c.hero_title),
+            hasDefinedTerm: terms.map((term) => ({
+              '@type': 'DefinedTerm',
+              name: plainText(term.term),
+              description: plainText(term.def),
+            })),
+          } : null,
+          buildFaqSchema(faqs),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.resources'), path: '/resources/geo-playbook' },
+            { name: c.hero_title.replace(/\n/g, ' '), path },
+          ]),
+        ]}
+      />
 
       {/* Hero */}
       <section className="page-hero galactic">

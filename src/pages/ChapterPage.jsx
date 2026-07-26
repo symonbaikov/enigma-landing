@@ -1,11 +1,12 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { chapters } from '../content/chapters.js';
+import { getChapters } from '../content/chapters.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function ChapterPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { slug } = useParams();
+  const chapters = getChapters(i18n.language);
   const idx = chapters.findIndex(c => c.slug === slug);
   if (idx === -1) return <Navigate to="/resources/geo-playbook" replace/>;
 

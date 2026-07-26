@@ -65,23 +65,23 @@ const AICarousel = () => {
             <LogoImg src={slide.logoSrc} alt={slide.name}/>
           </div>
           <div style={{
-            fontSize: 11, fontWeight: 600, padding: '4px 10px', borderRadius: 99,
+            fontSize: 13, fontWeight: 600, padding: '5px 12px', borderRadius: 99,
             background: 'rgba(107,63,255,0.08)', color: 'var(--cobalt)',
           }}>
             {t('hero.schematicTag')}
           </div>
         </div>
-        <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--ink)', opacity: 0.85, margin: 0 }}>
+        <p style={{ fontSize: 18, lineHeight: 1.65, color: 'var(--ink)', opacity: 0.85, margin: 0 }}>
           {t(`hero.slides.${slide.key}.hook`)}
         </p>
         <div style={{
           marginTop: 20, display: 'inline-flex', alignItems: 'center', gap: 8,
-          background: 'white', borderRadius: 999, padding: '7px 14px',
-          fontSize: 12, color: 'var(--muted)',
+          background: 'white', borderRadius: 999, padding: '9px 16px',
+          fontSize: 15, color: 'var(--muted)',
           boxShadow: '0 2px 12px -4px rgba(0,0,0,0.12)',
           border: '1px solid rgba(31,26,20,0.07)',
         }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M20 20l-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="M20 20l-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
           "{t(`hero.slides.${slide.key}.queryExample`)}"
         </div>
       </div>
@@ -98,7 +98,7 @@ const AICarousel = () => {
             }}
           />
         ))}
-        <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--muted)' }}>
+        <span style={{ marginLeft: 'auto', fontSize: 13, color: 'var(--muted)' }}>
           {t('hero.schematicCaption')} · {idx + 1} / {AI_SLIDES.length}
         </span>
       </div>

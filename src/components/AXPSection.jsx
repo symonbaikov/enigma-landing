@@ -1,89 +1,63 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
-import { AILogoAvatar } from './BrandLogos.jsx';
 
+const asArray = (value) => Array.isArray(value) ? value : [];
 
-const ChatBubble = ({ text, cited, citedLabel, url }) => (
-  <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-    <div style={{ marginTop: 2 }}>
-      <AILogoAvatar name="ChatGPT" size={28}/>
-    </div>
-    <div style={{ flex: 1, background: 'white', border: '1px solid var(--line)', borderRadius: '4px 16px 16px 16px', padding: '14px 16px', fontSize: 14, lineHeight: 1.6, color: 'var(--ink)' }}>
-      {text}
-      {cited && (
-        <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 8px', borderRadius: 99, fontWeight: 600 }}>{citedLabel}</span>
-          <span style={{ fontSize: 12, color: '#6B3FFF', fontFamily: 'monospace' }}>{url}</span>
-        </div>
-      )}
-    </div>
-  </div>
-);
-
-const CitationDemo = () => {
+const ReadinessVisual = () => {
   const { t } = useTranslation();
+  const checks = asArray(t('visuals.axp.checks', { returnObjects: true }));
+  const steps = asArray(t('visuals.axp.steps', { returnObjects: true }));
+  const evidence = asArray(t('visuals.axp.evidence', { returnObjects: true }));
+
   return (
-    <div className="axp-citation-demo" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 900, margin: '0 auto' }}>
-
-      {/* Without AXP */}
-      <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(31,26,20,0.1)' }}>
-        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <AILogoAvatar name="ChatGPT" size={20}/>
-            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
-          </div>
-          <span style={{ fontSize: 11, background: 'rgba(239,68,68,0.1)', color: '#DC2626', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>{t('axp.withoutLabel')}</span>
+    <div className="axp-readiness-visual float-slow">
+      <div className="axp-panel axp-page-panel">
+        <div className="visual-kicker">{t('visuals.axp.auditLabel')}</div>
+        <div className="axp-url-bar">
+          <span/>
+          <code>{t('visuals.axp.url')}</code>
         </div>
-        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
-              {t('axp.query')}
+        <h4>{t('visuals.axp.pageTitle')}</h4>
+        <div className="axp-check-list">
+          {checks.map((row) => (
+            <div className={`axp-check axp-check-${row.tone || 'neutral'}`} key={row.metric}>
+              <div>
+                <strong>{row.metric}</strong>
+                <span>{row.detail}</span>
+              </div>
+              <em>{row.state}</em>
             </div>
-          </div>
-          <ChatBubble text={
-            <>
-              {t('axp.withoutText1')} <strong>AgentCore</strong>, <strong>NeuralOps</strong> {t('axp.withoutAnd')} <strong>CloudMind AI</strong> {t('axp.withoutText2')}
-              <br/><br/>
-              <span style={{ color: 'var(--muted)', fontStyle: 'italic' }}>{t('axp.withoutText3')}</span>
-            </>
-          }/>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block' }}/>
-            <span style={{ fontSize: 12, color: '#DC2626', fontWeight: 500 }}>{t('axp.brandNotMentioned')}</span>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* With AXP */}
-      <div style={{ background: 'white', border: '1.5px solid rgba(107,63,255,0.3)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px -8px rgba(107,63,255,0.2)' }}>
-        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <AILogoAvatar name="ChatGPT" size={20}/>
-            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>ChatGPT</span>
-          </div>
-          <span style={{ fontSize: 11, background: 'rgba(107,63,255,0.1)', color: '#6B3FFF', padding: '3px 10px', borderRadius: 99, fontWeight: 600 }}>{t('axp.withLabel')}</span>
-        </div>
-        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <div style={{ background: '#F4F4F4', borderRadius: '16px 4px 16px 16px', padding: '10px 14px', fontSize: 13, color: 'var(--ink)', maxWidth: '85%', lineHeight: 1.5 }}>
-              {t('axp.query')}
+      <div className="axp-flow-rail" aria-hidden="true">
+        {steps.map((step, index) => (
+          <div className="axp-flow-step" key={step.title}>
+            <span>{index + 1}</span>
+            <div>
+              <strong>{step.title}</strong>
+              <small>{step.desc}</small>
             </div>
           </div>
-          <ChatBubble cited citedLabel={t('axp.cited')} url="voltaic.systems" text={
-            <>
-              <strong>Voltaic Systems</strong> {t('axp.withText1')}
-              <br/><br/>
-              {t('axp.withText2')}
-            </>
-          }/>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', display: 'inline-block' }}/>
-            <span style={{ fontSize: 12, color: '#059669', fontWeight: 500 }}>{t('axp.brandCitedFirst')}</span>
-          </div>
-        </div>
+        ))}
       </div>
 
+      <div className="axp-panel axp-answer-panel">
+        <div className="visual-kicker">{t('visuals.axp.answerLabel')}</div>
+        <h4>{t('visuals.axp.answerTitle')}</h4>
+        <p>{t('visuals.axp.answerDesc')}</p>
+        <div className="axp-evidence-stack">
+          {evidence.map((item) => (
+            <div className="axp-evidence" key={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
@@ -103,11 +77,11 @@ export default function AXPSection() {
           </Reveal>
           <Reveal variant="left" delay={2} className="col-r">
             <p>{t('axp.desc')}</p>
-            <button className="btn btn-cobalt btn-lg">{t('axp.exploreBtn')} <ArrowRight/></button>
+            <Link to="/product/axp" className="btn btn-cobalt btn-lg">{t('axp.exploreBtn')} <ArrowRight/></Link>
           </Reveal>
         </div>
 
-        <Reveal variant="up-sm"><CitationDemo/></Reveal>
+        <Reveal variant="up-sm"><ReadinessVisual/></Reveal>
 
         <div className="feature-row">
           <Reveal variant="up" delay={1} className="feature-card">

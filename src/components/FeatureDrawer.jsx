@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IllustrationIcon } from './Illustrations.jsx';
 import { renderText } from '../lib/cite.jsx';
+import DemoButton from './DemoButton.jsx';
 
 export default function FeatureDrawer({ feature, onClose }) {
   const { t } = useTranslation();
@@ -120,10 +121,7 @@ export default function FeatureDrawer({ feature, onClose }) {
             )}
 
             <div style={{ marginTop: 36 }}>
-              <button type="button"
-                data-cal-link="symon-baikov"
-                data-cal-namespace="demo"
-                data-cal-config='{"layout":"month_view"}'
+              <DemoButton
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 8,
                   background: '#5B21B6', color: 'white',
@@ -136,7 +134,7 @@ export default function FeatureDrawer({ feature, onClose }) {
                 onMouseLeave={e => e.currentTarget.style.opacity = '1'}
               >
                 {t('featureDrawer.bookDemo')}
-              </button>
+              </DemoButton>
             </div>
           </div>
         )}

@@ -5,9 +5,21 @@ import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { IllustrationIcon } from '../components/Illustrations.jsx';
+import DemoButton from '../components/DemoButton.jsx';
 import FeatureDrawer from '../components/FeatureDrawer.jsx';
+import OwnershipStories from '../components/OwnershipStories.jsx';
+import PageExplainer from '../components/PageExplainer.jsx';
+import Seo from '../components/Seo.jsx';
 import { Link } from 'react-router-dom';
 import { renderText, sourceId } from '../lib/cite.jsx';
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '../lib/seo.js';
 
 /* Neutral schematic — illustrative only, no fabricated metrics.
    Per audit (17.05.2026): no invented numbers, citations or testimonials in product UI. */
@@ -43,26 +55,42 @@ const ProductVisual = ({ slug }) => {
 };
 
 export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, context, steps, features, eeat, faq, cta_title, cta_desc }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, context, steps, features, eeat, faq, cta_title, cta_desc });
   const [activeFeature, setActiveFeature] = useState(null);
+  const explainerLabels = t('pageExplainers.labels', { returnObjects: true });
+  const rawExplainer = t(`pageExplainers.products.${slug.replace(/^product-/, '')}`, { returnObjects: true });
+  const explainer = rawExplainer && typeof rawExplainer === 'object'
+    ? { ...(typeof explainerLabels === 'object' ? explainerLabels : {}), ...rawExplainer }
+    : null;
 
+  const lang = String(i18n.language || 'uk').split('-')[0];
+  const path = `/product/${slug.replace(/^product-/, '')}`;
   const titleLines = c.hero_title.split('\n');
   const ctx = Array.isArray(c.context) ? c.context : [];
   const sources = Array.isArray(c.eeat) ? c.eeat : [];
   const faqs = Array.isArray(c.faq) ? c.faq : [];
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: c.hero_title.replace(/\n/g, ' '),
-    about: c.eyebrow,
-    isPartOf: { '@type': 'WebSite', name: 'Enigma' },
-  };
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>
+      <Seo
+        title={c.hero_title}
+        description={c.hero_desc}
+        path={path}
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({ path, title: c.hero_title, description: c.hero_desc, lang }),
+          buildArticleSchema({ path, title: c.hero_title, description: c.hero_desc, lang, section: c.eyebrow }),
+          buildFaqSchema(faqs),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.product'), path: '/product/axp' },
+            { name: c.hero_title.replace(/\n/g, ' '), path },
+          ]),
+        ]}
+      />
 
       {/* Hero */}
       <section className="page-hero galactic">
@@ -106,6 +134,8 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, cont
           </div>
         </section>
       )}
+
+      <PageExplainer content={explainer}/>
 
       {/* Product Visual — neutral schematic */}
       <ProductVisual slug={slug}/>
@@ -177,6 +207,8 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, cont
         </section>
       )}
 
+      <OwnershipStories compact/>
+
       {/* FAQ */}
       {faqs.length > 0 && (
         <section style={{ background: 'var(--paper)', padding: '100px 0' }}>
@@ -206,7 +238,12 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, cont
           <p style={{ fontSize: 18, color: 'rgba(244,239,230,0.72)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
           <div className="cta-actions">
             <Link to="/pricing" className="btn btn-cobalt btn-lg">{t('productPage.startFreeTrial')} <ArrowRight/></Link>
-            <button type="button" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('productPage.bookDemo')}</button>
+            <DemoButton
+              className="btn btn-lg"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+            >
+              {t('productPage.bookDemo')}
+            </DemoButton>
           </div>
         </div>
       </section>

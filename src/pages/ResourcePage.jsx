@@ -4,6 +4,21 @@ import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { Link } from 'react-router-dom';
+import DemoButton from '../components/DemoButton.jsx';
+import OwnershipStories from '../components/OwnershipStories.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  buildBreadcrumbSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '../lib/seo.js';
+
+const RESOURCE_PATHS = {
+  'resource-geo-playbook': '/resources/geo-playbook',
+  'resource-research-lab': '/resources/research-lab',
+  'resource-changelog': '/resources/changelog',
+};
 
 function ChapterList({ chapters }) {
   return (
@@ -73,12 +88,37 @@ function ChangelogList({ updates }) {
 }
 
 export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc });
+  const lang = String(i18n.language || 'uk').split('-')[0];
+  const path = RESOURCE_PATHS[slug] || `/resources/${slug.replace(/^resource-/, '')}`;
   const titleLines = c.hero_title.split('\n');
 
   return (
     <>
+      <Seo
+        title={c.hero_title}
+        description={c.hero_desc}
+        path={path}
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({
+            path,
+            title: c.hero_title,
+            description: c.hero_desc,
+            lang,
+            type: c.chapters || c.articles ? 'CollectionPage' : 'WebPage',
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.resources'), path },
+            { name: c.hero_title.replace(/\n/g, ' '), path },
+          ]),
+        ]}
+      />
+
       {/* Hero */}
       <section className="page-hero galactic">
         <Starfield density={70}/>
@@ -105,6 +145,8 @@ export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, cha
         </div>
       </section>
 
+      <OwnershipStories compact/>
+
       {/* CTA */}
       <section className="dark-section galactic" style={{ padding: '120px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <Starfield density={60}/>
@@ -115,7 +157,12 @@ export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, cha
           <p style={{ fontSize: 18, color: 'rgba(244,239,230,0.72)', maxWidth: 480, margin: '0 auto 36px', lineHeight: 1.55 }}>{c.cta_desc}</p>
           <div className="cta-actions">
             <Link to="/pricing" className="btn btn-cobalt btn-lg">{t('resourcePage.startFreeTrial')} <ArrowRight/></Link>
-            <button type="button" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('resourcePage.bookDemo')}</button>
+            <DemoButton
+              className="btn btn-lg"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+            >
+              {t('resourcePage.bookDemo')}
+            </DemoButton>
           </div>
         </div>
       </section>

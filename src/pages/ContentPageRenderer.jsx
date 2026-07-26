@@ -1,10 +1,20 @@
 /* Shared article/chapter renderer — used by ArticlePage and ChapterPage */
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora } from '../galactic.jsx';
 import { renderText, sourceId } from '../lib/cite.jsx';
 import { ArrowRight } from '../components/icons.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+  extractFaqItems,
+} from '../lib/seo.js';
 
 /* ── Charts ─────────────────────────────────────────────────────────── */
 
@@ -108,7 +118,7 @@ function ModelComparisonChart() {
               <circle cx="55" cy="55" r={r} fill="none" stroke="#e8e3da" strokeWidth="10"/>
               <circle cx="55" cy="55" r={r} fill="none" stroke={m.color} strokeWidth="10"
                 strokeDasharray={`${c * m.overlap / 100} ${c}`} strokeLinecap="round" transform="rotate(-90 55 55)"/>
-              <text x="55" y="50" textAnchor="middle" fontSize="18" fontWeight="700" fill="#1a1612">{m.overlap}%</text>
+              <text x="55" y="50" textAnchor="middle" fontSize="18" fontWeight="700" fill="#262524">{m.overlap}%</text>
               <text x="55" y="67" textAnchor="middle" fontSize="10" fill="#9e9484">{t('charts.overlap')}</text>
             </svg>
             <div style={{ fontSize: 13, fontWeight: 600, marginTop: 4 }}>{m.name}</div>
@@ -325,20 +335,20 @@ export function renderSection(s, i) {
   switch (s.type) {
     case 'lead':
       return (
-        <p key={i} style={{ fontSize: 20, lineHeight: 1.65, color: '#3a3328', fontWeight: 400, marginBottom: 40, maxWidth: 680 }}>
+        <p key={i} style={{ fontSize: 20, lineHeight: 1.65, color: '#262524', fontWeight: 400, marginBottom: 40, maxWidth: 680 }}>
           {renderText(s.text)}
         </p>
       );
     case 'paragraph':
       return (
-        <p key={i} style={{ fontSize: 17, lineHeight: 1.7, color: '#4a4238', marginBottom: 28 }}>
+        <p key={i} style={{ fontSize: 17, lineHeight: 1.7, color: '#262524', marginBottom: 28 }}>
           {renderText(s.text)}
         </p>
       );
     case 'heading':
       return (
         <Reveal key={i} variant="up">
-          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 'clamp(26px, 3vw, 36px)', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#1a1612', margin: '56px 0 20px' }}>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 'clamp(26px, 3vw, 36px)', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#262524', margin: '56px 0 20px' }}>
             {s.text}
           </h2>
         </Reveal>
@@ -363,7 +373,7 @@ export function renderSection(s, i) {
       return (
         <Reveal key={i} variant="up">
           <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', borderRadius: 12, padding: '32px', margin: '40px 0' }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#1a1612', marginBottom: 20 }}>{s.title}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#262524', marginBottom: 20 }}>{s.title}</div>
             {Chart && <Chart/>}
             <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 16, fontStyle: 'italic' }}>{s.caption}</div>
           </div>
@@ -378,8 +388,8 @@ export function renderSection(s, i) {
               <div key={j} id={sourceId(item.title)} style={{ display: 'flex', gap: 16, marginBottom: 20, paddingBottom: 20, borderBottom: j < s.items.length - 1 ? '1px solid var(--line)' : 'none' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#6B3FFF', marginTop: 8, flexShrink: 0 }}/>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 4 }}>{renderText(item.title)}</div>
-                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: '#262524', marginBottom: 4 }}>{renderText(item.title)}</div>
+                  <p style={{ fontSize: 15, color: '#262524', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
                 </div>
               </div>
             ))}
@@ -394,8 +404,8 @@ export function renderSection(s, i) {
               <div key={j} style={{ display: 'flex', gap: 24, marginBottom: 28 }}>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 300, color: '#c8bfa8', lineHeight: 1, minWidth: 32 }}>{item.num}</div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1612', marginBottom: 6 }}>{renderText(item.title)}</div>
-                  <p style={{ fontSize: 15, color: '#6a5f50', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: '#262524', marginBottom: 6 }}>{renderText(item.title)}</div>
+                  <p style={{ fontSize: 15, color: '#262524', lineHeight: 1.6, margin: 0 }}>{renderText(item.desc)}</p>
                 </div>
               </div>
             ))}
@@ -405,7 +415,7 @@ export function renderSection(s, i) {
     case 'quote':
       return (
         <Reveal key={i} variant="up">
-          <blockquote style={{ borderLeft: '3px solid #6B3FFF', paddingLeft: 28, margin: '40px 0', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, fontWeight: 400, color: '#1a1612' }}>
+          <blockquote style={{ borderLeft: '3px solid #6B3FFF', paddingLeft: 28, margin: '40px 0', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 'clamp(20px, 2.5vw, 26px)', lineHeight: 1.45, fontWeight: 400, color: '#262524' }}>
             "{renderText(s.text)}"
             <cite style={{ display: 'block', fontStyle: 'normal', fontSize: 13, fontFamily: "'Inter', sans-serif", color: 'var(--muted)', marginTop: 12, letterSpacing: '0.06em', textTransform: 'uppercase' }}>— {renderText(s.attr)}</cite>
           </blockquote>
@@ -419,9 +429,38 @@ export function renderSection(s, i) {
 /* ── Shared page layout ──────────────────────────────────────────────── */
 
 export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPath }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { pathname } = useLocation();
+  const lang = String(i18n.language || 'uk').split('-')[0];
+  const faqItems = extractFaqItems(item.sections);
+
   return (
     <>
+      <Seo
+        title={item.title}
+        description={item.subtitle}
+        path={pathname}
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({ path: pathname, title: item.title, description: item.subtitle, lang }),
+          buildArticleSchema({
+            path: pathname,
+            title: item.title,
+            description: item.subtitle,
+            lang,
+            section: item.eyebrow,
+          }),
+          buildFaqSchema(faqItems),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: backLabel, path: backPath },
+            { name: item.title, path: pathname },
+          ]),
+        ]}
+      />
+
       <section className="page-hero galactic" style={{ paddingBottom: 80 }}>
         <Starfield density={60}/>
         <Aurora/>
@@ -463,7 +502,7 @@ export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPat
               <div>
                 {nextItem.num && <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>{t('contentPage.chapter')} {nextItem.num}</div>}
                 {nextItem.date && <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>{nextItem.date} · {nextItem.eyebrow}</div>}
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 'clamp(22px, 3vw, 30px)', color: '#1a1612', lineHeight: 1.2, margin: 0 }}>{nextItem.title}</h3>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 'clamp(22px, 3vw, 30px)', color: '#262524', lineHeight: 1.2, margin: 0 }}>{nextItem.title}</h3>
               </div>
               <ArrowRight size={20} style={{ color: '#6B3FFF', flexShrink: 0 }}/>
             </Link>

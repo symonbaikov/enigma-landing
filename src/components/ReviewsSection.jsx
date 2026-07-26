@@ -29,7 +29,7 @@ export default function ReviewsSection() {
                   <div>
                     <div className="review-author">{item.author}</div>
                     <div className="review-meta">
-                      {item.role}{item.company ? ` — ${item.company}` : ''}
+                      {item.role}{item.company ? ` - ${item.company}` : ''}
                     </div>
                   </div>
                 </article>

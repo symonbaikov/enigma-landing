@@ -4,13 +4,44 @@ import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
 import { getBlogPosts } from '../content/blog.js';
+import DemoButton from '../components/DemoButton.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  buildBreadcrumbSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '../lib/seo.js';
 
 export default function BlogPage() {
   const { t, i18n } = useTranslation();
   const blogPosts = getBlogPosts(i18n.language);
+  const lang = String(i18n.language || 'uk').split('-')[0];
 
   return (
     <>
+      <Seo
+        title={t('nav.tiles.aiSearchTrends')}
+        description={t('nav.tiles.aiSearchTrendsDesc')}
+        path="/blog"
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({
+            path: '/blog',
+            title: t('nav.tiles.aiSearchTrends'),
+            description: t('nav.tiles.aiSearchTrendsDesc'),
+            lang,
+            type: 'CollectionPage',
+          }),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.tiles.aiSearchTrends'), path: '/blog' },
+          ]),
+        ]}
+      />
+
       {/* Hero */}
       <section className="page-hero galactic">
         <Starfield density={70}/>
@@ -58,7 +89,12 @@ export default function BlogPage() {
           </p>
           <div className="cta-actions">
             <Link to="/pricing" className="btn btn-cobalt btn-lg">{t('resourcePage.startFreeTrial')} <ArrowRight/></Link>
-            <button type="button" className="btn btn-lg" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('resourcePage.bookDemo')}</button>
+            <DemoButton
+              className="btn btn-lg"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(244,239,230,0.25)', color: 'var(--cream)', borderRadius: 999, padding: '14px 22px', fontSize: 15, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+            >
+              {t('resourcePage.bookDemo')}
+            </DemoButton>
           </div>
         </div>
       </section>

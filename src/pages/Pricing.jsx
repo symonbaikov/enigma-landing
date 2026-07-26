@@ -7,8 +7,19 @@ import { ArrowRight, Check } from '../components/icons.jsx';
 import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 import { getPricing } from '../content/index.js';
+import DemoButton from '../components/DemoButton.jsx';
+import OwnershipStories from '../components/OwnershipStories.jsx';
+import Seo from '../components/Seo.jsx';
+import {
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildOrganizationSchema,
+  buildWebPageSchema,
+  buildWebsiteSchema,
+} from '../lib/seo.js';
 
 const PLATFORM_URL = import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000';
+const SHOW_BRAND_LOGO_SECTIONS = false;
 
 function PlanCta({ plan }) {
   const slug = plan.name.toLowerCase();
@@ -27,12 +38,30 @@ function PlanCta({ plan }) {
 }
 
 export default function Pricing() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const c = useContent('pricing', getPricing(t));
   const [annual, setAnnual] = useState(true);
+  const lang = String(i18n.language || 'uk').split('-')[0];
 
   return (
     <>
+      <Seo
+        title={c.hero_title}
+        description={c.hero_desc}
+        path="/pricing"
+        lang={lang}
+        schema={[
+          buildOrganizationSchema(),
+          buildWebsiteSchema({ lang }),
+          buildWebPageSchema({ path: '/pricing', title: c.hero_title, description: c.hero_desc, lang }),
+          buildFaqSchema(c.faqs),
+          buildBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: t('nav.pricing'), path: '/pricing' },
+          ]),
+        ]}
+      />
+
       {/* Hero */}
       <section className="page-hero galactic" style={{ paddingBottom: 80 }}>
         <Starfield density={80}/>
@@ -94,16 +123,20 @@ export default function Pricing() {
       </section>
 
       {/* Logos */}
-      <section style={{ background: 'var(--paper)', padding: '60px 0 80px', borderTop: '1px solid var(--line)' }}>
-        <div className="container-wide">
-          <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>{t('pricing.trustedBy')}</div>
-          <div className="logo-row" style={{ marginTop: 28 }}>
-            {['Grammarly', 'MacPaw', 'Preply', 'Monobank', 'Ajax', 'Rozetka'].map(n =>
-              <div className="logo-cell" key={n}><CompanyLogo name={n} height={20}/></div>
-            )}
+      {SHOW_BRAND_LOGO_SECTIONS && (
+        <section style={{ background: 'var(--paper)', padding: '60px 0 80px', borderTop: '1px solid var(--line)' }}>
+          <div className="container-wide">
+            <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>{t('pricing.trustedBy')}</div>
+            <div className="logo-row" style={{ marginTop: 28 }}>
+              {['Grammarly', 'MacPaw', 'Preply', 'Monobank', 'Ajax', 'Rozetka'].map(n =>
+                <div className="logo-cell" key={n}><CompanyLogo name={n} height={20}/></div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      <OwnershipStories compact/>
 
       {/* FAQ */}
       <section style={{ background: 'var(--cream)', padding: '80px 0 100px' }}>
@@ -129,7 +162,12 @@ export default function Pricing() {
           <p className="lede" style={{ margin: '16px auto 36px' }}>{t('pricing.finalCtaDesc')}</p>
           <div className="cta-actions">
             <a href="#" className="btn btn-dark btn-lg">{t('pricing.getStartedFree')} <ArrowRight/></a>
-            <button type="button" className="btn btn-outline btn-lg" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }} data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('pricing.bookDemo')}</button>
+            <DemoButton
+              className="btn btn-outline btn-lg"
+              style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}
+            >
+              {t('pricing.bookDemo')}
+            </DemoButton>
           </div>
         </div>
       </section>

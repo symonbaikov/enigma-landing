@@ -166,6 +166,10 @@
 /* Stacking for hero visual + galactic sections */
 .hero-visual .starfield, .hero-visual .aurora { z-index: 2; }
 .hero-visual .hero-card { z-index: 5; }
+.galactic {
+  position: relative;
+  overflow: hidden;
+}
 .galactic .container-wide, .galactic .container { position: relative; z-index: 5; }
 
 /* CTA galactic — keep cream base but layer aurora on top */

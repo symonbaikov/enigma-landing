@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
+import DemoButton from './DemoButton.jsx';
 
 export default function CTA() {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function CTA() {
         </Reveal>
         <p className="lede" style={{margin: '0 auto 36px'}}>{t('cta.desc')}</p>
         <div className="cta-actions">
-          <button className="btn btn-dark btn-lg" data-cal-link="symon-baikov" data-cal-namespace="demo" data-cal-config='{"layout":"month_view"}'>{t('cta.bookDemo')} <ArrowRight/></button>
+          <DemoButton className="btn btn-dark btn-lg">{t('cta.bookDemo')} <ArrowRight/></DemoButton>
           <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline btn-lg">{t('cta.runFreeAudit')}</a>
         </div>
       </div>
