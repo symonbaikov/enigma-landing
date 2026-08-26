@@ -22,6 +22,10 @@ function BurgerIcon({ open }) {
    Switching language is a real navigation to the localized URL, not a state
    change: the locale lives in the path, so the address bar, <html lang>,
    canonical and hreflang can never drift apart. */
+/* One width for the trigger and the menu: a narrow button over a wide list
+   reads as two unrelated controls. */
+const LANG_MENU_WIDTH = 186;
+
 function LangMenu() {
   const [open, setOpen] = useState(false);
   const boxRef = useRef(null);
@@ -53,25 +57,26 @@ function LangMenu() {
     <div ref={boxRef} style={{ position: 'relative', flexShrink: 0 }}>
       <button
         onClick={() => setOpen(v => !v)}
+        className="lang-trigger"
         aria-label="Change language"
         aria-haspopup="listbox"
         aria-expanded={open}
         style={{
-          display: 'flex', alignItems: 'center', gap: 7,
+          display: 'flex', alignItems: 'center', gap: 10,
           background: 'rgba(31,26,20,0.06)',
           border: '1px solid rgba(31,26,20,0.12)',
           borderRadius: 999,
-          padding: '5px 10px 5px 6px',
+          padding: '6px 14px 6px 7px',
           cursor: 'pointer',
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 600,
-          letterSpacing: '0.02em',
+          letterSpacing: '0.01em',
           color: 'var(--ink, #1f1a14)',
         }}
       >
-        <active.Flag size={22}/>
-        <span style={{ textTransform: 'uppercase' }}>{active.code}</span>
-        <span style={{ width: 12, height: 12, display: 'block', opacity: 0.55, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+        <active.Flag size={30}/>
+        <span className="lang-trigger-name">{LOCALE_NAMES[active.code]}</span>
+        <span style={{ width: 13, height: 13, display: 'block', flexShrink: 0, opacity: 0.55, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
           <ChevronDown/>
         </span>
       </button>
@@ -80,9 +85,10 @@ function LangMenu() {
         <ul
           role="listbox"
           style={{
-            position: 'absolute', top: 'calc(100% + 8px)', right: 0, zIndex: 60,
+            position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 60,
             listStyle: 'none', margin: 0, padding: 6,
-            minWidth: 190,
+            width: LANG_MENU_WIDTH,
+            boxSizing: 'border-box',
             background: 'var(--paper, #fdfaf5)',
             border: '1px solid rgba(31,26,20,0.12)',
             borderRadius: 14,
@@ -99,7 +105,7 @@ function LangMenu() {
                   onClick={() => switchTo(code)}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 10, width: '100%',
-                    padding: '9px 10px',
+                    padding: '8px 8px',
                     background: isActive ? 'rgba(31,26,20,0.06)' : 'transparent',
                     border: 'none', borderRadius: 10,
                     cursor: 'pointer', textAlign: 'left',
@@ -107,7 +113,7 @@ function LangMenu() {
                     color: 'var(--ink, #1f1a14)',
                   }}
                 >
-                  <Flag size={24}/>
+                  <Flag size={30}/>
                   <span style={{ flex: 1 }}>{LOCALE_NAMES[code]}</span>
                   {isActive && <span style={{ width: 14, height: 14, opacity: 0.7 }}><Check/></span>}
                 </button>

@@ -3570,3 +3570,14 @@ select,
   font-style: normal !important;
   font-weight: inherit !important;
 }
+
+/* Language menu — the trigger matches the width of the list it opens.
+   Between 980px and 1400px the nav is already tight, so the trigger drops
+   back to flag + chevron rather than pushing the CTAs off the row. */
+.lang-trigger { width: 186px; }
+.lang-trigger-name { flex: 1; text-align: left; }
+
+@media (min-width: 981px) and (max-width: 1400px) {
+  .lang-trigger { width: auto; }
+  .lang-trigger-name { display: none; }
+}
