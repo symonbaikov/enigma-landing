@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import i18nSingleton from '../i18n/index.js';
-import { EnigmaMark, ChevronDown, ArrowRight } from './icons.jsx';
+import { currentLocale, basename, localePath, LOCALE_NAMES } from '../lib/locale.js';
+import { EnigmaMark, ChevronDown, ArrowRight, Check, FlagGB, FlagUA, FlagRUFree } from './icons.jsx';
 import WaitlistCta from './WaitlistCta.jsx';
 
 function BurgerIcon({ open }) {
@@ -18,45 +18,105 @@ function BurgerIcon({ open }) {
   );
 }
 
-function LangSwitch() {
-  const { i18n } = useTranslation();
-  const isUk = i18n.language === 'uk';
+/* Language menu.
+   Switching language is a real navigation to the localized URL, not a state
+   change: the locale lives in the path, so the address bar, <html lang>,
+   canonical and hreflang can never drift apart. */
+function LangMenu() {
+  const [open, setOpen] = useState(false);
+  const boxRef = useRef(null);
 
-  const toggle = () => i18nSingleton.changeLanguage(isUk ? 'ru' : 'uk');
+  const options = [
+    { code: 'en', Flag: FlagGB },
+    { code: 'uk', Flag: FlagUA },
+    { code: 'ru', Flag: FlagRUFree },
+  ];
+  const active = options.find(o => o.code === currentLocale) || options[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => { if (!boxRef.current?.contains(e.target)) setOpen(false); };
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
+  }, [open]);
+
+  const switchTo = (code) => {
+    if (code === currentLocale) { setOpen(false); return; }
+    // Keep the reader on the same page in the new language.
+    const rest = window.location.pathname.slice(basename === '/' ? 0 : basename.length) || '/';
+    window.location.assign(localePath(rest, code) + window.location.search + window.location.hash);
+  };
 
   return (
-    <button
-      onClick={toggle}
-      aria-label="Switch language"
-      style={{
-        display: 'flex', alignItems: 'center', gap: 0,
-        background: 'rgba(31,26,20,0.06)',
-        border: '1px solid rgba(31,26,20,0.12)',
-        borderRadius: 999,
-        padding: '4px 5px',
-        cursor: 'pointer',
-        fontSize: 13,
-        fontWeight: 700,
-        letterSpacing: '0.04em',
-        userSelect: 'none',
-        flexShrink: 0,
-      }}
-    >
-      <span style={{
-        padding: '5px 11px',
-        borderRadius: 999,
-        background: isUk ? 'var(--ink, #1f1a14)' : 'transparent',
-        color: isUk ? '#fff' : 'var(--muted, #7a6f65)',
-        transition: 'background 0.2s, color 0.2s',
-      }}>UK</span>
-      <span style={{
-        padding: '5px 11px',
-        borderRadius: 999,
-        background: !isUk ? 'var(--ink, #1f1a14)' : 'transparent',
-        color: !isUk ? '#fff' : 'var(--muted, #7a6f65)',
-        transition: 'background 0.2s, color 0.2s',
-      }}>RU</span>
-    </button>
+    <div ref={boxRef} style={{ position: 'relative', flexShrink: 0 }}>
+      <button
+        onClick={() => setOpen(v => !v)}
+        aria-label="Change language"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 7,
+          background: 'rgba(31,26,20,0.06)',
+          border: '1px solid rgba(31,26,20,0.12)',
+          borderRadius: 999,
+          padding: '5px 10px 5px 6px',
+          cursor: 'pointer',
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: '0.02em',
+          color: 'var(--ink, #1f1a14)',
+        }}
+      >
+        <active.Flag size={22}/>
+        <span style={{ textTransform: 'uppercase' }}>{active.code}</span>
+        <span style={{ width: 12, height: 12, display: 'block', opacity: 0.55, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+          <ChevronDown/>
+        </span>
+      </button>
+
+      {open && (
+        <ul
+          role="listbox"
+          style={{
+            position: 'absolute', top: 'calc(100% + 8px)', right: 0, zIndex: 60,
+            listStyle: 'none', margin: 0, padding: 6,
+            minWidth: 190,
+            background: 'var(--paper, #fdfaf5)',
+            border: '1px solid rgba(31,26,20,0.12)',
+            borderRadius: 14,
+            boxShadow: '0 12px 32px rgba(31,26,20,0.14)',
+          }}
+        >
+          {options.map(({ code, Flag }) => {
+            const isActive = code === currentLocale;
+            return (
+              <li key={code}>
+                <button
+                  role="option"
+                  aria-selected={isActive}
+                  onClick={() => switchTo(code)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10, width: '100%',
+                    padding: '9px 10px',
+                    background: isActive ? 'rgba(31,26,20,0.06)' : 'transparent',
+                    border: 'none', borderRadius: 10,
+                    cursor: 'pointer', textAlign: 'left',
+                    fontSize: 14, fontWeight: isActive ? 600 : 500,
+                    color: 'var(--ink, #1f1a14)',
+                  }}
+                >
+                  <Flag size={24}/>
+                  <span style={{ flex: 1 }}>{LOCALE_NAMES[code]}</span>
+                  {isActive && <span style={{ width: 14, height: 14, opacity: 0.7 }}><Check/></span>}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -219,7 +279,7 @@ export default function Nav() {
           </div>
 
           <div className="nav-right">
-            <LangSwitch/>
+            <LangMenu/>
             <WaitlistCta source="nav_signin" className="btn btn-ghost">{t('nav.signIn')}</WaitlistCta>
             <WaitlistCta source="nav_trial" className="btn btn-outline">{t('nav.startFreeTrial')}</WaitlistCta>
             <WaitlistCta source="nav_demo" className="btn btn-dark">{t('nav.bookDemo')}</WaitlistCta>
@@ -299,7 +359,7 @@ export default function Nav() {
 
           <div className="mobile-cta">
             <div style={{display:'flex', justifyContent:'center', marginBottom:12}}>
-              <LangSwitch/>
+              <LangMenu/>
             </div>
             <WaitlistCta
               source="nav_demo_mobile"

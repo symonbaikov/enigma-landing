@@ -28,7 +28,7 @@ export default function SolutionPage({ slug, eyebrow, hero_title, hero_desc, pai
     ? { ...(typeof explainerLabels === 'object' ? explainerLabels : {}), ...rawExplainer }
     : null;
 
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const path = `/solutions/${slug.replace(/^solution-/, '')}`;
   const titleLines = c.hero_title.split('\n');
   const sources = Array.isArray(c.eeat) ? c.eeat : [];

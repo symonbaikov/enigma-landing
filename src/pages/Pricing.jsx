@@ -46,7 +46,7 @@ export default function Pricing() {
   const { t, i18n } = useTranslation();
   const c = useContent('pricing', getPricing(t));
   const [annual, setAnnual] = useState(true);
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
 
   return (
     <>

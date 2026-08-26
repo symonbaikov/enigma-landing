@@ -1,3 +1,4 @@
+import { localesWith } from '../lib/locale.js';
 import { chaptersRu } from './chapters.ru.js';
 
 /* Full chapter content for GEO Playbook pages - Cluster 1 (uk).
@@ -420,6 +421,9 @@ const CHAPTERS_BY_LANG = {
   ru: chaptersRu,
   uk: chaptersUk,
 };
+
+/* Languages with real long-form text — drives hreflang and the sitemap. */
+export const chapterLocales = localesWith(CHAPTERS_BY_LANG);
 
 export function getChapters(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];

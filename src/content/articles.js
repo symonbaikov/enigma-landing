@@ -1,3 +1,4 @@
+import { localesWith } from '../lib/locale.js';
 import { articlesRu } from './articles.ru.js';
 
 /* Full article content for Research Lab pages - Cluster 5 (uk).
@@ -515,6 +516,9 @@ const ARTICLES_BY_LANG = {
   ru: articlesRu,
   uk: articlesUk,
 };
+
+/* Languages with real long-form text — drives hreflang and the sitemap. */
+export const articleLocales = localesWith(ARTICLES_BY_LANG);
 
 export function getArticles(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];

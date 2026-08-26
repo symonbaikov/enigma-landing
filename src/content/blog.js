@@ -13,6 +13,7 @@
    Keep to the SMART FRAME: Hero → Problem → Core value → Trust → FAQ.
    Never invent stats or URLs — cite only what you can verify. */
 
+import { localesWith } from '../lib/locale.js';
 import geoAeoVsSeo from './blog/geo-aeo-vs-seo.js';
 import howAnswerEnginesWork from './blog/how-answer-engines-work.js';
 import citationSelectionVsAbsorption from './blog/citation-selection-vs-absorption.js';
@@ -67,12 +68,15 @@ const uk = [
 
 const BY_LANG = { ru, uk };
 
+/* Languages with real posts — drives hreflang and the sitemap. */
+export const blogLocales = localesWith(BY_LANG);
+
 /* Active-language posts, with graceful fallback to ru. `lang` is i18n.language
    (may be a region tag like "uk-UA"), so match on the primary subtag. */
 export function getBlogPosts(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];
   const set = BY_LANG[primary];
-  return set && set.length ? set : ru;
+  return set && set.length ? set : uk;
 }
 
 /* Back-compat default (ru) for any importer not passing a language. */

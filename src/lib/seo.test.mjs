@@ -61,16 +61,19 @@ test('schema builders include canonical ids and visible FAQ content', () => {
     { name: 'Home', path: '/' },
     { name: 'Blog', path: '/blog' },
     { name: 'GEO / AEO vs SEO', path: '/blog/geo-aeo-vs-seo' },
-  ]);
+  ], 'uk');
 
   assert.equal(organization['@id'], 'https://enigma.com/#organization');
   assert.equal(organization.legalName, 'Enigma Labs Inc.');
   assert.ok(organization.knowsAbout.includes('Generative Engine Optimization'));
-  assert.equal(article['@id'], 'https://enigma.com/blog/geo-aeo-vs-seo#article');
-  assert.equal(article.mainEntityOfPage['@id'], 'https://enigma.com/blog/geo-aeo-vs-seo');
+  // Non-default languages live under a path prefix, so their schema URLs must too.
+  assert.equal(article['@id'], 'https://enigma.com/uk/blog/geo-aeo-vs-seo#article');
+  assert.equal(article.mainEntityOfPage['@id'], 'https://enigma.com/uk/blog/geo-aeo-vs-seo');
   assert.equal(article.inLanguage, 'uk');
   assert.equal(faq.mainEntity[0].name, 'Що таке GEO?');
-  assert.equal(breadcrumb.itemListElement[2].item, 'https://enigma.com/blog/geo-aeo-vs-seo');
+  const enArticle = buildArticleSchema({ path: '/blog/geo-aeo-vs-seo', lang: 'en' });
+  assert.equal(enArticle['@id'], 'https://enigma.com/blog/geo-aeo-vs-seo#article');
+  assert.equal(breadcrumb.itemListElement[2].item, 'https://enigma.com/uk/blog/geo-aeo-vs-seo');
 });
 
 test('buildRouteInventory includes product, solution, resource, chapter, article, and blog routes', () => {

@@ -2,21 +2,22 @@ import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 
 export default function ReviewsSection() {
-  const { t, i18n } = useTranslation();
-  const reviewsText = i18n.getFixedT('uk', 'translation');
-  const items = reviewsText('reviews.items', { returnObjects: true });
+  const { t } = useTranslation();
+  // Reads the active locale like every other section: pinning this block to
+  // one language left it untranslated on the other two.
+  const items = t('reviews.items', { returnObjects: true });
 
   return (
     <section className="reviews">
       <div className="container-wide">
         <Reveal variant="up">
           <div className="col-eye section-eyebrow" style={{ textAlign: 'center' }}>
-            {reviewsText('reviews.eyebrow')}
+            {t('reviews.eyebrow')}
           </div>
         </Reveal>
         <Reveal variant="up" delay={1}>
           <h2 className="h2" style={{ maxWidth: 920, margin: '10px auto 0', textAlign: 'center' }}>
-            {reviewsText('reviews.title')}
+            {t('reviews.title')}
           </h2>
         </Reveal>
 

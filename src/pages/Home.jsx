@@ -22,7 +22,7 @@ import {
 
 export default function Home() {
   const { t, i18n } = useTranslation();
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const faq = t('homeSeo.faq', { returnObjects: true });
 
   return (
