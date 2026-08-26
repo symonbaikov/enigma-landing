@@ -90,7 +90,7 @@ function ChangelogList({ updates }) {
 export default function ResourcePage({ slug, eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc }) {
   const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, chapters, articles, updates, cta_title, cta_desc });
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const path = RESOURCE_PATHS[slug] || `/resources/${slug.replace(/^resource-/, '')}`;
   const titleLines = c.hero_title.split('\n');
 

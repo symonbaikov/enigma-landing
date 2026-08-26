@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getArticles } from '../content/articles.js';
+import { getArticles, articleLocales } from '../content/articles.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function ArticlePage() {
@@ -19,6 +19,7 @@ export default function ArticlePage() {
       backPath="/resources/research-lab"
       backLabel={t('nav.tiles.researchLab')}
       nextItem={next}
+      translatedIn={articleLocales}
       nextPath="/resources/research-lab"
     />
   );

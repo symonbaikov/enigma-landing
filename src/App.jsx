@@ -12,6 +12,7 @@ import AeoFaqPage from './pages/AeoFaqPage.jsx';
 import BlogPage from './pages/BlogPage.jsx';
 import BlogPostPage from './pages/BlogPostPage.jsx';
 import { getProducts, getSolutions, getResources } from './content/index.js';
+import { basename } from './lib/locale.js';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
   const resources = getResources(t);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route element={<Layout/>}>
           <Route index element={<Home/>}/>

@@ -1,4 +1,10 @@
-const DEFAULT_SITE_URL = 'https://enigma.com';
+import { localePath, LOCALES, DEFAULT_LOCALE } from './locale.js';
+
+/* The site's own origin. enigma.com belongs to a different company, so
+   declaring it in canonical, hreflang or JSON-LD would point search engines
+   at someone else's domain. Precedence: an explicit VITE_SITE_URL, then the
+   origin Cloudflare Pages built us at, and only then this placeholder. */
+const DEFAULT_SITE_URL = 'https://enigmavisibility.com';
 const DEFAULT_SITE_NAME = 'Enigma';
 const DEFAULT_LEGAL_NAME = 'Enigma Labs Inc.';
 const DEFAULT_DESCRIPTION =
@@ -10,7 +16,14 @@ const SOURCE_MARKER_RE = /\[\s*(?:Джерело|Источник|Source)?\s*\d+
 const FAQ_HEADING_RE = /часті питання|частые вопросы|faq|questions/i;
 
 function siteOrigin() {
-  const raw = import.meta.env?.VITE_SITE_URL || DEFAULT_SITE_URL;
+  // import.meta.env in the browser bundle; process.env when the sitemap
+  // generator runs this same module under Node.
+  const env = typeof process !== 'undefined' ? process.env : undefined;
+  const raw =
+    import.meta.env?.VITE_SITE_URL ||
+    env?.VITE_SITE_URL ||
+    env?.CF_PAGES_URL ||
+    DEFAULT_SITE_URL;
   return String(raw).replace(/\/+$/, '') || DEFAULT_SITE_URL;
 }
 
@@ -85,7 +98,7 @@ export function buildOrganizationSchema() {
   };
 }
 
-export function buildWebsiteSchema({ lang = 'uk' } = {}) {
+export function buildWebsiteSchema({ lang = 'en' } = {}) {
   return {
     '@type': 'WebSite',
     '@id': absoluteUrl('/#website'),
@@ -96,8 +109,8 @@ export function buildWebsiteSchema({ lang = 'uk' } = {}) {
   };
 }
 
-export function buildWebPageSchema({ path = '/', title, description, lang = 'uk', type = 'WebPage' } = {}) {
-  const url = absoluteUrl(path);
+export function buildWebPageSchema({ path = '/', title, description, lang = 'en', type = 'WebPage' } = {}) {
+  const url = absoluteUrl(localePath(path, lang));
   return {
     '@type': type,
     '@id': url,
@@ -114,12 +127,12 @@ export function buildArticleSchema({
   path,
   title,
   description,
-  lang = 'uk',
+  lang = 'en',
   section,
   datePublished,
   dateModified,
 } = {}) {
-  const url = absoluteUrl(path || '/');
+  const url = absoluteUrl(localePath(path || '/', lang));
   const schema = {
     '@type': 'Article',
     '@id': `${url}#article`,
@@ -149,7 +162,7 @@ export function buildFaqSchema(items = []) {
   };
 }
 
-export function buildBreadcrumbSchema(items = []) {
+export function buildBreadcrumbSchema(items = [], lang) {
   if (!items.length) return null;
   return {
     '@type': 'BreadcrumbList',
@@ -157,7 +170,7 @@ export function buildBreadcrumbSchema(items = []) {
       '@type': 'ListItem',
       position: index + 1,
       name: plainText(item.name),
-      item: absoluteUrl(item.path),
+      item: absoluteUrl(localePath(item.path, lang)),
     })),
   };
 }
@@ -210,6 +223,45 @@ export function serializeSitemap(routes = [], lastmod = '2026-06-26') {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
+</urlset>
+`;
+}
+
+/**
+ * Sitemap covering every language a route actually exists in.
+ *
+ * Each entry carries its own `locales`, because the long-form corpora are not
+ * translated in lockstep with the interface: listing an English URL for a page
+ * that only exists in Ukrainian would invite an indexing of the wrong text.
+ * Alternates are emitted per URL so search engines can group the language
+ * versions instead of treating them as duplicates.
+ */
+export function serializeLocalizedSitemap(entries = [], lastmod = '2026-06-26') {
+  const urls = [];
+  entries.forEach((entry) => {
+    const locales = (entry.locales || LOCALES).filter((lang) => LOCALES.includes(lang));
+    locales.forEach((lang) => {
+      const alternates = locales
+        .map((alt) => `    <xhtml:link rel="alternate" hreflang="${alt}" href="${absoluteUrl(localePath(entry.path, alt))}"/>`)
+        .concat(
+          locales.includes(DEFAULT_LOCALE)
+            ? [`    <xhtml:link rel="alternate" hreflang="x-default" href="${absoluteUrl(localePath(entry.path, DEFAULT_LOCALE))}"/>`]
+            : [],
+        )
+        .join('\n');
+      urls.push(`  <url>
+    <loc>${absoluteUrl(localePath(entry.path, lang))}</loc>
+${alternates}
+    <lastmod>${entry.lastmod || lastmod}</lastmod>
+    <changefreq>${entry.changefreq || 'weekly'}</changefreq>
+    <priority>${entry.priority || '0.7'}</priority>
+  </url>`);
+    });
+  });
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.join('\n')}
 </urlset>
 `;
 }

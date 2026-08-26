@@ -21,7 +21,7 @@ export default function AeoFaqPage({ slug, eyebrow, hero_title, hero_desc, gloss
   const { t, i18n } = useTranslation();
   const c = useContent(slug, { eyebrow, hero_title, hero_desc, glossary, faq, eeat, cta_title, cta_desc });
 
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const path = '/resources/aeo-faq';
   const titleLines = c.hero_title.split('\n');
   const terms = Array.isArray(c.glossary) ? c.glossary : [];

@@ -48,7 +48,7 @@ export default {
     },
     {
       type: 'paragraph',
-      text: 'Доказательство. На шести репрезентативных LLM авторы заключают: несмотря на критичность этих способностей, «впереди ещё значительный путь, чтобы эффективно применять RAG к LLM» [Источник 44].',
+      text: 'Доказательство. На шести репрезентативных LLM авторы заключают: несмотря на критичность этих способностей, «впереди ещё значительный путь, чтобы эффективно применять RAG к LLM» [Источник 45].',
     },
     {
       type: 'paragraph',
@@ -74,7 +74,7 @@ export default {
     },
     {
       type: 'paragraph',
-      text: 'Доказательство. RAGAS закрывает требование автоматизации: это фреймворк reference-free оценки RAG-конвейеров без ручной разметки, ускоряющий циклы оценки архитектур. Он измеряет несколько измерений - качество ретрива (релевантность найденного контекста), достоверность генерации (насколько LLM честно опирается на пассажи) и качество самого ответа [Источник 45].',
+      text: 'Доказательство. RAGAS закрывает требование автоматизации: это фреймворк reference-free оценки RAG-конвейеров без ручной разметки, ускоряющий циклы оценки архитектур. Он измеряет несколько измерений - качество ретрива (релевантность найденного контекста), достоверность генерации (насколько LLM честно опирается на пассажи) и качество самого ответа [Источник 44].',
     },
     {
       type: 'paragraph',
@@ -108,8 +108,8 @@ export default {
       type: 'list',
       items: [
         { title: '06 · Schulte, 2026', desc: 'Don\'t Measure Once: Measuring Visibility in AI Search. https://arxiv.org/abs/2604.07585 - препринт arXiv.' },
-        { title: '44 · Chen et al., 2024', desc: 'Benchmarking LLMs in Retrieval-Augmented Generation (RGB). https://arxiv.org/abs/2309.01431 - препринт arXiv.' },
-        { title: '45 · Es et al., 2024', desc: 'RAGAS: Automated Evaluation of Retrieval Augmented Generation. https://aclanthology.org/2024.eacl-demo.16/ - рецензируемый (EACL demo).' },
+        { title: '45 · Chen et al., 2024', desc: 'Benchmarking LLMs in Retrieval-Augmented Generation (RGB). https://arxiv.org/abs/2309.01431 - препринт arXiv.' },
+        { title: '44 · Es et al., 2024', desc: 'RAGAS: Automated Evaluation of Retrieval Augmented Generation. https://aclanthology.org/2024.eacl-demo.16/ - рецензируемый (EACL demo).' },
       ],
     },
     { type: 'heading', text: 'Как мы проверяли материал' },

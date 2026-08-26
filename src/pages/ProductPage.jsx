@@ -64,7 +64,7 @@ export default function ProductPage({ slug, eyebrow, hero_title, hero_desc, cont
     ? { ...(typeof explainerLabels === 'object' ? explainerLabels : {}), ...rawExplainer }
     : null;
 
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const path = `/product/${slug.replace(/^product-/, '')}`;
   const titleLines = c.hero_title.split('\n');
   const ctx = Array.isArray(c.context) ? c.context : [];

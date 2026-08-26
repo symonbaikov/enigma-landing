@@ -25,6 +25,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Reserve the scrollbar gutter: the waitlist modal locks body scrolling while
+   it is open, and without this the whole page shifts sideways as it appears. */
+html { scrollbar-gutter: stable; }
+
 html, body {
   font-family: var(--font-site);
   background: var(--cream);
@@ -3569,4 +3573,15 @@ select,
 #root :is(h1, h2, h3, h4, h5, h6, .h2, .page-hero-title) :is(.italic, .it, em, .serif) {
   font-style: normal !important;
   font-weight: inherit !important;
+}
+
+/* Language menu — the trigger matches the width of the list it opens.
+   Between 980px and 1400px the nav is already tight, so the trigger drops
+   back to flag + chevron rather than pushing the CTAs off the row. */
+.lang-trigger { width: 186px; }
+.lang-trigger-name { flex: 1; text-align: left; }
+
+@media (min-width: 981px) and (max-width: 1400px) {
+  .lang-trigger { width: auto; }
+  .lang-trigger-name { display: none; }
 }

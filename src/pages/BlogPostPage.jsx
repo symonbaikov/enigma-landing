@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getBlogPosts } from '../content/blog.js';
+import { getBlogPosts, blogLocales } from '../content/blog.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function BlogPostPage() {
@@ -19,6 +19,7 @@ export default function BlogPostPage() {
       backPath="/blog"
       backLabel={t('nav.tiles.aiSearchTrends')}
       nextItem={next}
+      translatedIn={blogLocales}
       nextPath="/blog"
     />
   );

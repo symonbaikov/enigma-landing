@@ -13,6 +13,7 @@
    Keep to the SMART FRAME: Hero → Problem → Core value → Trust → FAQ.
    Never invent stats or URLs — cite only what you can verify. */
 
+import { localesWith } from '../lib/locale.js';
 import geoAeoVsSeo from './blog/geo-aeo-vs-seo.js';
 import howAnswerEnginesWork from './blog/how-answer-engines-work.js';
 import citationSelectionVsAbsorption from './blog/citation-selection-vs-absorption.js';
@@ -35,6 +36,19 @@ import aiCrawlersRobotsTxtUk from './blog/uk/ai-crawlers-robots-txt.js';
 import structuredDataAiSeoMythsUk from './blog/uk/structured-data-ai-seo-myths.js';
 import geoForEcommerceUk from './blog/uk/geo-for-ecommerce.js';
 import ethicalGeoNoSpamUk from './blog/uk/ethical-geo-no-spam.js';
+
+
+/* English localizations (audited) — same slugs and section structure as ru. */
+import geoAeoVsSeoEn from './blog/en/geo-aeo-vs-seo.js';
+import howAnswerEnginesWorkEn from './blog/en/how-answer-engines-work.js';
+import citationSelectionVsAbsorptionEn from './blog/en/citation-selection-vs-absorption.js';
+import aiVisibilityInstabilityEn from './blog/en/ai-visibility-instability.js';
+import googleAiOverviewsGuideEn from './blog/en/google-ai-overviews-guide.js';
+import zeroClickBusinessRiskEn from './blog/en/zero-click-business-risk.js';
+import aiCrawlersRobotsTxtEn from './blog/en/ai-crawlers-robots-txt.js';
+import structuredDataAiSeoMythsEn from './blog/en/structured-data-ai-seo-myths.js';
+import geoForEcommerceEn from './blog/en/geo-for-ecommerce.js';
+import ethicalGeoNoSpamEn from './blog/en/ethical-geo-no-spam.js';
 
 /* Curated reading order (introductory → applied). The post page's "next"
    link cycles through this array, so order doubles as the learning path. */
@@ -65,14 +79,31 @@ const uk = [
   ethicalGeoNoSpamUk,
 ];
 
-const BY_LANG = { ru, uk };
+/* English localizations — same curated order as ru. */
+const en = [
+  geoAeoVsSeoEn,
+  howAnswerEnginesWorkEn,
+  citationSelectionVsAbsorptionEn,
+  aiVisibilityInstabilityEn,
+  googleAiOverviewsGuideEn,
+  zeroClickBusinessRiskEn,
+  aiCrawlersRobotsTxtEn,
+  structuredDataAiSeoMythsEn,
+  geoForEcommerceEn,
+  ethicalGeoNoSpamEn,
+];
+
+const BY_LANG = { en, uk, ru };
+
+/* Languages with real posts — drives hreflang and the sitemap. */
+export const blogLocales = localesWith(BY_LANG);
 
 /* Active-language posts, with graceful fallback to ru. `lang` is i18n.language
    (may be a region tag like "uk-UA"), so match on the primary subtag. */
 export function getBlogPosts(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];
   const set = BY_LANG[primary];
-  return set && set.length ? set : ru;
+  return set && set.length ? set : en;
 }
 
 /* Back-compat default (ru) for any importer not passing a language. */

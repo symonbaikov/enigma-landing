@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Reveal } from '../scroll-anims.jsx';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { ArrowRight } from '../components/icons.jsx';
-import { getBlogPosts } from '../content/blog.js';
+import { getBlogPosts, blogLocales } from '../content/blog.js';
 import DemoButton from '../components/DemoButton.jsx';
 import Seo from '../components/Seo.jsx';
 import {
@@ -16,7 +16,7 @@ import {
 export default function BlogPage() {
   const { t, i18n } = useTranslation();
   const blogPosts = getBlogPosts(i18n.language);
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
 
   return (
     <>
@@ -25,6 +25,8 @@ export default function BlogPage() {
         description={t('nav.tiles.aiSearchTrendsDesc')}
         path="/blog"
         lang={lang}
+        translatedIn={blogLocales}
+        robots={blogLocales.includes(lang) ? 'index,follow' : 'noindex,follow'}
         schema={[
           buildOrganizationSchema(),
           buildWebsiteSchema({ lang }),

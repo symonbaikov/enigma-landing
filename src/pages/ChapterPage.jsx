@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getChapters } from '../content/chapters.js';
+import { getChapters, chapterLocales } from '../content/chapters.js';
 import { ContentPageLayout } from './ContentPageRenderer.jsx';
 
 export default function ChapterPage() {
@@ -19,6 +19,7 @@ export default function ChapterPage() {
       backPath="/resources/geo-playbook"
       backLabel={t('nav.tiles.geoPlaybook')}
       nextItem={next}
+      translatedIn={chapterLocales}
       nextPath="/resources/geo-playbook"
     />
   );

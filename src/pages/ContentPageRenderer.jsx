@@ -428,11 +428,14 @@ export function renderSection(s, i) {
 
 /* ── Shared page layout ──────────────────────────────────────────────── */
 
-export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPath }) {
+export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPath, translatedIn }) {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
-  const lang = String(i18n.language || 'uk').split('-')[0];
+  const lang = String(i18n.language || 'en').split('-')[0];
   const faqItems = extractFaqItems(item.sections);
+  // A language reading someone else's corpus is a fallback, not a translation:
+  // serve it, but keep it out of the index until the real text exists.
+  const localized = !translatedIn || translatedIn.includes(lang);
 
   return (
     <>
@@ -441,6 +444,8 @@ export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPat
         description={item.subtitle}
         path={pathname}
         lang={lang}
+        translatedIn={translatedIn}
+        robots={localized ? 'index,follow' : 'noindex,follow'}
         schema={[
           buildOrganizationSchema(),
           buildWebsiteSchema({ lang }),
@@ -457,7 +462,7 @@ export function ContentPageLayout({ item, backPath, backLabel, nextItem, nextPat
             { name: 'Home', path: '/' },
             { name: backLabel, path: backPath },
             { name: item.title, path: pathname },
-          ]),
+          ], lang),
         ]}
       />
 
