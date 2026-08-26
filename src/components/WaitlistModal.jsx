@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { track, EVENTS } from '../lib/analytics.js';
 
@@ -8,6 +9,12 @@ import { track, EVENTS } from '../lib/analytics.js';
  * The click that opened this is already recorded by the caller, so a visitor who
  * closes without leaving an email still counts. This only adds the second,
  * stronger signal.
+ *
+ * Rendered into document.body: `position: fixed` resolves against the nearest
+ * ancestor carrying a transform, filter or backdrop-filter, and the CTAs that
+ * open this sit inside exactly such ancestors — the nav has a backdrop blur and
+ * the sections animate on transforms. Left in place, the dialog centres itself
+ * inside the header instead of the viewport.
  */
 export default function WaitlistModal({ open, onClose, source, plan }) {
   const { t } = useTranslation();
@@ -47,7 +54,7 @@ export default function WaitlistModal({ open, onClose, source, plan }) {
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <>
       <div
         onClick={onClose}
@@ -126,6 +133,7 @@ export default function WaitlistModal({ open, onClose, source, plan }) {
           </>
         )}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }

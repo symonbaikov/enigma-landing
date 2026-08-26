@@ -25,6 +25,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Reserve the scrollbar gutter: the waitlist modal locks body scrolling while
+   it is open, and without this the whole page shifts sideways as it appears. */
+html { scrollbar-gutter: stable; }
+
 html, body {
   font-family: var(--font-site);
   background: var(--cream);
