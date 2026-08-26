@@ -1,7 +1,9 @@
 /*
- * Regenerates public/sitemap.xml from the routes and the translated corpora.
+ * Builds the sitemap from the routes and the translated corpora.
  *
- * Run after adding a page or translating a corpus:  node scripts/build-sitemap.mjs
+ * Imported by vite.config.js so the deployed sitemap is generated with the
+ * origin the site was actually built for; also runnable directly for a look:
+ *   node scripts/build-sitemap.mjs [lastmod]
  *
  * Hand-maintaining three languages' worth of URLs is how a sitemap starts
  * advertising pages that do not exist in that language. The corpora export the
@@ -14,7 +16,7 @@ import { getBlogPosts, blogLocales } from '../src/content/blog.js';
 import { getArticles, articleLocales } from '../src/content/articles.js';
 import { getChapters, chapterLocales } from '../src/content/chapters.js';
 
-const LASTMOD = process.argv[2] || new Date().toISOString().slice(0, 10);
+
 
 /* Interface pages: fully translated, so every locale gets a URL. */
 const interfaceRoutes = [
@@ -37,8 +39,18 @@ const corpusRoutes = [
 ];
 
 const entries = [...interfaceRoutes, ...corpusRoutes];
-const xml = serializeLocalizedSitemap(entries, LASTMOD);
-writeFileSync(new URL('../public/sitemap.xml', import.meta.url), xml);
 
-const urlCount = (xml.match(/<loc>/g) || []).length;
-console.log(`sitemap.xml: ${entries.length} pages → ${urlCount} URLs (lastmod ${LASTMOD})`);
+/** The sitemap XML for the current VITE_SITE_URL / CF_PAGES_URL origin. */
+export function buildSitemap(lastmod = new Date().toISOString().slice(0, 10)) {
+  return { xml: serializeLocalizedSitemap(entries, lastmod), pages: entries.length };
+}
+
+// Direct run: write it next to the built site for inspection.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const lastmod = process.argv[2] || undefined;
+  const { xml, pages } = buildSitemap(lastmod);
+  const out = new URL('../dist/sitemap.xml', import.meta.url);
+  writeFileSync(out, xml);
+  const urlCount = (xml.match(/<loc>/g) || []).length;
+  console.log(`dist/sitemap.xml: ${pages} pages → ${urlCount} URLs`);
+}

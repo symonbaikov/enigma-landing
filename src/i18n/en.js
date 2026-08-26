@@ -752,7 +752,7 @@ const en = {
   visuals: {
     axp: {
       auditLabel: 'Readiness audit',
-      url: 'enigma.com/resources/ai-visibility',
+      url: 'enigmavisibility.com/resources/ai-visibility',
       pageTitle: 'The page as a source for retrieval',
       checks: [
         { metric: 'Agent access', detail: 'GPTBot, Google-Extended, PerplexityBot', state: 'open', tone: 'good' },

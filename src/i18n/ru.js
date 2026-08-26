@@ -737,7 +737,7 @@ const ru = {
   visuals: {
     axp: {
       auditLabel: 'Readiness audit',
-      url: 'enigma.com/resources/ai-visibility',
+      url: 'enigmavisibility.com/resources/ai-visibility',
       pageTitle: 'Страница как источник для retrieval',
       checks: [
         { metric: 'Доступ агентов', detail: 'GPTBot, Google-Extended, PerplexityBot', state: 'открыто', tone: 'good' },
