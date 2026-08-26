@@ -5,6 +5,8 @@ import en from './en.js';
 import uk from './uk.js';
 import ru from './ru.js';
 import { getBlogPosts } from '../content/blog.js';
+import { getArticles } from '../content/articles.js';
+import { getChapters } from '../content/chapters.js';
 
 /*
  * Guards for the translated locales.
@@ -151,4 +153,37 @@ test('every locale ships the same set of blog slugs', () => {
   const slugs = (lang) => getBlogPosts(lang).map((p) => p.slug).join(',');
   assert.equal(slugs('en'), slugs('uk'), 'en and uk blog sets differ');
   assert.equal(slugs('en'), slugs('ru'), 'en and ru blog sets differ');
+});
+
+test('English long-form corpora cite only catalogued sources', () => {
+  // Chapters and Research Lab articles follow docs/research.md numbering.
+  const bad = [];
+  for (const [name, items] of [['chapter', getChapters('en')], ['article', getArticles('en')]]) {
+    for (const item of items) {
+      for (const text of strings(item)) {
+        for (const marker of text.matchAll(/\[\s*Source\s*((?:\d+\s*,\s*)*\d+)\s*\]/gi)) {
+          for (const num of marker[1].split(',')) {
+            const n = String(Number(num.trim()));
+            if (!catalogue.has(n)) bad.push(`${name} ${item.slug}: [Source ${n}]`);
+          }
+        }
+      }
+    }
+  }
+  assert.deepEqual(bad, [], 'markers outside docs/research.md');
+});
+
+test('every locale ships the same chapters and articles', () => {
+  const slugs = (items) => items.map((i) => i.slug).join(',');
+  assert.equal(slugs(getChapters('en')), slugs(getChapters('uk')), 'chapter sets differ (en/uk)');
+  assert.equal(slugs(getChapters('en')), slugs(getChapters('ru')), 'chapter sets differ (en/ru)');
+  assert.equal(slugs(getArticles('en')), slugs(getArticles('uk')), 'article sets differ (en/uk)');
+  assert.equal(slugs(getArticles('en')), slugs(getArticles('ru')), 'article sets differ (en/ru)');
+});
+
+test('no English long-form text is left in Cyrillic', () => {
+  const leftovers = [...getChapters('en'), ...getArticles('en')]
+    .flatMap((item) => strings(item).filter((t) => /[Ѐ-ӿ]/.test(t)))
+    .slice(0, 5);
+  assert.deepEqual(leftovers, [], 'Cyrillic left in the English long-form corpora');
 });

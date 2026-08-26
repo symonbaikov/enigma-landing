@@ -1,5 +1,6 @@
 import { localesWith } from '../lib/locale.js';
 import { articlesRu } from './articles.ru.js';
+import { articlesEn } from './articles.en.js';
 
 /* Full article content for Research Lab pages - Cluster 5 (uk).
    Ported from docs/drafts/5.1–5.4 after audit pre-merge patch. Facts only from docs/research.md.
@@ -513,8 +514,9 @@ export const articlesUk = [
 ];
 
 const ARTICLES_BY_LANG = {
-  ru: articlesRu,
+  en: articlesEn,
   uk: articlesUk,
+  ru: articlesRu,
 };
 
 /* Languages with real long-form text — drives hreflang and the sitemap. */
@@ -522,7 +524,7 @@ export const articleLocales = localesWith(ARTICLES_BY_LANG);
 
 export function getArticles(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];
-  return ARTICLES_BY_LANG[primary] || articlesUk;
+  return ARTICLES_BY_LANG[primary] || articlesEn;
 }
 
 /* Back-compat default for importers that have not been made locale-aware yet. */

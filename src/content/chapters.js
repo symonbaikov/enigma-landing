@@ -1,5 +1,6 @@
 import { localesWith } from '../lib/locale.js';
 import { chaptersRu } from './chapters.ru.js';
+import { chaptersEn } from './chapters.en.js';
 
 /* Full chapter content for GEO Playbook pages - Cluster 1 (uk).
    Ported from docs/drafts/1.1–1.6 after 3 audit passes. Facts only from docs/research.md.
@@ -418,8 +419,9 @@ export const chaptersUk = [
 ];
 
 const CHAPTERS_BY_LANG = {
-  ru: chaptersRu,
+  en: chaptersEn,
   uk: chaptersUk,
+  ru: chaptersRu,
 };
 
 /* Languages with real long-form text — drives hreflang and the sitemap. */
@@ -427,7 +429,7 @@ export const chapterLocales = localesWith(CHAPTERS_BY_LANG);
 
 export function getChapters(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];
-  return CHAPTERS_BY_LANG[primary] || chaptersUk;
+  return CHAPTERS_BY_LANG[primary] || chaptersEn;
 }
 
 /* Back-compat default for importers that have not been made locale-aware yet. */
