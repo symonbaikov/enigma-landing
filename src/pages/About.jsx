@@ -59,6 +59,7 @@ export default function About() {
   const lang = String(i18n.language || 'en').split('-')[0];
   const points = t('about.points', { returnObjects: true });
   const bio = t('about.founder.bio', { returnObjects: true });
+  const steps = t('about.how.steps', { returnObjects: true });
   const name = t('about.founder.name');
 
   const personSchema = {
@@ -195,6 +196,32 @@ export default function About() {
                 </div>
               </Reveal>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-how">
+        <div className="container-wide">
+          <Reveal variant="up">
+            <h2 className="h2 how-title">{t('about.how.title')}</h2>
+          </Reveal>
+          <Reveal variant="up" delay={1}>
+            <p className="how-lead">{t('about.how.lead')}</p>
+          </Reveal>
+
+          <div className="how-grid">
+            {Array.isArray(steps) &&
+              steps.map((step, idx) => (
+                <Reveal key={step.num} variant="up-sm" delay={(idx % 2) + 1}>
+                  <article className="how-step">
+                    <span className="how-num" aria-hidden="true">{step.num}</span>
+                    <div>
+                      <h3 className="how-step-title">{step.title}</h3>
+                      <p className="how-step-desc">{step.desc}</p>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
           </div>
         </div>
       </section>
