@@ -76,6 +76,19 @@ test('ru and uk stay in sync with en so no locale falls back mid-page', () => {
   assert.deepEqual([...enPaths].filter((p) => !ukPaths.has(p)), [], 'uk is missing keys en has');
 });
 
+test('no locale string carries mis-decoded UTF-8', () => {
+  // A UTF-8 dash read as latin-1 becomes three printable characters, so the
+  // page renders garbage rather than failing loudly. Cheap to catch here.
+  const mojibake = /\u00c2|\u00e2\u0080|\u00d0[\u0090-\u00bf]/;
+  const bad = [];
+  for (const [lang, dict] of Object.entries({ en, uk, ru })) {
+    for (const text of strings(dict)) {
+      if (mojibake.test(text)) bad.push(`${lang}: ${text.slice(0, 60)}`);
+    }
+  }
+  assert.deepEqual(bad, [], 'mis-decoded UTF-8 in a locale file');
+});
+
 test('en contains no untranslated Cyrillic text', () => {
   const leftovers = strings(en).filter((s) => /[Ѐ-ӿ]/.test(s));
   assert.deepEqual(leftovers, [], 'Cyrillic left in the English locale');

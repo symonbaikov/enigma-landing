@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Seo from '../components/Seo.jsx';
 import CTA from '../components/CTA.jsx';
 import { Reveal } from '../scroll-anims.jsx';
-import { Check } from '../components/icons.jsx';
+import { Check, IconGitHub, IconLinkedIn, IconX } from '../components/icons.jsx';
 import {
   absoluteUrl,
   buildBreadcrumbSchema,
@@ -24,9 +24,9 @@ import { localePath } from '../lib/locale.js';
  */
 
 const PROFILES = [
-  { id: 'linkedin', url: 'https://www.linkedin.com/in/symonbaikov', label: 'LinkedIn' },
-  { id: 'x', url: 'https://x.com/SymonBaikov', label: 'X' },
-  { id: 'github', url: 'https://github.com/symonbaikov', label: 'GitHub' },
+  { id: 'linkedin', url: 'https://www.linkedin.com/in/symonbaikov', label: 'LinkedIn', Icon: IconLinkedIn },
+  { id: 'x', url: 'https://x.com/SymonBaikov', label: 'X', Icon: IconX },
+  { id: 'github', url: 'https://github.com/symonbaikov', label: 'GitHub', Icon: IconGitHub },
 ];
 
 const FOUNDER_PHOTO = '/team/founder.jpg';
@@ -183,14 +183,19 @@ export default function About() {
 
               <Reveal variant="up-sm" delay={4}>
                 <div className="founder-links">
-                  {PROFILES.map((profile) => (
+                  {PROFILES.map(({ id, url, label, Icon }) => (
                     <a
-                      key={profile.id}
-                      href={profile.url}
+                      key={id}
+                      className={`founder-link founder-link--${id}`}
+                      href={url}
                       target="_blank"
                       rel="noopener noreferrer me"
+                      // Icon-only, so the name has to reach assistive tech some
+                      // other way.
+                      aria-label={label}
+                      title={label}
                     >
-                      {profile.label} →
+                      <Icon size={18}/>
                     </a>
                   ))}
                 </div>

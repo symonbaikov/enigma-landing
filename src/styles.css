@@ -3708,11 +3708,20 @@ img.social-avatar {
 .founder-name { margin: 10px 0 2px; }
 .founder-role { color: var(--muted); font-size: 15px; margin: 0 0 22px; }
 .founder-bio { font-size: 16px; line-height: 1.7; color: var(--ink); margin: 0 0 16px; max-width: 62ch; }
-.founder-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
-.founder-links a {
-  font-size: 14px; font-weight: 600; color: #6B3FFF; text-decoration: none;
+.founder-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.founder-link {
+  width: 42px; height: 42px; border-radius: 99px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line); background: white; color: var(--ink);
+  text-decoration: none;
+  transition: color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
-.founder-links a:hover { text-decoration: underline; }
+.founder-link:hover { transform: translateY(-2px); border-color: rgba(107,63,255,0.4); }
+/* Brand colours only on hover: a row of logo-coloured circles competes with
+   the page, a row of neutral ones reads as one control group. */
+.founder-link--linkedin:hover { color: #0a66c2; }
+.founder-link--x:hover { color: #000; }
+.founder-link--github:hover { color: #24292f; }
 
 @media (max-width: 980px) {
   .about-intro-grid { grid-template-columns: 1fr; gap: 36px; }
