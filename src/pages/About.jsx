@@ -3,7 +3,16 @@ import { useTranslation } from 'react-i18next';
 import Seo from '../components/Seo.jsx';
 import CTA from '../components/CTA.jsx';
 import { Reveal } from '../scroll-anims.jsx';
-import { Check, IconGitHub, IconLinkedIn, IconX } from '../components/icons.jsx';
+import {
+  Check,
+  IconChecklist,
+  IconGauge,
+  IconGitHub,
+  IconInspect,
+  IconKey,
+  IconLinkedIn,
+  IconX,
+} from '../components/icons.jsx';
 import {
   absoluteUrl,
   buildBreadcrumbSchema,
@@ -30,6 +39,10 @@ const PROFILES = [
 ];
 
 const FOUNDER_PHOTO = '/team/founder.jpg';
+
+/* One mark per step, in step order: access, measure, diagnose, act. The order
+   is the argument the section makes, so index mapping is the honest join. */
+const STEP_ICONS = [IconKey, IconGauge, IconInspect, IconChecklist];
 
 function FounderPhoto({ name }) {
   const [failed, setFailed] = useState(false);
@@ -216,17 +229,20 @@ export default function About() {
 
           <div className="how-grid">
             {Array.isArray(steps) &&
-              steps.map((step, idx) => (
-                <Reveal key={step.num} variant="up-sm" delay={(idx % 2) + 1}>
+              steps.map((step, idx) => {
+                const Icon = STEP_ICONS[idx] || IconChecklist;
+                return (
+                <Reveal key={step.title} variant="up-sm" delay={(idx % 2) + 1}>
                   <article className="how-step">
-                    <span className="how-num" aria-hidden="true">{step.num}</span>
+                    <span className="how-icon" aria-hidden="true"><Icon size={20}/></span>
                     <div>
                       <h3 className="how-step-title">{step.title}</h3>
                       <p className="how-step-desc">{step.desc}</p>
                     </div>
                   </article>
                 </Reveal>
-              ))}
+                );
+              })}
           </div>
         </div>
       </section>

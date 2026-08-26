@@ -612,10 +612,10 @@ const en = {
       title: 'How it works',
       lead: 'Four steps, in the order they actually pay off. Skipping the first one is why most AI-visibility work stalls.',
       steps: [
-        { num: '01', title: 'Access', desc: 'Check which agents can reach the page at all. GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Googlebot are separate decisions, and robots.txt, the CDN and the WAF often disagree with what the team intended.' },
-        { num: '02', title: 'Measure', desc: 'Run the same prompt clusters across models and dates, and keep mention, citation and absorption apart. One run is an observation, not a position — the metric is a distribution.' },
-        { num: '03', title: 'Diagnose', desc: 'Find where the influence is lost: the passage that never gets retrieved, the claim with no evidence beside it, the competitor’s page the model cited instead of yours.' },
-        { num: '04', title: 'Act', desc: 'Turn findings into a backlog with an owner: the page, the block to rewrite, the source to add, and the prompt that will show whether it worked on the next run.' },
+        { title: 'Access', desc: 'Check which agents can reach the page at all. GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Googlebot are separate decisions, and robots.txt, the CDN and the WAF often disagree with what the team intended.' },
+        { title: 'Measure', desc: 'Run the same prompt clusters across models and dates, and keep mention, citation and absorption apart. One run is an observation, not a position — the metric is a distribution.' },
+        { title: 'Diagnose', desc: 'Find where the influence is lost: the passage that never gets retrieved, the claim with no evidence beside it, the competitor’s page the model cited instead of yours.' },
+        { title: 'Act', desc: 'Turn findings into a backlog with an owner: the page, the block to rewrite, the source to add, and the prompt that will show whether it worked on the next run.' },
       ],
     },
     founder: {

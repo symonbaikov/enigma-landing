@@ -3777,11 +3777,10 @@ img.social-avatar {
   gap: 30px 48px; max-width: 1040px; margin-left: auto; margin-right: auto;
 }
 .how-step { display: flex; gap: 18px; align-items: flex-start; }
-.how-num {
+.how-icon {
   flex-shrink: 0; width: 46px; height: 46px; border-radius: 99px;
   display: grid; place-items: center;
   background: rgba(107,63,255,0.10); color: #6B3FFF;
-  font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
 }
 .how-step-title { font-size: 18px; margin: 10px 0 8px; color: var(--ink); }
 .how-step-desc { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
