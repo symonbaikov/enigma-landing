@@ -3652,3 +3652,78 @@ img.social-avatar {
   .social-proof { padding: 70px 0; }
   .social-grid { grid-template-columns: 1fr; }
 }
+
+/* About page. The intro mirrors the product-card layout: the mark on the left,
+   the claims on the right, each one small enough to be defended. */
+.about-intro { padding: 120px 0 90px; background: var(--ink, #16141c); }
+.about-intro-grid {
+  display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center;
+}
+.about-logo-card {
+  position: relative; aspect-ratio: 1 / 1; border-radius: 26px; overflow: hidden;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(120% 90% at 88% 8%, rgba(107,63,255,0.55), transparent 58%),
+    radial-gradient(90% 70% at 10% 96%, rgba(255,255,255,0.10), transparent 60%),
+    #0e0c14;
+  border: 1px solid rgba(255,255,255,0.09);
+}
+.about-logo {
+  width: min(62%, 260px); height: auto;
+  /* The mark ships dark for the light pages; invert it for this panel. */
+  filter: brightness(0) invert(1);
+  opacity: 0.94;
+}
+.about-intro-copy .section-eyebrow { color: rgba(244,239,230,0.62); }
+.about-h1 {
+  font-size: clamp(30px, 3.4vw, 46px); line-height: 1.16; letter-spacing: -0.02em;
+  color: #f4efe6; margin: 12px 0 0; max-width: 15ch;
+}
+.about-points { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 20px; }
+.about-points li {
+  display: flex; gap: 14px; align-items: flex-start;
+  color: rgba(244,239,230,0.72); font-size: 16px; line-height: 1.6;
+}
+.about-points strong { color: #f4efe6; font-weight: 600; }
+.about-check {
+  flex-shrink: 0; width: 22px; height: 22px; margin-top: 2px; border-radius: 99px;
+  display: grid; place-items: center;
+  background: rgba(107,63,255,0.22); color: #b9a6ff;
+}
+
+.about-founder { padding: 100px 0; background: var(--paper); }
+.founder-grid {
+  display: grid; grid-template-columns: 320px 1fr; gap: 56px; align-items: start;
+}
+.founder-photo {
+  width: 320px; height: 320px; border-radius: 26px; object-fit: cover;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -34px rgba(31,26,20,0.42);
+}
+.founder-photo--fallback {
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, #efe7ff, #dcd2f5);
+  color: #4b2fa8; font-size: 64px; font-weight: 700;
+}
+.founder-name { margin: 10px 0 2px; }
+.founder-role { color: var(--muted); font-size: 15px; margin: 0 0 22px; }
+.founder-bio { font-size: 16px; line-height: 1.7; color: var(--ink); margin: 0 0 16px; max-width: 62ch; }
+.founder-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
+.founder-links a {
+  font-size: 14px; font-weight: 600; color: #6B3FFF; text-decoration: none;
+}
+.founder-links a:hover { text-decoration: underline; }
+
+@media (max-width: 980px) {
+  .about-intro-grid { grid-template-columns: 1fr; gap: 36px; }
+  /* The 15ch measure keeps the desktop headline in three lines; stacked, it
+     just makes the text narrower than its own column. */
+  .about-h1 { max-width: none; }
+  .about-logo-card { max-width: 420px; }
+  .founder-grid { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 640px) {
+  .about-intro { padding: 80px 0 60px; }
+  .about-founder { padding: 70px 0; }
+  .founder-photo, .founder-photo--fallback { width: 100%; height: auto; aspect-ratio: 1/1; }
+}

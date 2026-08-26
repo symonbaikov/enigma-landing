@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Layout from './Layout.jsx';
 import Home from './pages/Home.jsx';
 import Pricing from './pages/Pricing.jsx';
+import About from './pages/About.jsx';
 import ProductPage from './pages/ProductPage.jsx';
 import SolutionPage from './pages/SolutionPage.jsx';
 import ResourcePage from './pages/ResourcePage.jsx';
@@ -27,6 +28,7 @@ export default function App() {
         <Route element={<Layout/>}>
           <Route index element={<Home/>}/>
           <Route path="pricing" element={<Pricing/>}/>
+          <Route path="about"   element={<About/>}/>
 
           {/* Product pages */}
           <Route path="product/axp"           element={<ProductPage {...products.axp}/>}/>

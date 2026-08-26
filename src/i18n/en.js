@@ -593,6 +593,28 @@ const en = {
       },
     ],
   },
+  about: {
+    eyebrow: 'About Enigma',
+    title: 'Enigma helps you show up when buyers ask AI which vendor to choose',
+    seoTitle: 'About Enigma',
+    seoDesc: 'Who builds Enigma and why: a GEO/AEO platform for measuring and improving brand presence in AI answers, built by a practitioner who does this work by hand.',
+    points: [
+      { title: 'Built for measurable presence, not vanity mentions:', desc: 'we separate a mention from a citation from real influence on the answer, because only the last one moves a decision.' },
+      { title: 'Findings become a backlog, not a dashboard:', desc: 'every recommendation names the page, the block and the check that proves it worked.' },
+      { title: 'Every claim carries its source:', desc: 'the playbook, the research and the product pages cite a catalogue of 84 academic, official and industry sources â and say plainly where the evidence stops.' },
+      { title: 'Built by someone who does the work:', desc: 'the checks in the product are the ones our founder runs by hand for clients today.' },
+    ],
+    founder: {
+      eyebrow: 'Founder',
+      name: 'Symon Baikov',
+      role: 'Founder, Enigma',
+      bio: [
+        'Symon works hands-on in search and AI visibility: technical audits, crawler access, content structure, and repeated measurement of how a brand appears in ChatGPT, Perplexity, Gemini and AI Overviews. Not strategy decks â the actual pages and the actual robots.txt.',
+        'Day to day he works at a performance marketing agency whose work has generated more than $15M in revenue for its clients. That is the agency’s client result, not Enigma’s: this product is pre-launch and has no revenue claims of its own to make.',
+        'Enigma grew directly out of that practice. The audit he was repeating by hand for every client â which agents can reach the page, which passages get extracted, which source the model cited instead of yours â is what the product automates.',
+      ],
+    },
+  },
   socialProof: {
     eyebrow: 'Earned media',
     title: 'Founders are already reporting AI-search traffic',

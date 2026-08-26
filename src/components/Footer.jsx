@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
@@ -43,7 +44,7 @@ export default function Footer() {
           <div className="footer-col">
             <h6>{t('footer.company')}</h6>
             <ul>
-              <li><a href="#">{t('footer.about')}</a></li>
+              <li><Link to="/about">{t('footer.about')}</Link></li>
               <li><a href="#">{t('footer.careers')}</a></li>
               <li><a href="#">{t('footer.security')}</a></li>
               <li><a href="#">{t('footer.contact')}</a></li>

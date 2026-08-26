@@ -22,6 +22,7 @@ import { getChapters, chapterLocales } from '../src/content/chapters.js';
 const interfaceRoutes = [
   { path: '/', priority: '1.0' },
   { path: '/pricing', priority: '0.8' },
+  { path: '/about', priority: '0.6' },
   { path: '/blog', priority: '0.7' },
   ...['axp', 'agent-traffic', 'site-maps', 'monitoring', 'insights']
     .map((slug) => ({ path: `/product/${slug}`, priority: '0.8' })),
