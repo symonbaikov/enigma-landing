@@ -1,38 +1,20 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { getNetworkErrorMessage, launchDemo } from '../lib/demo.js';
+import WaitlistCta from './WaitlistCta.jsx';
 
-export default function DemoButton({
-  children,
-  onClick,
-  disabled = false,
-  loadingLabel,
-  ...props
-}) {
-  const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = async (event) => {
-    if (loading || disabled) return;
-
-    onClick?.(event);
-    setLoading(true);
-    try {
-      await launchDemo();
-    } catch (err) {
-      setLoading(false);
-      window.alert(getNetworkErrorMessage(err));
-    }
-  };
-
+/**
+ * "Book a demo" while the product is pre-launch.
+ *
+ * This used to call the platform's demo endpoint. That endpoint is not public
+ * yet, so every press ended in an alert box. Rather than patch the six pages
+ * that render this button, the behaviour changes in the one place they all go
+ * through: the press is recorded and the waitlist is offered instead.
+ *
+ * `src/lib/demo.js` still holds the real launch flow — restore the call here
+ * when the platform goes live.
+ */
+export default function DemoButton({ children, source = 'demo', loadingLabel, ...props }) {
   return (
-    <button
-      type="button"
-      disabled={disabled || loading}
-      onClick={handleClick}
-      {...props}
-    >
-      {loading ? (loadingLabel || t('demoButton.loading')) : children}
-    </button>
+    <WaitlistCta source={source} {...props}>
+      {children}
+    </WaitlistCta>
   );
 }

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18nSingleton from '../i18n/index.js';
 import { EnigmaMark, ChevronDown, ArrowRight } from './icons.jsx';
-import DemoButton from './DemoButton.jsx';
+import WaitlistCta from './WaitlistCta.jsx';
 
 function BurgerIcon({ open }) {
   return (
@@ -220,9 +220,9 @@ export default function Nav() {
 
           <div className="nav-right">
             <LangSwitch/>
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/login`} className="btn btn-ghost">{t('nav.signIn')}</a>
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline">{t('nav.startFreeTrial')}</a>
-            <DemoButton className="btn btn-dark">{t('nav.bookDemo')}</DemoButton>
+            <WaitlistCta source="nav_signin" className="btn btn-ghost">{t('nav.signIn')}</WaitlistCta>
+            <WaitlistCta source="nav_trial" className="btn btn-outline">{t('nav.startFreeTrial')}</WaitlistCta>
+            <WaitlistCta source="nav_demo" className="btn btn-dark">{t('nav.bookDemo')}</WaitlistCta>
             <button className="burger-btn" onClick={() => setMobileOpen(v => !v)} aria-label="Menu">
               <BurgerIcon open={mobileOpen}/>
             </button>
@@ -301,14 +301,15 @@ export default function Nav() {
             <div style={{display:'flex', justifyContent:'center', marginBottom:12}}>
               <LangSwitch/>
             </div>
-            <DemoButton
+            <WaitlistCta
+              source="nav_demo_mobile"
               className="btn btn-dark"
               style={{ width: '100%', justifyContent: 'center' }}
               onClick={() => setMobileOpen(false)}
             >
               {t('nav.bookDemo')}
-            </DemoButton>
-            <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}}>{t('nav.startFreeTrial')}</a>
+            </WaitlistCta>
+            <WaitlistCta source="nav_trial_mobile" className="btn btn-outline" style={{width:'100%', justifyContent:'center', marginTop:10}} onClick={() => setMobileOpen(false)}>{t('nav.startFreeTrial')}</WaitlistCta>
           </div>
         </div>
       </div>

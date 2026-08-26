@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight, Check } from './icons.jsx';
+import { track, EVENTS } from '../lib/analytics.js';
 
 const LogoImg = ({ src, alt, filter }) => (
   <div style={{
@@ -106,37 +107,25 @@ const AICarousel = () => {
   );
 };
 
-const PLATFORM_API = import.meta.env.VITE_PLATFORM_API || 'http://localhost:3000';
-
 export default function Hero() {
   const { t } = useTranslation();
   const [url, setUrl] = useState('');
   const [email, setEmail] = useState('');
-  const [scanning, setScanning] = useState(false);
-  const [error, setError] = useState(null);
+  const [sent, setSent] = useState(false);
 
-  const onSubmit = async (e) => {
+  // Pre-launch: no audit runs. The submission itself is the demand signal, and
+  // the URL someone wants audited is worth as much as the address they leave.
+  //
+  // Two events, not one: the click stands on its own, so a visitor still counts
+  // even if the email turns out to be junk.
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (!url.trim() || !email.trim()) return;
-    setScanning(true);
-    setError(null);
-    try {
-      const res = await fetch(`${PLATFORM_API}/api/audits/free`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim(), email: email.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || data.error || 'Something went wrong.');
-        setScanning(false);
-        return;
-      }
-      window.location.href = data.handoff_url;
-    } catch (err) {
-      setError('Network error. Please try again.');
-      setScanning(false);
-    }
+    const site = url.trim();
+    const address = email.trim();
+    if (!site || !address) return;
+    track(EVENTS.ctaClicked, { source: 'hero_audit', url: site });
+    track(EVENTS.waitlistSubmitted, { source: 'hero_audit', url: site, email: address });
+    setSent(true);
   };
 
   return (
@@ -151,27 +140,40 @@ export default function Hero() {
               <span className="it">{t('hero.h1Highlight')}</span>{t('hero.h1Line2')}
             </h1>
             <p className="lead">{t('hero.lead')}</p>
-            <form className="url-form" onSubmit={onSubmit}>
-              <input
-                type="text"
-                placeholder={t('hero.urlPlaceholder')}
-                value={url}
-                onChange={e => setUrl(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                placeholder={t('hero.emailPlaceholder')}
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="btn btn-cobalt" disabled={scanning}>
-                {scanning ? t('hero.scanning') : t('hero.runAudit')}
-                {!scanning && <ArrowRight/>}
-              </button>
-            </form>
-            {error && <p style={{ color: '#DC2626', marginTop: 12, fontSize: 14 }}>{error}</p>}
+            {sent ? (
+              <div className="hero-waitlist-done" role="status" style={{
+                background: 'white', border: '1px solid var(--line, #d9cfe4)',
+                borderRadius: 16, padding: '20px 22px', marginTop: 4,
+              }}>
+                <strong style={{ display: 'block', fontSize: 18, marginBottom: 6 }}>
+                  {t('waitlist.doneTitle')}
+                </strong>
+                <span style={{ color: 'var(--muted)', lineHeight: 1.6 }}>
+                  {t('waitlist.doneBody')}
+                </span>
+              </div>
+            ) : (
+              <form className="url-form" onSubmit={onSubmit}>
+                <input
+                  type="text"
+                  placeholder={t('hero.urlPlaceholder')}
+                  value={url}
+                  onChange={e => setUrl(e.target.value)}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder={t('hero.emailPlaceholder')}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                />
+                <button type="submit" className="btn btn-cobalt">
+                  {t('hero.runAudit')}
+                  <ArrowRight/>
+                </button>
+              </form>
+            )}
             <div className="hero-checks">
               <span><Check/> {t('hero.check1')}</span>
               <span><Check/> {t('hero.check2')}</span>

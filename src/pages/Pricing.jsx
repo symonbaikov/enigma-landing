@@ -7,7 +7,7 @@ import { ArrowRight, Check } from '../components/icons.jsx';
 import { CompanyLogo } from '../components/BrandLogos.jsx';
 import { Link } from 'react-router-dom';
 import { getPricing } from '../content/index.js';
-import DemoButton from '../components/DemoButton.jsx';
+import WaitlistCta from '../components/WaitlistCta.jsx';
 import OwnershipStories from '../components/OwnershipStories.jsx';
 import Seo from '../components/Seo.jsx';
 import {
@@ -18,11 +18,12 @@ import {
   buildWebsiteSchema,
 } from '../lib/seo.js';
 
-const PLATFORM_URL = import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000';
 const SHOW_BRAND_LOGO_SECTIONS = false;
 
 function PlanCta({ plan }) {
   const slug = plan.name.toLowerCase();
+  // Enterprise has always been a conversation, not a checkout, so it keeps its
+  // mailto — a real inbox is a stronger signal than a logged click.
   if (plan.price_monthly === null) {
     return (
       <a href="mailto:sales@enigma.com" className={`btn btn-${plan.cta_style} btn-lg plan-cta`}>
@@ -31,9 +32,13 @@ function PlanCta({ plan }) {
     );
   }
   return (
-    <a href={`${PLATFORM_URL}/signup?plan=${slug}`} className={`btn btn-${plan.cta_style} btn-lg plan-cta`}>
+    <WaitlistCta
+      source="pricing_plan"
+      plan={slug}
+      className={`btn btn-${plan.cta_style} btn-lg plan-cta`}
+    >
       {plan.cta} {plan.cta_style !== 'outline' && <ArrowRight/>}
-    </a>
+    </WaitlistCta>
   );
 }
 
@@ -161,13 +166,16 @@ export default function Pricing() {
           <Reveal variant="blur" as="h2">{t('pricing.finalCtaTitle')}</Reveal>
           <p className="lede" style={{ margin: '16px auto 36px' }}>{t('pricing.finalCtaDesc')}</p>
           <div className="cta-actions">
-            <a href="#" className="btn btn-dark btn-lg">{t('pricing.getStartedFree')} <ArrowRight/></a>
-            <DemoButton
+            <WaitlistCta source="pricing_final_cta" className="btn btn-dark btn-lg">
+              {t('pricing.getStartedFree')} <ArrowRight/>
+            </WaitlistCta>
+            <WaitlistCta
+              source="pricing_demo"
               className="btn btn-outline btn-lg"
               style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--cream)' }}
             >
               {t('pricing.bookDemo')}
-            </DemoButton>
+            </WaitlistCta>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Starfield, Aurora, Nebula } from '../galactic.jsx';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight } from './icons.jsx';
-import DemoButton from './DemoButton.jsx';
+import WaitlistCta from './WaitlistCta.jsx';
 
 export default function CTA() {
   const { t } = useTranslation();
@@ -20,8 +20,8 @@ export default function CTA() {
         </Reveal>
         <p className="lede" style={{margin: '0 auto 36px'}}>{t('cta.desc')}</p>
         <div className="cta-actions">
-          <DemoButton className="btn btn-dark btn-lg">{t('cta.bookDemo')} <ArrowRight/></DemoButton>
-          <a href={`${import.meta.env.VITE_PLATFORM_URL || 'http://localhost:3000'}/signup`} className="btn btn-outline btn-lg">{t('cta.runFreeAudit')}</a>
+          <WaitlistCta source="home_cta_demo" className="btn btn-dark btn-lg">{t('cta.bookDemo')} <ArrowRight/></WaitlistCta>
+          <WaitlistCta source="home_cta_audit" className="btn btn-outline btn-lg">{t('cta.runFreeAudit')}</WaitlistCta>
         </div>
       </div>
     </section>
