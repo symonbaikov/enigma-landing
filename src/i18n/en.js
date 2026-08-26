@@ -604,6 +604,10 @@ const en = {
       { title: 'Every claim carries its source:', desc: 'the playbook, the research and the product pages cite a catalogue of 84 academic, official and industry sources â and say plainly where the evidence stops.' },
       { title: 'Built by someone who does the work:', desc: 'the checks in the product are the ones our founder runs by hand for clients today.' },
     ],
+    mission: {
+      title: 'On a mission to make B2B brands the source AI recommends',
+      body: 'AI changed how buyers pick a vendor. They used to search Google, open a dozen tabs and assemble a shortlist by hand. Now they ask ChatGPT, Perplexity and Gemini, and the shortlist arrives already written. Enigma exists for one question: when that answer is written, is the source behind it your page or your competitor’s? We answer it with repeated measurement rather than promises — the odds of being cited can be improved, inclusion cannot be guaranteed.',
+    },
     founder: {
       eyebrow: 'Founder',
       name: 'Symon Baikov',

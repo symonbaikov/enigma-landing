@@ -3727,3 +3727,30 @@ img.social-avatar {
   .about-founder { padding: 70px 0; }
   .founder-photo, .founder-photo--fallback { width: 100%; height: auto; aspect-ratio: 1/1; }
 }
+
+/* Mission band between the intro and the founder. Same idea as the reference
+   layout, in our palette: one bordered card, one claim, one paragraph. */
+.about-mission { padding: 90px 0 10px; background: var(--paper); }
+.mission-card {
+  position: relative; max-width: 1000px; margin: 0 auto;
+  background: white; border: 1px solid var(--line); border-radius: 26px;
+  padding: 48px 52px;
+  box-shadow: 0 30px 60px -40px rgba(31,26,20,0.24);
+  overflow: hidden;
+}
+/* A single accent stroke along the top edge, instead of a coloured frame. */
+.mission-card::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, transparent, #6B3FFF 22%, #b9a6ff 60%, transparent);
+}
+.mission-title {
+  font-size: clamp(24px, 2.5vw, 34px); line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--ink); margin: 0 0 18px; max-width: 24ch;
+}
+.mission-body { font-size: 17px; line-height: 1.7; color: var(--muted); margin: 0; max-width: 78ch; }
+
+@media (max-width: 640px) {
+  .about-mission { padding: 60px 0 0; }
+  .mission-card { padding: 30px 24px; border-radius: 20px; }
+  .mission-title { max-width: none; }
+}

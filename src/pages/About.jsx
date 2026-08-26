@@ -146,6 +146,17 @@ export default function About() {
         </div>
       </section>
 
+      <section className="about-mission">
+        <div className="container-wide">
+          <Reveal variant="up">
+            <div className="mission-card">
+              <h2 className="mission-title">{t('about.mission.title')}</h2>
+              <p className="mission-body">{t('about.mission.body')}</p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="about-founder">
         <div className="container-wide">
           <div className="founder-grid">
