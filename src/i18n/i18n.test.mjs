@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import en from './en.js';
 import uk from './uk.js';
 import ru from './ru.js';
+import { getBlogPosts } from '../content/blog.js';
 
 /*
  * Guards for the translated locales.
@@ -14,6 +15,15 @@ import ru from './ru.js';
  */
 
 const RESEARCH = readFileSync(new URL('../../docs/research.md', import.meta.url), 'utf8');
+/* The blog cites the wider blog catalogue (93 sources), which extends research.md. */
+const BLOG_RESEARCH = readFileSync(new URL('../../docs/blog-research.md', import.meta.url), 'utf8');
+
+const blogCatalogue = new Set(
+  [...BLOG_RESEARCH.matchAll(/^\*\*(\d{2})\./gm)].map((m) => String(Number(m[1]))),
+);
+const blogCatalogueUrls = new Set(
+  [...BLOG_RESEARCH.matchAll(/\((https?:\/\/[^)]+)\)/g)].map((m) => m[1].replace(/\/+$/, '')),
+);
 
 /** Source numbers the research catalogue actually defines: "## 07. Title". */
 const catalogue = new Set(
@@ -99,4 +109,46 @@ test('the English copy never promises guaranteed inclusion', () => {
     !/(no|not|never|does not|cannot|without)\b/i.test(s),
   );
   assert.deepEqual(overclaims, [], 'unbounded promise found in en.js');
+});
+
+test('English blog posts cite only sources in the blog catalogue', () => {
+  const bad = [];
+  for (const post of getBlogPosts('en')) {
+    for (const text of strings(post)) {
+      for (const marker of text.matchAll(/\[\s*Source\s*((?:\d+\s*,\s*)*\d+)\s*\]/gi)) {
+        for (const num of marker[1].split(',')) {
+          const n = String(Number(num.trim()));
+          if (!blogCatalogue.has(n)) bad.push(`${post.slug}: [Source ${n}]`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(bad, [], 'blog citation markers outside docs/blog-research.md');
+});
+
+test('English blog post URLs match the catalogues', () => {
+  // Bot documentation quotes user-agent identifier strings, which look like
+  // URLs but are tokens rather than citations.
+  const userAgentTokens = new Set([
+    'https://perplexity.ai/perplexitybot',
+    'https://perplexity.ai/perplexity-user',
+    'https://commoncrawl.org/faq',
+  ]);
+  const known = new Set([...blogCatalogueUrls, ...catalogueUrls, ...userAgentTokens]);
+  const bad = [];
+  for (const post of getBlogPosts('en')) {
+    for (const text of strings(post)) {
+      for (const m of text.matchAll(/https?:\/\/[^\s'")\]]+/g)) {
+        const url = m[0].replace(/[.,]+$/, '').replace(/\/+$/, '');
+        if (!known.has(url)) bad.push(`${post.slug}: ${url}`);
+      }
+    }
+  }
+  assert.deepEqual(bad, [], 'blog URLs not present in the research catalogues');
+});
+
+test('every locale ships the same set of blog slugs', () => {
+  const slugs = (lang) => getBlogPosts(lang).map((p) => p.slug).join(',');
+  assert.equal(slugs('en'), slugs('uk'), 'en and uk blog sets differ');
+  assert.equal(slugs('en'), slugs('ru'), 'en and ru blog sets differ');
 });

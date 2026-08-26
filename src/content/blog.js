@@ -37,6 +37,19 @@ import structuredDataAiSeoMythsUk from './blog/uk/structured-data-ai-seo-myths.j
 import geoForEcommerceUk from './blog/uk/geo-for-ecommerce.js';
 import ethicalGeoNoSpamUk from './blog/uk/ethical-geo-no-spam.js';
 
+
+/* English localizations (audited) — same slugs and section structure as ru. */
+import geoAeoVsSeoEn from './blog/en/geo-aeo-vs-seo.js';
+import howAnswerEnginesWorkEn from './blog/en/how-answer-engines-work.js';
+import citationSelectionVsAbsorptionEn from './blog/en/citation-selection-vs-absorption.js';
+import aiVisibilityInstabilityEn from './blog/en/ai-visibility-instability.js';
+import googleAiOverviewsGuideEn from './blog/en/google-ai-overviews-guide.js';
+import zeroClickBusinessRiskEn from './blog/en/zero-click-business-risk.js';
+import aiCrawlersRobotsTxtEn from './blog/en/ai-crawlers-robots-txt.js';
+import structuredDataAiSeoMythsEn from './blog/en/structured-data-ai-seo-myths.js';
+import geoForEcommerceEn from './blog/en/geo-for-ecommerce.js';
+import ethicalGeoNoSpamEn from './blog/en/ethical-geo-no-spam.js';
+
 /* Curated reading order (introductory → applied). The post page's "next"
    link cycles through this array, so order doubles as the learning path. */
 const ru = [
@@ -66,7 +79,21 @@ const uk = [
   ethicalGeoNoSpamUk,
 ];
 
-const BY_LANG = { ru, uk };
+/* English localizations — same curated order as ru. */
+const en = [
+  geoAeoVsSeoEn,
+  howAnswerEnginesWorkEn,
+  citationSelectionVsAbsorptionEn,
+  aiVisibilityInstabilityEn,
+  googleAiOverviewsGuideEn,
+  zeroClickBusinessRiskEn,
+  aiCrawlersRobotsTxtEn,
+  structuredDataAiSeoMythsEn,
+  geoForEcommerceEn,
+  ethicalGeoNoSpamEn,
+];
+
+const BY_LANG = { en, uk, ru };
 
 /* Languages with real posts — drives hreflang and the sitemap. */
 export const blogLocales = localesWith(BY_LANG);
@@ -76,7 +103,7 @@ export const blogLocales = localesWith(BY_LANG);
 export function getBlogPosts(lang) {
   const primary = String(lang || '').toLowerCase().split('-')[0];
   const set = BY_LANG[primary];
-  return set && set.length ? set : uk;
+  return set && set.length ? set : en;
 }
 
 /* Back-compat default (ru) for any importer not passing a language. */
