@@ -219,6 +219,15 @@ test('quoted posts are not translated per locale', () => {
   assert.equal(ids.size, socialPosts.length, 'duplicate post ids');
 });
 
+test('the founder photo ships with the about page', () => {
+  // The page falls back to initials, which is fine as a safety net and wrong
+  // as a permanent state for an About page.
+  assert.ok(
+    existsSync(new URL('../../public/team/founder.jpg', import.meta.url)),
+    'public/team/founder.jpg is missing',
+  );
+});
+
 test('every quoted post ships its author photo', () => {
   const missing = socialPosts.filter(
     (post) => !post.avatar || !existsSync(new URL(`../../public${post.avatar}`, import.meta.url)),
