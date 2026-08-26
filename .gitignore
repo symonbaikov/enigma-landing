@@ -5,3 +5,7 @@ dist/
 .rag-cache/
 graphify-out/
 .worktrees/
+
+# nested repos / agent worktrees (broke Cloudflare Pages clone)
+.claude/worktrees/
+seo-geo-claude-skills/
