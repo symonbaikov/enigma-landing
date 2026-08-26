@@ -12,7 +12,10 @@
  *  - if it is shortened, cut only whole trailing sentences and set
  *    `truncated: true`, which renders an ellipsis and a link to the full post;
  *  - `url` always points at the original, so any reader can check the quote;
- *  - nothing is translated. A translated quote is no longer a quote.
+ *  - nothing is translated. A translated quote is no longer a quote;
+ *  - the avatar is the author's own profile photo, taken from the same source
+ *    as the quote and served from public/avatars. Hotlinking would leak our
+ *    readers to a third party, and LinkedIn's signed image URLs expire.
  *
  * These are individual public reports, not a study, and the section says so.
  * X dates come from the API; LinkedIn dates are decoded from the timestamp
@@ -22,6 +25,7 @@
 export const socialPosts = [
   {
     id: 'rauchg',
+    avatar: '/avatars/rauchg.jpg',
     author: 'Guillermo Rauch',
     handle: '@rauchg',
     role: 'CEO, Vercel',
@@ -32,6 +36,7 @@ export const socialPosts = [
   },
   {
     id: 'zenorocha',
+    avatar: '/avatars/zenorocha.jpg',
     author: 'Zeno Rocha',
     handle: 'zenorocha',
     role: 'CEO, Resend',
@@ -42,6 +47,7 @@ export const socialPosts = [
   },
   {
     id: 'levelsio',
+    avatar: '/avatars/levelsio.jpg',
     author: '@levelsio',
     handle: '@levelsio',
     role: 'Indie founder',
@@ -52,6 +58,7 @@ export const socialPosts = [
   },
   {
     id: 'marclou',
+    avatar: '/avatars/marclou.jpg',
     author: 'Marc Lou',
     handle: '@marclou',
     role: 'Indie founder',
@@ -62,6 +69,7 @@ export const socialPosts = [
   },
   {
     id: 'jhtscherck',
+    avatar: '/avatars/jhtscherck.jpg',
     author: 'JH Scherck',
     handle: '@JHTScherck',
     role: 'Founder, Growth Plays',
@@ -73,6 +81,7 @@ export const socialPosts = [
   },
   {
     id: 'juanbello',
+    avatar: '/avatars/juanbello.jpg',
     author: 'Juan Bello',
     handle: 'juan-bello',
     role: 'Growth & analytics',

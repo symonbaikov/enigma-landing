@@ -8,6 +8,7 @@ import { getBlogPosts } from '../content/blog.js';
 import { getArticles } from '../content/articles.js';
 import { getChapters } from '../content/chapters.js';
 import { socialPosts } from '../content/social-proof.js';
+import { existsSync } from 'node:fs';
 
 /*
  * Guards for the translated locales.
@@ -202,6 +203,11 @@ test('every quoted post is attributed and linkable', () => {
     }
     // Tracking parameters carry the reader's referrer to someone else's post.
     if ((post.url || '').includes('utm_')) bad.push(`${post.id}: tracking parameters in url`);
+    // Avatars are served from our own origin: a hotlinked profile photo leaks
+    // readers to a third party and, on LinkedIn, expires with its signed URL.
+    if (post.avatar && !post.avatar.startsWith('/avatars/')) {
+      bad.push(`${post.id}: avatar is not self-hosted`);
+    }
   }
   assert.deepEqual(bad, [], 'social proof entries missing attribution');
 });
@@ -211,4 +217,11 @@ test('quoted posts are not translated per locale', () => {
   // ever appears, the words stop being the author's.
   const ids = new Set(socialPosts.map((p) => p.id));
   assert.equal(ids.size, socialPosts.length, 'duplicate post ids');
+});
+
+test('every quoted post ships its author photo', () => {
+  const missing = socialPosts.filter(
+    (post) => !post.avatar || !existsSync(new URL(`../../public${post.avatar}`, import.meta.url)),
+  );
+  assert.deepEqual(missing.map((p) => p.id), [], 'avatar files missing from public/avatars');
 });

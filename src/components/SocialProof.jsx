@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { socialPosts } from '../content/social-proof.js';
@@ -21,7 +22,7 @@ const PlatformIcon = ({ platform }) =>
     </svg>
   );
 
-/** Initials stand in for avatars: profile images cannot be hotlinked reliably. */
+/** Initials back the photo up, so a failed image never leaves an empty hole. */
 function initials(name) {
   return name
     .replace(/^@/, '')
@@ -30,6 +31,26 @@ function initials(name) {
     .slice(0, 2)
     .map((part) => part[0].toUpperCase())
     .join('');
+}
+
+function Avatar({ post }) {
+  const [failed, setFailed] = useState(false);
+  if (!post.avatar || failed) {
+    return <span className="social-avatar" aria-hidden="true">{initials(post.author)}</span>;
+  }
+  return (
+    <img
+      className="social-avatar"
+      src={post.avatar}
+      // The name sits right beside it, so announcing the photo would repeat it.
+      alt=""
+      width="38"
+      height="38"
+      loading="lazy"
+      decoding="async"
+      onError={() => setFailed(true)}
+    />
+  );
 }
 
 export default function SocialProof() {
@@ -62,7 +83,7 @@ export default function SocialProof() {
                 rel="noopener noreferrer nofollow"
               >
                 <div className="social-head">
-                  <span className="social-avatar" aria-hidden="true">{initials(post.author)}</span>
+                  <Avatar post={post}/>
                   <span className="social-who">
                     <span className="social-author">{post.author}</span>
                     <span className="social-handle">{post.handle} · {post.role}</span>
