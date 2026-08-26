@@ -157,9 +157,11 @@ export function getResources(t) {
   };
 }
 
+/* Annual price must stay ~17% below monthly: pricing.save17 states that
+   discount as a fixed string in all three locales. */
 const PLAN_META = [
   { price_monthly: 0,    price_annual: 0,   cta_style: 'outline', highlight: false },
-  { price_monthly: 299,  price_annual: 249, cta_style: 'cobalt',  highlight: true  },
+  { price_monthly: 60,   price_annual: 50,  cta_style: 'cobalt',  highlight: true  },
   { price_monthly: null, price_annual: null, cta_style: 'dark',   highlight: false },
 ];
 
