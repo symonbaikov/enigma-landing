@@ -11,6 +11,7 @@ import EnterpriseSection from '../components/EnterpriseSection.jsx';
 import TestimonialLight from '../components/TestimonialLight.jsx';
 import LogoBar from '../components/LogoBar.jsx';
 import FeatCards from '../components/FeatCards.jsx';
+import SocialProof from '../components/SocialProof.jsx';
 import ReviewsSection from '../components/ReviewsSection.jsx';
 import CTA from '../components/CTA.jsx';
 import {
@@ -50,6 +51,7 @@ export default function Home() {
       <TestimonialLight/>
       <LogoBar/>
       <FeatCards/>
+      <SocialProof/>
       <ReviewsSection/>
       <CTA/>
     </>

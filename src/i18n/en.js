@@ -593,6 +593,13 @@ const en = {
       },
     ],
   },
+  socialProof: {
+    eyebrow: 'Earned media',
+    title: 'Founders are already reporting AI-search traffic',
+    lead: 'Public posts from people running real products, quoted word for word with a link to the original. Their numbers, measured on their own sites.',
+    readPost: 'Read the post',
+    note: 'These are individual public reports, not a study: each figure comes from one team’s own analytics and is not generalizable. Posts are quoted in their original language and belong to their authors.',
+  },
   enterprise: {
     h2: 'Built for',
     h2Highlight: 'enterprises',

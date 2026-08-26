@@ -3585,3 +3585,65 @@ select,
   .lang-trigger { width: auto; }
   .lang-trigger-name { display: none; }
 }
+
+/* Public posts about AI-search traffic. Cards are links to the original post:
+   a quote from a named person is only trustworthy if it can be checked. */
+.social-proof { padding: 100px 0; background: var(--cream); }
+.social-lead {
+  max-width: 760px; margin: 16px auto 0; text-align: center;
+  color: var(--muted); font-size: 16px; line-height: 1.6;
+}
+.social-grid {
+  margin-top: 42px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+}
+.social-card {
+  display: flex; flex-direction: column; gap: 16px; height: 100%;
+  background: white; border: 1px solid var(--line); border-radius: 22px;
+  padding: 22px; text-decoration: none; color: inherit;
+  box-shadow: 0 24px 50px -34px rgba(31,26,20,0.20);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.social-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(107,63,255,0.35);
+  box-shadow: 0 28px 56px -30px rgba(91,33,182,0.28);
+}
+.social-head { display: flex; align-items: center; gap: 11px; }
+.social-avatar {
+  width: 38px; height: 38px; border-radius: 99px; flex-shrink: 0;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, #efe7ff, #dcd2f5);
+  color: #4b2fa8; font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+}
+.social-who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.social-author { font-size: 14px; font-weight: 600; color: var(--ink); }
+.social-handle {
+  font-size: 12px; color: var(--muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.social-platform { flex-shrink: 0; color: var(--muted); opacity: 0.75; }
+.social-platform--linkedin { color: #0a66c2; opacity: 0.9; }
+.social-text {
+  margin: 0; flex: 1;
+  font-size: 15px; line-height: 1.6; color: var(--ink);
+  white-space: pre-line; /* the posts' own line breaks are part of the quote */
+}
+.social-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 14px; border-top: 1px solid var(--line);
+  font-size: 12.5px; color: var(--muted);
+}
+.social-link { color: #6B3FFF; font-weight: 600; }
+.social-note {
+  margin: 34px auto 0; max-width: 680px; text-align: center;
+  font-size: 13px; line-height: 1.6; color: var(--muted);
+}
+
+@media (max-width: 980px) {
+  .social-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .social-proof { padding: 70px 0; }
+  .social-grid { grid-template-columns: 1fr; }
+}

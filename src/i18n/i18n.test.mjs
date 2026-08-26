@@ -7,6 +7,7 @@ import ru from './ru.js';
 import { getBlogPosts } from '../content/blog.js';
 import { getArticles } from '../content/articles.js';
 import { getChapters } from '../content/chapters.js';
+import { socialPosts } from '../content/social-proof.js';
 
 /*
  * Guards for the translated locales.
@@ -186,4 +187,28 @@ test('no English long-form text is left in Cyrillic', () => {
     .flatMap((item) => strings(item).filter((t) => /[Ѐ-ӿ]/.test(t)))
     .slice(0, 5);
   assert.deepEqual(leftovers, [], 'Cyrillic left in the English long-form corpora');
+});
+
+test('every quoted post is attributed and linkable', () => {
+  // A quote from a named person is only trustworthy if a reader can open the
+  // original, so a missing or non-post URL is a correctness bug, not a nit.
+  const bad = [];
+  for (const post of socialPosts) {
+    if (!post.author?.trim()) bad.push(`${post.id}: no author`);
+    if (!post.text?.trim()) bad.push(`${post.id}: no text`);
+    if (!['x', 'linkedin'].includes(post.platform)) bad.push(`${post.id}: unknown platform`);
+    if (!/^https:\/\/(x\.com|www\.linkedin\.com)\//.test(post.url || '')) {
+      bad.push(`${post.id}: url does not point at the original post`);
+    }
+    // Tracking parameters carry the reader's referrer to someone else's post.
+    if ((post.url || '').includes('utm_')) bad.push(`${post.id}: tracking parameters in url`);
+  }
+  assert.deepEqual(bad, [], 'social proof entries missing attribution');
+});
+
+test('quoted posts are not translated per locale', () => {
+  // The quotes live in one module shared by every locale; if a translated copy
+  // ever appears, the words stop being the author's.
+  const ids = new Set(socialPosts.map((p) => p.id));
+  assert.equal(ids.size, socialPosts.length, 'duplicate post ids');
 });
