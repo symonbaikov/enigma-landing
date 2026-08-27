@@ -50,6 +50,8 @@ const ru = {
       aeoFaq: 'AEO FAQ / Глоссарий',
       aeoFaqDesc: 'Определения терминов и ответы на ключевые вопросы.',
       changelog: 'Changelog',
+      about: 'О Enigma',
+      aboutDesc: 'Кто это делает и какие четыре шага за этим стоят.',
       changelogDesc: 'Изменения платформы и правил платформ.',
     },
     mobile: {

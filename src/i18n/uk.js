@@ -50,6 +50,8 @@ const uk = {
       aeoFaq: 'AEO FAQ / Глосарій',
       aeoFaqDesc: 'Визначення термінів і відповіді на ключові питання.',
       changelog: 'Changelog',
+      about: 'Про Enigma',
+      aboutDesc: 'Хто це робить і які чотири кроки за цим стоять.',
       changelogDesc: 'Зміни платформи та правил платформ.',
     },
     mobile: {

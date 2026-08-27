@@ -192,6 +192,13 @@ export default function Nav() {
                           <div className="tile-desc">{t('nav.tiles.insightsDesc')}</div>
                         </div>
                       </button>
+                      <button className="mega-tile" onClick={() => go('/about')}>
+                        <div className="tile-icon" style={{background: 'linear-gradient(135deg,#4B2FA8,#C9A876)'}}>◈</div>
+                        <div>
+                          <div className="tile-title">{t('nav.tiles.about')}</div>
+                          <div className="tile-desc">{t('nav.tiles.aboutDesc')}</div>
+                        </div>
+                      </button>
                     </div>
                   </div>
                   <button className="mega-feature" onClick={() => go('/blog')}>
@@ -325,6 +332,9 @@ export default function Nav() {
             </button>
             <button className="mobile-link" onClick={() => mobileGo('/product/insights')}>
               <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#8A4FC9,#C9A8FF)'}}>⌬</span>{t('nav.tiles.insights')}
+            </button>
+            <button className="mobile-link" onClick={() => mobileGo('/about')}>
+              <span className="mobile-link-icon" style={{background:'linear-gradient(135deg,#4B2FA8,#C9A876)'}}>◈</span>{t('nav.tiles.about')}
             </button>
           </div>
 

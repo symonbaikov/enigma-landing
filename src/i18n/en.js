@@ -65,6 +65,8 @@ const en = {
       aeoFaq: 'AEO FAQ / Glossary',
       aeoFaqDesc: 'Term definitions and answers to the questions that matter.',
       changelog: 'Changelog',
+      about: 'About Enigma',
+      aboutDesc: 'Who builds this, and the four steps behind it.',
       changelogDesc: 'Changes to the platform — and to the platforms it watches.',
     },
     mobile: {
