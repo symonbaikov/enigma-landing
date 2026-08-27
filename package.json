@@ -14,9 +14,10 @@
     "rag:build": "npm run rag:crawl && npm run rag:index",
     "graphify:build": "graphify update . --no-cluster",
     "graphify:query": "graphify query",
-    "test": "node --test src/lib/seo.test.mjs src/i18n/i18n.test.mjs",
+    "test": "node --test src/lib/seo.test.mjs src/lib/email.test.mjs src/i18n/i18n.test.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
-    "indexnow": "node scripts/indexnow.mjs"
+    "indexnow": "node scripts/indexnow.mjs",
+    "email": "node scripts/build-email.mjs"
   },
   "dependencies": {
     "@directus/sdk": "^21.3.0",
@@ -30,6 +31,8 @@
   },
   "devDependencies": {
     "@mozilla/readability": "^0.6.0",
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.1.0",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^29.1.1",
     "minisearch": "^7.2.0",

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { track, EVENTS } from '../lib/analytics.js';
+import { joinWaitlist } from '../lib/waitlist.js';
 
 /**
  * Shown instead of sign-up and checkout while the product is pre-launch.
@@ -49,6 +50,8 @@ export default function WaitlistModal({ open, onClose, source, plan }) {
     const value = email.trim();
     if (!value) return;
     track(EVENTS.waitlistSubmitted, { email: value, source, plan });
+    // Fire-and-forget: the success screen does not wait on the network.
+    joinWaitlist(value);
     setSent(true);
   };
 

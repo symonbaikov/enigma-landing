@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Reveal } from '../scroll-anims.jsx';
 import { ArrowRight, Check } from './icons.jsx';
 import { track, EVENTS } from '../lib/analytics.js';
+import { joinWaitlist } from '../lib/waitlist.js';
 
 const LogoImg = ({ src, alt, filter }) => (
   <div style={{
@@ -125,6 +126,8 @@ export default function Hero() {
     if (!site || !address) return;
     track(EVENTS.ctaClicked, { source: 'hero_audit', url: site });
     track(EVENTS.waitlistSubmitted, { source: 'hero_audit', url: site, email: address });
+    // Same promise as the modal, so the same list.
+    joinWaitlist(address);
     setSent(true);
   };
 
