@@ -1,5 +1,13 @@
 /* Enigma — AI Search Visibility Platform */
 
+/* One layout boundary: 1099px.
+   Tablets used to fall between two modes — the burger nav from the ≤980
+   rules with desktop three- and four-column grids still in force, so the
+   nav row overflowed and every section squeezed. There is no separate
+   tablet layout to design, so there is one switch instead of three: below
+   1100px everything uses the phone layout, at 1100px and up the desktop
+   one. 1100 is where the desktop nav row stops overflowing. */
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&display=swap');
 
 :root {
@@ -748,7 +756,7 @@ section { position: relative; }
   font-size: 12px; opacity: 0.9; margin-top: 4px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .token-compare { grid-template-columns: 1fr; gap: 16px; }
   .vs-meter { flex-direction: row; padding: 0; gap: 14px; }
   .vs-line { width: auto; height: 1px; min-height: 1px; min-width: 60px;
@@ -2711,13 +2719,13 @@ section { position: relative; }
 .faq-item.open .faq-a { padding-top: 14px; }
 
 /* ─── Responsive for inner pages ─────────────────────────── */
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   /* pain-grid, benefits-grid, plans-grid, steps-grid handled in main 980px block above */
   .article-card { grid-template-columns: 1fr; gap: 12px; }
   .changelog-item { grid-template-columns: 1fr; gap: 10px; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .page-hero { padding: 60px 0 80px; }
   .page-hero-title { font-size: clamp(38px, 10vw, 60px); }
   .page-hero-desc { font-size: 16px; }
@@ -2742,7 +2750,7 @@ section { position: relative; }
 /* ─── Responsive ─────────────────────────────────────────── */
 
 /* Tablet — 980px */
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .container, .container-wide { padding: 0 24px; }
 
   /* Nav */
@@ -2945,7 +2953,7 @@ section { position: relative; }
 }
 
 /* Mobile — 640px */
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .container, .container-wide { padding: 0 16px; }
 
   /* Nav */
@@ -3201,7 +3209,7 @@ section { position: relative; }
   padding: 0;
   flex-shrink: 0;
 }
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .burger-btn { display: flex; }
 }
 
@@ -3321,7 +3329,7 @@ section { position: relative; }
 /* ─── Mobile centering pass ────────────────────────────────────────────
    On mobile, the layout becomes a single column. Center the content of
    every stacked block so everything reads top-to-bottom symmetrically. */
-@media (max-width: 760px) {
+@media (max-width: 1099px) {
   /* Section content centering — text, lists, lede */
   .split-section,
   .split-section .col-l,
@@ -3365,7 +3373,7 @@ section { position: relative; }
 }
 
 /* ─── Mobile stacking for inline-styled layouts ───────────────────────── */
-@media (max-width: 760px) {
+@media (max-width: 1099px) {
   /* AXP citation comparison: stack the two chat columns */
   .axp-citation-demo { grid-template-columns: 1fr !important; gap: 16px !important; }
 
@@ -3520,7 +3528,7 @@ section { position: relative; }
   font-size: 16px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   #root p:not([class]),
   #root li {
     font-size: 16px !important;
@@ -3581,7 +3589,7 @@ select,
 .lang-trigger { width: 186px; }
 .lang-trigger-name { flex: 1; text-align: left; }
 
-@media (min-width: 981px) and (max-width: 1400px) {
+@media (min-width: 1100px) and (max-width: 1400px) {
   .lang-trigger { width: auto; }
   .lang-trigger-name { display: none; }
 }
@@ -3645,10 +3653,10 @@ img.social-avatar {
   font-size: 13px; line-height: 1.6; color: var(--muted);
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .social-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .social-proof { padding: 70px 0; }
   .social-grid { grid-template-columns: 1fr; }
 }
@@ -3723,7 +3731,7 @@ img.social-avatar {
 .founder-link--x:hover { color: #000; }
 .founder-link--github:hover { color: #24292f; }
 
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .about-intro-grid { grid-template-columns: 1fr; gap: 36px; }
   /* The 15ch measure keeps the desktop headline in three lines; stacked, it
      just makes the text narrower than its own column. */
@@ -3731,7 +3739,7 @@ img.social-avatar {
   .about-logo-card { max-width: 420px; }
   .founder-grid { grid-template-columns: 1fr; gap: 30px; }
 }
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .about-intro { padding: 80px 0 60px; }
   .about-founder { padding: 70px 0; }
   .founder-photo, .founder-photo--fallback { width: 100%; height: auto; aspect-ratio: 1/1; }
@@ -3758,7 +3766,7 @@ img.social-avatar {
 }
 .mission-body { font-size: 17px; line-height: 1.7; color: var(--muted); margin: 0; max-width: 78ch; }
 
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .about-mission { padding: 60px 0 0; }
   .mission-card { padding: 30px 24px; border-radius: 20px; }
   .mission-title { max-width: none; }
@@ -3785,10 +3793,10 @@ img.social-avatar {
 .how-step-title { font-size: 18px; margin: 10px 0 8px; color: var(--ink); }
 .how-step-desc { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
 
-@media (max-width: 980px) {
+@media (max-width: 1099px) {
   .how-grid { grid-template-columns: 1fr; gap: 26px; }
 }
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   .about-how { padding: 10px 0 70px; }
 }
 
@@ -3809,4 +3817,4 @@ img.social-avatar {
   margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
   font-size: 13.5px; line-height: 1.6; color: var(--muted);
 }
-@media (max-width: 640px) { .legal-page { padding: 70px 0 60px; } }
+@media (max-width: 1099px) { .legal-page { padding: 70px 0 60px; } }

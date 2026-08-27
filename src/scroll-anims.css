@@ -22,7 +22,7 @@
   filter: blur(0);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1099px) {
   [data-reveal="left"],
   [data-reveal="right"] {
     transform: translateY(20px);
