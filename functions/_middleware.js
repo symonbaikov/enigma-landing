@@ -27,6 +27,35 @@ const DEFAULT_LOCALE = 'en';
    because answering 404 for real pages is far worse than a soft 404. */
 let knownPaths = null;
 
+/* Title and description per route, built at deploy time from the same sources
+   the pages read (see scripts/route-meta.mjs). Without it every URL served the
+   same generic <title>, which is what a crawler that does not run JavaScript
+   reads — and most AI crawlers do not. */
+let routeMeta = null;
+
+async function loadRouteMeta(context, url) {
+  if (routeMeta) return routeMeta;
+  try {
+    const request = new Request(new URL('/route-meta.json', url));
+    const res = context.env?.ASSETS ? await context.env.ASSETS.fetch(request) : await fetch(request);
+    if (!res.ok) return null;
+    routeMeta = await res.json();
+    return routeMeta;
+  } catch {
+    return null;
+  }
+}
+
+/** Replaces the text of an element, used for <title>. */
+class TextSetter {
+  constructor(value) {
+    this.value = value;
+  }
+  element(element) {
+    element.setInnerContent(this.value);
+  }
+}
+
 async function loadKnownPaths(context, url) {
   if (knownPaths) return knownPaths;
   try {
@@ -110,10 +139,26 @@ export async function onRequest(context) {
           headers: response.headers,
         });
 
-  return new HTMLRewriter()
+  // Whatever the app will set at runtime, said up front for readers that never
+  // get there.
+  const meta = await loadRouteMeta(context, url);
+  const page = meta?.[normalized]?.[lang] ?? meta?.[normalized]?.[DEFAULT_LOCALE];
+
+  let rewriter = new HTMLRewriter()
     .on('link[rel="canonical"]', new AttributeSetter('href', canonical))
     .on('link[rel="canonical"]', new AlternatesInjector(alternates))
     .on('meta[property="og:url"]', new AttributeSetter('content', canonical))
-    .on('html', new AttributeSetter('lang', lang))
-    .transform(base);
+    .on('html', new AttributeSetter('lang', lang));
+
+  if (page) {
+    rewriter = rewriter
+      .on('title', new TextSetter(page.title))
+      .on('meta[name="description"]', new AttributeSetter('content', page.description))
+      .on('meta[property="og:title"]', new AttributeSetter('content', page.title))
+      .on('meta[property="og:description"]', new AttributeSetter('content', page.description))
+      .on('meta[name="twitter:title"]', new AttributeSetter('content', page.title))
+      .on('meta[name="twitter:description"]', new AttributeSetter('content', page.description));
+  }
+
+  return rewriter.transform(base);
 }

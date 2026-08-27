@@ -8,6 +8,7 @@ import { getBlogPosts } from '../content/blog.js';
 import { getArticles } from '../content/articles.js';
 import { getChapters } from '../content/chapters.js';
 import { socialPosts } from '../content/social-proof.js';
+import { buildRouteMeta } from '../../scripts/route-meta.mjs';
 import { existsSync } from 'node:fs';
 
 /*
@@ -246,4 +247,23 @@ test('every quoted post ships its author photo', () => {
     (post) => !post.avatar || !existsSync(new URL(`../../public${post.avatar}`, import.meta.url)),
   );
   assert.deepEqual(missing.map((p) => p.id), [], 'avatar files missing from public/avatars');
+});
+
+test('every page in the sitemap has a title for crawlers that do not render', () => {
+  // The middleware serves these before any JavaScript runs. A route missing
+  // here silently falls back to the generic site title, which is the problem
+  // the manifest exists to fix.
+  const meta = buildRouteMeta();
+  const missing = [];
+  for (const [path, byLang] of Object.entries(meta)) {
+    for (const lang of ['en', 'uk', 'ru']) {
+      const page = byLang[lang];
+      if (!page) { missing.push(`${path} (${lang}): absent`); continue; }
+      if (!page.title?.endsWith('| Enigma')) missing.push(`${path} (${lang}): title not suffixed`);
+      if (page.title.includes('\n')) missing.push(`${path} (${lang}): newline in title`);
+      if (!page.description) missing.push(`${path} (${lang}): no description`);
+      if (page.description.length > 160) missing.push(`${path} (${lang}): description too long`);
+    }
+  }
+  assert.deepEqual(missing, [], 'incomplete route meta');
 });

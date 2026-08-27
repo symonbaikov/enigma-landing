@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { writeFileSync, readFileSync } from 'node:fs';
 import { buildSitemap } from './scripts/build-sitemap.mjs';
+import { buildRouteMeta } from './scripts/route-meta.mjs';
 
 /*
  * The site's origin, resolved once for the whole build.
@@ -30,7 +31,14 @@ function siteFiles() {
       const { xml, pages } = buildSitemap();
       writeFileSync('dist/sitemap.xml', xml);
       const urls = (xml.match(/<loc>/g) || []).length;
-      this.info(`site origin ${siteUrl} — sitemap: ${pages} pages, ${urls} URLs`);
+
+      /* Read by functions/_middleware.js to give non-rendering crawlers the
+         right title and description per URL. */
+      const meta = buildRouteMeta();
+      writeFileSync('dist/route-meta.json', JSON.stringify(meta));
+      this.info(
+        `site origin ${siteUrl} — sitemap: ${pages} pages, ${urls} URLs; route meta: ${Object.keys(meta).length} routes`,
+      );
     },
   };
 }
