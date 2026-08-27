@@ -22,15 +22,11 @@ const SHOW_BRAND_LOGO_SECTIONS = false;
 
 function PlanCta({ plan }) {
   const slug = plan.name.toLowerCase();
-  // Enterprise has always been a conversation, not a checkout, so it keeps its
-  // mailto — a real inbox is a stronger signal than a logged click.
-  if (plan.price_monthly === null) {
-    return (
-      <a href="mailto:sales@enigma.com" className={`btn btn-${plan.cta_style} btn-lg plan-cta`}>
-        {plan.cta} {plan.cta_style !== 'outline' && <ArrowRight/>}
-      </a>
-    );
-  }
+  // Enterprise is a conversation rather than a checkout, but it used to open a
+  // mailto to sales@enigma.com — an address on a domain owned by a different
+  // company. Those enquiries reached strangers and never reached us. Until
+  // there is an inbox of our own it takes the same waitlist path as the rest,
+  // keeping its own source so it stays separable in the reports.
   return (
     <WaitlistCta
       source="pricing_plan"

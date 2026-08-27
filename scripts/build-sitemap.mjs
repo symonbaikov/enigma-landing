@@ -23,6 +23,8 @@ const interfaceRoutes = [
   { path: '/', priority: '1.0' },
   { path: '/pricing', priority: '0.8' },
   { path: '/about', priority: '0.6' },
+  { path: '/privacy', priority: '0.3' },
+  { path: '/terms', priority: '0.3' },
   { path: '/blog', priority: '0.7' },
   ...['axp', 'agent-traffic', 'site-maps', 'monitoring', 'insights']
     .map((slug) => ({ path: `/product/${slug}`, priority: '0.8' })),

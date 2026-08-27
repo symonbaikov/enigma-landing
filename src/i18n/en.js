@@ -629,6 +629,93 @@ const en = {
       ],
     },
   },
+  legal: {
+    privacy: {
+      title: 'Privacy',
+      updated: 'Last updated: 27 August 2026',
+      intro: 'Enigma is pre-launch. There is no product to sign into, no payment to make and no account to create. This page describes exactly what this website collects today, who processes it, and how to have it deleted.',
+      contactLabel: 'Questions, access and deletion requests:',
+      note: 'This is a factual description written by the team, not legal advice. It will be reviewed by a lawyer before the product launches.',
+      sections: [
+        {
+          heading: 'What you give us on purpose',
+          body: ['Two forms on this site accept input, and both are optional:'],
+          list: [
+            'The waitlist form: your email address, plus the plan or button you came from, so we know which promise people respond to.',
+            'The audit form on the home page: a website URL and an email address. No audit runs today — the submission is a signal of demand and nothing is fetched from the URL you enter.',
+          ],
+        },
+        {
+          heading: 'What is collected automatically',
+          body: [
+            'This site uses PostHog for product analytics. It sets a cookie holding a random identifier, and records page views, clicks on calls to action, and technical data such as browser, device and an approximate location derived from your IP address.',
+            'Session recording is enabled. PostHog reconstructs how pages were used — scrolling, clicks and navigation. It is intended to show where the site confuses people, not to identify individuals.',
+            'The site is served by Cloudflare, which processes connection data, including your IP address, to deliver pages and to protect against abuse.',
+          ],
+        },
+        {
+          heading: 'Who processes it',
+          list: [
+            'PostHog Inc. — product analytics and session recording, on its United States infrastructure (us.i.posthog.com).',
+            'Cloudflare, Inc. — hosting, content delivery and email forwarding for the address on this page.',
+          ],
+          body: ['We do not sell data, we do not run advertising, and we do not share your email with anyone else.'],
+        },
+        {
+          heading: 'How long it is kept',
+          body: [
+            'Waitlist emails are kept until launch, and then for as long as you want to hear from us. Ask and they are removed the same working day.',
+            'Analytics events and recordings follow PostHog’s retention for our project. If you want the events tied to your visit deleted, write to us and say roughly when you visited — the identifier is random, so a date helps us find it.',
+          ],
+        },
+        {
+          heading: 'Your rights',
+          body: [
+            'You can ask what we hold about you, ask for it to be deleted, or object to analytics. Write to the address below; no particular wording is needed and we do not ask for a reason.',
+            'You can also stop the analytics side yourself, by using your browser’s do-not-track or blocking us.i.posthog.com. The site works normally without it.',
+          ],
+        },
+        {
+          heading: 'Changes',
+          body: ['If this changes, the date at the top changes with it. Material changes will be described on the page rather than quietly folded in.'],
+        },
+      ],
+    },
+    terms: {
+      title: 'Terms',
+      updated: 'Last updated: 27 August 2026',
+      intro: 'This website is informational. Enigma is pre-launch: nothing here is for sale yet, and joining the waitlist is not a contract.',
+      contactLabel: 'Questions:',
+      note: 'This is a factual description written by the team, not legal advice. It will be reviewed by a lawyer before the product launches.',
+      sections: [
+        {
+          heading: 'What the waitlist is',
+          body: [
+            'Leaving your email means we will write to you when access opens. It does not reserve capacity, does not create an account and does not entitle you to any price.',
+            'The prices shown on the pricing page describe the plans we intend to launch. They may change before launch, and the page will show the change rather than pretend it was always so.',
+          ],
+        },
+        {
+          heading: 'What the content is, and is not',
+          body: [
+            'The playbook, research and blog summarise published academic, official and industry sources, cited so you can check them. Summaries can be wrong, sources get updated, and platform documentation changes without notice.',
+            'Nothing here is professional advice for your specific case, and nothing here guarantees a result. We say it throughout the site and it belongs here too: this work can improve the odds of a page being cited in AI answers, and no one can guarantee inclusion.',
+          ],
+        },
+        {
+          heading: 'Other people’s material',
+          body: [
+            'Quoted posts belong to their authors and are reproduced with a link to the original. Product names and logos belong to their owners and are used to refer to those products.',
+            'The text, design and code of this site belong to Enigma. If you want to reuse something, ask — the answer is usually yes.',
+          ],
+        },
+        {
+          heading: 'Availability',
+          body: ['The site is provided as it is. We do not promise it will be uninterrupted, and we may change or remove pages as the product develops.'],
+        },
+      ],
+    },
+  },
   socialProof: {
     eyebrow: 'Earned media',
     title: 'Founders are already reporting AI-search traffic',

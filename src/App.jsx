@@ -4,6 +4,7 @@ import Layout from './Layout.jsx';
 import Home from './pages/Home.jsx';
 import Pricing from './pages/Pricing.jsx';
 import About from './pages/About.jsx';
+import LegalPage from './pages/LegalPage.jsx';
 import ProductPage from './pages/ProductPage.jsx';
 import SolutionPage from './pages/SolutionPage.jsx';
 import ResourcePage from './pages/ResourcePage.jsx';
@@ -29,6 +30,8 @@ export default function App() {
           <Route index element={<Home/>}/>
           <Route path="pricing" element={<Pricing/>}/>
           <Route path="about"   element={<About/>}/>
+          <Route path="privacy" element={<LegalPage docKey="privacy"/>}/>
+          <Route path="terms"   element={<LegalPage docKey="terms"/>}/>
 
           {/* Product pages */}
           <Route path="product/axp"           element={<ProductPage {...products.axp}/>}/>
