@@ -142,7 +142,10 @@ export async function onRequest(context) {
   // Whatever the app will set at runtime, said up front for readers that never
   // get there.
   const meta = await loadRouteMeta(context, url);
-  const page = meta?.[normalized]?.[lang] ?? meta?.[normalized]?.[DEFAULT_LOCALE];
+  // Keyed by the locale-agnostic path: /uk/about and /about are one entry with
+  // a translation each. `normalized` still carries the prefix, so it is the
+  // wrong key here even though it is the right one for the 404 check above.
+  const page = meta?.[path]?.[lang] ?? meta?.[path]?.[DEFAULT_LOCALE];
 
   let rewriter = new HTMLRewriter()
     .on('link[rel="canonical"]', new AttributeSetter('href', canonical))
